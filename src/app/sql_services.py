@@ -25,10 +25,3 @@ def update_account(account_id:int, name: str, password: str, page: str, descript
     cursor.execute(sql,values)
     connection.commit()
 
-# add_account(name='facebook', password='12345',
-#             page='face.com', description='dd'
-#             )
-
-cur = cursor.execute('SELECT * FROM accounts').fetchall()
-
-print(cur)
