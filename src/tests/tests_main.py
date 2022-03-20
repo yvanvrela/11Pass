@@ -1,9 +1,8 @@
 from urllib import response
 from flask_testing import TestCase
 from flask import current_app, url_for
-import app
 
-from main import create_app
+from main import app
 
 
 class MainTest(TestCase):
@@ -14,3 +13,11 @@ class MainTest(TestCase):
 
         return app
 
+
+    def test_app_exists(self):
+        self.assertIsNotNone(current_app)
+
+
+    def test_app_in_test_mode(self):
+        self.assertTrue(current_app.config['TESTING'])
+    

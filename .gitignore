@@ -1,3 +1,4 @@
 env
+__pycache__
 database.db
 all_config.py

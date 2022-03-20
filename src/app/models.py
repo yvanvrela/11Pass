@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from sql_services import get_user, get_user_by_id
+from .sql_services import get_user, get_user_by_id
 
 class UserData:
     def __init__(self, user_id, username, password):
