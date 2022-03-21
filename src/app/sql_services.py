@@ -5,6 +5,32 @@ connection = sqlite3.connect('database.db')
 
 cursor = connection.cursor()
 
+def get_user_by_id(user_id:int) -> list:
+    sql = f'SELECT * FROM users WHERE id_user = {user_id}'
+    user = cursor.execute(sql).fetchone()
+    connection.commit()
+
+    return user
+
+
+def get_user_by_name(username:str) -> list:
+    sql = f'SELECT * FROM users WHERE user_name = {username}'
+    user = cursor.execute(sql).fetchone()
+    connection.commit()
+
+    return user
+
+
+def all_users() -> list:
+    """Trae todos los usuarios de la bd"""
+
+    sql = 'SELECT * FROM users'
+    list_users = cursor.execute(sql).fetchall()
+    connection.commit()
+
+    return list_users
+
+
 def all_account() -> list:
     """Trae todas la cuentas de la tabla"""
 
@@ -14,7 +40,7 @@ def all_account() -> list:
 
     return list_accounts
 
-def end_element_account() -> list():
+def end_element_account() -> list:
     """Datos del ultimo elemento"""
 
     sql = "SELECT * FROM accounts ORDER BY accounts.id_account DESC LIMIT 1"

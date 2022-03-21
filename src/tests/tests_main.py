@@ -1,12 +1,10 @@
-from multiprocessing import connection
-from time import sleep
 from urllib import response
 from flask_testing import TestCase
 from flask import current_app, url_for
 import sqlite3
 
 from main import app
-from app.sql_services import all_account, end_element_account,add_account, update_account, delete_account
+from app.sql_services import all_account, end_element_account,add_account, get_user_by_name, update_account, delete_account, get_user_by_id
 
 
 class MainTest(TestCase):
@@ -49,6 +47,13 @@ class MainTest(TestCase):
 
         return print(account_reference)
 
+
+    def test_sql_get_user(self):
+        user_by_id = get_user_by_id(user_id=1)
+        user_by_name = get_user_by_name(username='ivan')
+        return f'Usuario by id: {user_by_id} \
+            Usuario by name: {user_by_name}'
+        
         
          
 
