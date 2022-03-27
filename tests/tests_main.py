@@ -12,6 +12,8 @@ class MainTest(TestCase):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLE'] = False
         app.config['DEBUG'] = True
+        app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
+        app.config['SECRET_KEY'] = 'test'
 
         return app
 
@@ -47,6 +49,34 @@ class MainTest(TestCase):
         user_by_id = get_user_by_id(1)
         user_by_name = get_user_by_name('ivan')
 
+        print(user_by_name)
+
     def test_all_users(self):
         users = all_users()
         return print(users)
+
+    def test_auth_blueprints_exists(self):  # Si existe blueprint
+        self.assertIn('auth', self.app.blueprints)
+
+    def test_auth_login_get(self):
+        # Llamamos a login desde auth
+        # response = self.client.get(url_for('auth.login'))
+
+        # self.assert200(response)
+        pass
+
+    def test_auth_signup_get(self):
+        # response = self.client.get(url_for('auth.signup'))
+
+        # self.assert200(response)
+        pass
+
+    def test_auth_signup_post(self):
+        pass
+        # fake_form = {
+        #     'username': 'fake',
+        #     'password': 'pass',
+        # }
+        # response = self.client.post(url_for('auth.signup'), data=fake_form)
+
+        # self.assertRedirects(response, url_for('home'))

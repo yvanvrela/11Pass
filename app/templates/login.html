@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+{{ super() }}
+Login
+{% endblock %}
+
+{% block content %}
+
+<div class="column container is-6">
+
+    <form class="box" action="{{ url_for('auth.login') }}" method="POST">
+        <div class="field">
+            <label class="label">Usuario</label>
+            <div class="control has-icons-left has-icons-right">
+
+                {{ login_form.username(class='input') }}
+
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Contraseña</label>
+            <div class="control has-icons-left">
+
+                {{ login_form.password(class='input') }}
+
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </div>
+        </div>
+
+        {{ login_form.submit(class="button is-primary") }}
+        <a class="button" href="{{ url_for('auth.signup') }}">
+            Registrarse
+        </a>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+{{ super() }}
+Bienvenido
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container column is-12">
+    <div class="container column is-6">
+        {% if username %}
+
+        <div class="content">
+            <h1>
+                ¡Bienvenido, {{ username | capitalize }}!
+            </h1>
+        </div>
+
+        {% endif %}
+
+
+    </div>
+</div>
+
+{% endblock %}

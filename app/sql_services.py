@@ -1,7 +1,7 @@
 from multiprocessing import reduction
 import sqlite3
 
-connection = sqlite3.connect('database.db')
+connection = sqlite3.connect('database.db', check_same_thread=False)
 
 cursor = connection.cursor()
 
@@ -9,6 +9,11 @@ cursor = connection.cursor()
 def get_user_by_id(user_id: int) -> list:
     sql = f'SELECT * FROM users WHERE id_user = {user_id}'
     user = cursor.execute(sql).fetchone()
+    user = {
+        'user_id': user[0],
+        'username': user[1],
+        'password': user[2],
+    }
     connection.commit()
 
     return user
@@ -19,9 +24,23 @@ def get_user_by_name(username: str):
 
     for user in user_form_db:
         if username in user:
+            user = {
+                'user_id': user[0],
+                'username': user[1],
+                'password': user[2],
+            }
             return user
-    
-    return False
+
+    return
+
+
+def add_user(username: str, password: str) -> None:
+    """Agregar un usuario a la bd, recibe username and password"""
+
+    sql = f'INSERT INTO users (user_name, user_password) VALUES (?,?)'
+    values = username, password
+    cursor.execute(sql, values)
+    connection.commit()
 
 
 def all_users() -> list:

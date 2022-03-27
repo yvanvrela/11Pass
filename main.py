@@ -15,3 +15,14 @@ app = create_app()
 def test():
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner().run(tests)
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return redirect(url_for('auth.signup'))
+
+
+@app.route('/home', methods=['GET', 'POST'])
+@login_required
+def home():
+    return render_template('home.html')
