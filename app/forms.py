@@ -9,3 +9,8 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Ingresar')
 
+class VaultForm(FlaskForm):
+    vaultname =  StringField('Nombre', validators=[DataRequired()])
+    description = StringField('Descripción')
+
+    submit = SubmitField('Crear')

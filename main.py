@@ -1,9 +1,12 @@
+from ast import Return
 import unittest
 from flask import(
     flash, make_response, redirect, render_template, url_for
 )
 from app import create_app
 from flask_login import login_required, current_user
+
+from app.forms import VaultForm
 
 app = create_app()
 
@@ -28,7 +31,18 @@ def home():
     return render_template('home.html')
 
 
-@app.route('vault')
+@app.route('/vault', methods=['GET', 'POST'])
 @login_required
 def vault():
-    pass
+
+    vault_form = VaultForm()
+    context = {
+        'vault_form': vault_form,
+    }
+
+    if vault_form.validate_on_submit():
+        
+        flash('Bóveda creada', 'info')
+        return url_for('home')
+
+    return render_template('')
