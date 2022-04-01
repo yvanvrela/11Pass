@@ -1,10 +1,9 @@
-from urllib import response
 from flask_testing import TestCase
 from flask import current_app, url_for
-import sqlite3
+
 
 from main import app
-from app.sql_services import all_account, all_users, end_element_account, add_account, get_user_by_name, update_account, delete_account, get_user_by_id
+from app.sql_services import all_account, all_users, create_table_users, create_table_accounts, create_table_vault, end_element_account, add_account, get_user_by_name, update_account, delete_account, get_user_by_id
 
 
 class MainTest(TestCase):
@@ -22,6 +21,11 @@ class MainTest(TestCase):
 
     def test_app_in_test_mode(self):
         self.assertTrue(current_app.config['TESTING'])
+
+    def test_create_table_users(self):
+        create_table_users(db_file='db_test.db')
+        create_table_accounts(db_file='db_test.db')
+        create_table_vault(db_file='db_test.db')
 
     def test_sql_add(self):
         add_account(name='prueba', password='123',
