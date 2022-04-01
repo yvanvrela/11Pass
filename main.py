@@ -23,7 +23,7 @@ def test():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return redirect(url_for('auth.signup'))
+    return redirect(url_for('auth.login'))
 
 
 @app.route('/home', methods=['GET', 'POST'])
