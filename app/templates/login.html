@@ -1,44 +1,57 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}
-{{ super() }}
-Login
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <script src="../static/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-toast@2.4.1/dist/bulma-toast.min.js"></script>
+    <title>
+        PyPass | Login
+    </title>
+</head>
 
-{% block content %}
+<body>
 
-<div class="column container is-6">
+    <div class="column container is-4">
 
-    <form class="box" action="{{ url_for('auth.login') }}" method="POST">
-        <div class="field">
-            <label class="label">Usuario</label>
-            <div class="control has-icons-left has-icons-right">
+        <form class="box" action="{{ url_for('auth.login') }}" method="POST">
+            <div class="field">
+                <label class="label">Usuario</label>
+                <div class="control has-icons-left has-icons-right">
 
-                {{ login_form.username(class='input') }}
+                    {{ login_form.username(class='input') }}
 
-                <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                </span>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
             </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Contraseña</label>
-            <div class="control has-icons-left">
+            <div class="field">
+                <label class="label">Contraseña</label>
+                <div class="control has-icons-left">
 
-                {{ login_form.password(class='input') }}
+                    {{ login_form.password(class='input') }}
 
-                <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                </span>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </div>
             </div>
-        </div>
 
-        {{ login_form.submit(class="button is-primary") }}
-        <a class="button" href="{{ url_for('auth.signup') }}">
-            Registrarse
-        </a>
-    </form>
-</div>
+            {{ login_form.submit(class="button is-link") }}
+            <a class="button" href="{{ url_for('auth.signup') }}">
+                Registrarse
+            </a>
+        </form>
+    </div>
+</body>
 
-{% endblock %}
+</html>
+
+

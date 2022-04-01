@@ -7,7 +7,7 @@ Signup
 
 {% block content %}
 
-<div class="column container is-6">
+<div class="column container is-4">
 
     <form class="box" action="{{ url_for('auth.signup') }}" method="POST">
         <div class="field">
@@ -34,7 +34,7 @@ Signup
             </div>
         </div>
 
-        {{ signup_form.submit(class="button is-primary") }}
+        {{ signup_form.submit(class="button is-link") }}
     </form>
 </div>
 

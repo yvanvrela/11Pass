@@ -58,7 +58,8 @@ def create_table_vault(db_file) -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "vaults" (
                 "id_vault"	INTEGER UNIQUE,
-                "description_vaults"	TEXT,
+                "name"  TEXT,
+                "description"	TEXT,
                 PRIMARY KEY("id_vault" AUTOINCREMENT)
             );""")
         conn.commit()
@@ -147,6 +148,36 @@ def all_users() -> list:
     conn.commit()
 
     return list_users
+
+
+def add_vault(name: str, description: str) -> None:
+    """ Agrega una Bóveda nueva a la base de datos """
+
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = ('INSERT INTO vaults (name, description) VALUES (?,?)')
+    values = name, description
+    cursor.execute(sql, values)
+
+    conn.commit()
+    conn.close()
+
+
+def get_vaults() -> tuple:
+    """ Busca todos los baules de la base de datos, 
+        retorna una lista, con sus nombres 
+    """
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = ('SELECT name FROM vaults')
+    vaults = cursor.execute(sql).fetchall()
+
+    conn.commit()
+    conn.close()
+
+    return vaults
 
 
 def all_account() -> list:

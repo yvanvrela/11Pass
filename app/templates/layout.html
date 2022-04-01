@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/main.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-    <script src="../static/js/scripts.js"></script>
+    <script src="../static/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-toast@2.4.1/dist/bulma-toast.min.js"></script>
     <title>
         {% block title %}
         PyPass |
@@ -17,27 +18,46 @@
 </head>
 
 <body>
-    <section class="hero is-large">
+    <section class="hero is-small">
         <div class="hero-head navbar-background">
             {% include 'navbar.html'  %}
         </div>
 
         {% for message in get_flashed_messages() %}
-        <br>
 
-        <div class="notification is-primary">
-            <button class="delete"></button>
-            {{ message }}
-        </div>
-
+        <script>
+            bulmaToast.toast({
+                message: '{{ message }}',
+                position: 'top-right',
+                type: 'is-link',
+                closeOnClick: false,
+                dismissible: true,
+                animate: {
+                    in: 'fadeIn',
+                    out: 'fadeOut'
+                },
+            })
+        </script>
 
         {% endfor %}
 
         <div class="hero-body">
 
-            {% block content %}
+            <div class="columns">
+                <div class="column is-2">
+                    {% include 'menu.html' %}
+                </div>
+                <div class="column is-3">
+                    {% block content %}
 
-            {% endblock %}
+                    {% endblock %}
+                </div>
+                <div class="column  has-background-light">
+                    {% block details %}
+
+                    {% endblock %}
+                </div>
+            </div>
 
         </div>
     </section>

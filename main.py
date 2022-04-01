@@ -7,6 +7,7 @@ from app import create_app
 from flask_login import login_required, current_user
 
 from app.forms import VaultForm
+from app.sql_services import add_vault, get_vaults
 
 app = create_app()
 
@@ -28,8 +29,13 @@ def index():
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
-    
-    return render_template('home.html')
+    vault_form = VaultForm()
+    context = {
+        'vaults': get_vaults(),
+        'vault_form': vault_form,
+    }
+
+    return render_template('home.html', **context)
 
 
 @app.route('/vault', methods=['GET', 'POST'])
@@ -37,13 +43,12 @@ def home():
 def vault():
 
     vault_form = VaultForm()
-    context = {
-        'vault_form': vault_form,
-    }
 
     if vault_form.validate_on_submit():
-
+        add_vault(name=vault_form.vaultname.data,
+                  description=vault_form.description.data)
         flash('Bóveda creada', 'info')
-        return url_for('home')
 
-    return url_for('home')
+        return redirect(url_for('home'))
+
+    return redirect(url_for('home'))
