@@ -28,6 +28,7 @@ def index():
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
+    
     return render_template('home.html')
 
 
@@ -41,8 +42,8 @@ def vault():
     }
 
     if vault_form.validate_on_submit():
-        
+
         flash('Bóveda creada', 'info')
         return url_for('home')
 
-    return render_template('')
+    return url_for('home')

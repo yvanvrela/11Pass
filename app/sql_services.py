@@ -20,8 +20,6 @@ def conection_db(db_file):
 
     return conn
 
-# TODO: crear las tablas
-
 
 def create_table_users(db_file: str) -> None:
     """ Crea la tabla usuarios en la base de datos,
@@ -177,34 +175,34 @@ def end_element_account() -> list:
     return end_element
 
 
-def add_account(name: str, password: str, page: str, description: str) -> None:
+def add_account(name: str, id_vault: int, password: str, page: str, description: str) -> None:
     """ Agrega los datos de la cuenta a la base de datos """
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
     sql = "INSERT INTO accounts \
-            (name_element, password_element, page_element, description_element) \
-            VALUES (?,?,?,?)"
-    values = name, password, page, description
+            (name_element, id_vault, password_element, page_element, description_element) \
+            VALUES (?,?,?,?,?)"
+    values = name, id_vault, password, page, description
+
     cursor.execute(sql, values)
     conn.commit()
 
 
-def update_account(account_id: int, name: str, password: str, page: str, description: str) -> None:
+def update_account(account_id: int, id_vault: int, name: str, password: str, page: str, description: str) -> None:
     """Actualiza los datos de la cuenta"""
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
     sql = "UPDATE accounts  \
-        SET  name_element = ?, password_element = ?, \
+        SET  name_element = ?, id_vault = ?,password_element = ?, \
         page_element = ?, description_element = ? \
         WHERE id_account = ?"
-    values = name, password, page, description, account_id
+    values = name, id_vault, password, page, description, account_id
 
     cursor.execute(sql, values)
-
     conn.commit()
 
 
@@ -215,6 +213,6 @@ def delete_account(account_id: int) -> None:
     cursor = conn.cursor()
 
     sql = f"DELETE FROM accounts WHERE id_account= {account_id}"
-    cursor.execute(sql)
 
+    cursor.execute(sql)
     conn.commit()
