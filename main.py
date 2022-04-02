@@ -30,9 +30,12 @@ def index():
 @login_required
 def home():
     vault_form = VaultForm()
+    username = current_user.username
+
     context = {
         'vaults': get_vaults(),
         'vault_form': vault_form,
+        'username': username,
     }
 
     return render_template('home.html', **context)

@@ -9,17 +9,8 @@ Bienvenido
 {% block content %}
 
 
-<div class="container">
+<div class="">
     <div class="">
-        {% if username %}
-
-        <div class="content">
-            <h1>
-                ¡Bienvenido, {{ username | capitalize }}!
-            </h1>
-        </div>
-
-        {% endif %}
 
         <div id="modal-js-example" class="modal">
             <div class="modal-background"></div>
@@ -69,7 +60,6 @@ Bienvenido
                     </header>
                 </div>
             </a>
-
             {% endfor %}
         </section>
 

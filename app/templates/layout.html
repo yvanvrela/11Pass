@@ -18,7 +18,8 @@
 </head>
 
 <body>
-    <section class="hero is-small">
+
+    <section class="hero">
         <div class="hero-head navbar-background">
             {% include 'navbar.html'  %}
         </div>
@@ -43,16 +44,18 @@
 
         <div class="hero-body">
 
-            <div class="columns">
-                <div class="column is-2">
+            <div class="columns is-fullheight">
+                <div class="column card is-2">
                     {% include 'menu.html' %}
                 </div>
-                <div class="column is-3">
+
+                <div class="column card is-3 ml-1">
                     {% block content %}
 
                     {% endblock %}
                 </div>
-                <div class="column  has-background-light">
+
+                <div class="column card ml-1 has-background-light">
                     {% block details %}
 
                     {% endblock %}
@@ -60,6 +63,7 @@
             </div>
 
         </div>
+
     </section>
 </body>
 
