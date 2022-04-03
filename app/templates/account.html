@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+{{ super() }}
+Cuentas
+{% endblock %}
+
+{% block content %}
+
+<div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="box">
+
+        </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<div class="content has-text-right">
+    <button class="js-modal-trigger button is-link" data-target="modal-js-example">
+        Agregar cuenta
+    </button>
+</div>
+
+<section class="content">
+    {% if accounts %}
+    {% for account in accounts %}
+    <a href="">
+        <div class="card m-1">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ account[0] }}
+                </p>
+            </header>
+
+        </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <p class="subtitle is-6 has-text-centered">
+        No hay cuentas agregadas
+    </p>
+    {% endif %}
+</section>
+
+{% endblock %}

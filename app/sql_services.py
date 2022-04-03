@@ -166,12 +166,12 @@ def add_vault(name: str, description: str) -> None:
 
 def get_vaults() -> tuple:
     """ Busca todos los baules de la base de datos, 
-        retorna una lista, con sus nombres 
+        retorna una lista con sus nombres.
     """
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = ('SELECT name FROM vaults')
+    sql = ('SELECT id_vault, name FROM vaults')
     vaults = cursor.execute(sql).fetchall()
 
     conn.commit()
@@ -189,8 +189,26 @@ def all_account() -> list:
     sql = 'SELECT * FROM accounts'
     list_accounts = cursor.execute(sql).fetchall()
     conn.commit()
+    conn.close()
 
     return list_accounts
+
+
+def get_accounts(id_vault):
+    """ Retorna todas las cuentas que esten dentro de
+        la bóveda.
+        :param id_vault: Id de la boveda.
+    """
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = f'SELECT name_element FROM accounts WHERE id_vault = {id_vault}'
+    names = cursor.execute(sql).fetchall()
+
+    conn.commit()
+    conn.close()
+
+    return names
 
 
 def end_element_account() -> list:

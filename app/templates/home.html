@@ -9,63 +9,56 @@ Bienvenido
 {% block content %}
 
 
-<div class="">
-    <div class="">
+<div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
 
-        <div id="modal-js-example" class="modal">
-            <div class="modal-background"></div>
-
-            <div class="modal-content">
-                <div class="box">
-                    <form action="{{ url_for('vault') }}" method="post">
-                        <div class="field">
-                            <label class="label">Nombre</label>
-                            <div class="control">
-                                {{ vault_form.vaultname(class='input', type='text', placeholder='Nombre de la bóveda', autocomplete='off') }}
-                            </div>
-                        </div>
-
-
-                        <div class="field">
-                            <label class="label">Descripción</label>
-                            <div class="control">
-                                {{ vault_form.description(class='textarea', type='text', placeholder='Descripción del contenido, opcional', autocomplete='off') }}
-                            </div>
-                        </div>
-
-                        <div class="control">
-                            {{ vault_form.submit(class="button is-link has-text-light") }}
-                        </div>
-                    </form>
+    <div class="modal-content">
+        <div class="box">
+            <form action="{{ url_for('vault') }}" method="post">
+                <div class="field">
+                    <label class="label">Nombre</label>
+                    <div class="control">
+                        {{ vault_form.vaultname(class='input', type='text', placeholder='Nombre de la bóveda', autocomplete='off') }}
+                    </div>
                 </div>
-            </div>
 
-            <button class="modal-close is-large" aria-label="close"></button>
-        </div>
 
-        <div class="content has-text-right">
-            <button class="js-modal-trigger button is-link" data-target="modal-js-example">
-                Agregar bóveda
-            </button>
-        </div>
-        
-        <section class="content">
-            {% for vault in vaults %}
-            <a class="is-hovered" href="{url_for('accounts')}">
-                <div class="card m-1">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            {{ vault[0] }}
-                        </p>
-                    </header>
+                <div class="field">
+                    <label class="label">Descripción</label>
+                    <div class="control">
+                        {{ vault_form.description(class='textarea', type='text', placeholder='Descripción del contenido, opcional', autocomplete='off') }}
+                    </div>
                 </div>
-            </a>
-            {% endfor %}
-        </section>
 
-
-
+                <div class="control">
+                    {{ vault_form.submit(class="button is-link has-text-light") }}
+                </div>
+            </form>
+        </div>
     </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
 </div>
+
+<div class="content has-text-right">
+    <button class="js-modal-trigger button is-link" data-target="modal-js-example">
+        Agregar bóveda
+    </button>
+</div>
+
+<section class="content">
+    {% for vault in vaults %}
+    <a class="is-hovered" href="{{url_for('account')}}">
+        <div class="card m-1">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ vault[1] }}
+                </p>
+            </header>
+        </div>
+    </a>
+    {% endfor %}
+</section>
+
 
 {% endblock %}

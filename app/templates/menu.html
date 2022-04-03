@@ -26,7 +26,7 @@
     </p>
     <ul class="menu-list">
         <li>
-            <a class="is-active">
+            <a class="is-active" href="{{ url_for('home') }}">
                 <span class="icon-text">
                     <span class="icon">
                         <i class="fas fa-archive"></i>
@@ -38,7 +38,11 @@
             </a>
             <ul>
                 {% for vault in vaults  %}
-                <li><a>{{ vault[0] }}</a></li>
+                <li>
+                    <a>
+                        {{ vault[1] }}
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
         </li>
