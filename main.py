@@ -6,7 +6,7 @@ from app import create_app
 from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
-from app.sql_services import add_vault, all_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_name, get_vaults, put_account
+from app.sql_services import account_items, add_vault, all_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account
 
 app = create_app()
 
@@ -52,23 +52,34 @@ def home():
         'vaults': get_vaults(),
         'vault_form': vault_form,
         'username': username,
+        'items': account_items()
     }
 
     return render_template('home.html', **context)
 
 
-@app.route('/vault', methods=['GET', 'POST'])
+@app.route('/vault/add', methods=['GET', 'POST'])
 @login_required
 def vault():
 
     vault_form = VaultForm()
 
     if vault_form.validate_on_submit():
-        add_vault(name=vault_form.vaultname.data,
-                  description=vault_form.description.data)
-        flash('Bóveda creada', 'info')
 
-        return redirect(url_for('home'))
+        vault_reference = get_vault_by_name(name=vault_form.vaultname.data)
+
+        if vault_reference is None:
+
+            add_vault(
+                name=vault_form.vaultname.data,
+                description=vault_form.description.data
+            )
+
+            flash('Bóveda creada', 'info')
+
+            return redirect(url_for('home'))
+
+        flash('El nombre de la bóveda ya existe.')
 
     return redirect(url_for('home'))
 
@@ -81,6 +92,7 @@ def account(id_vault):
 
     context = {
         'username': current_user.username,
+        'items': account_items(),
         'accounts': get_accounts(id_vault=id_vault),
         'vaults': get_vaults(),
         'id_vault': id_vault,
@@ -101,9 +113,9 @@ def add_account():
 
     if account_form.validate_on_submit():
 
-        account_doc = get_account_by_name(account_form.name.data)
+        account_reference = get_account_by_name(account_form.name.data)
 
-        if account_doc is None:
+        if account_reference is None:
             put_account(
                 name=account_form.name.data,
                 id_vault=id_vault_reference,
@@ -116,7 +128,7 @@ def add_account():
 
             return redirect(url_for('account', id_vault=id_vault_reference))
 
-        flash('El nombre ya existe.')
+        flash('El nombre de la cuenta ya existe.')
 
         return redirect(url_for('account', id_vault=id_vault_reference))
 
@@ -132,6 +144,7 @@ def details_account(id_vault, id_account):
 
     context = {
         'username': current_user.username,
+        'items': account_items(),
         'accounts': get_accounts(id_vault=id_vault),
         'details_account': details_account,
         'vaults': get_vaults(),

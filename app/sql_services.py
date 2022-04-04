@@ -180,6 +180,20 @@ def get_vaults() -> tuple:
     return vaults
 
 
+def get_vault_by_name(name: str):
+
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = f"SELECT name FROM vaults WHERE name = '{name}'"
+    data = cursor.execute(sql).fetchone()
+
+    conn.commit()
+    conn.close()
+
+    return data
+
+
 def get_vault_name(id_vault):
 
     conn = conection_db('database.db')
@@ -206,6 +220,20 @@ def all_account() -> list:
     conn.close()
 
     return list_accounts
+
+
+def account_items():
+    """Trae la cantidad de cuentas en la base de datos"""
+
+    conn = conection_db(db_file='database.db')
+    cursor = conn.cursor()
+
+    sql = 'SELECT COUNT(id_account) FROM accounts'
+    cant = cursor.execute(sql).fetchone()
+    conn.commit()
+    conn.close()
+
+    return cant
 
 
 def get_accounts(id_vault):
