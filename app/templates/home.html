@@ -58,7 +58,7 @@ Bienvenido
     {% for vault in vaults %}
     <div class="horizontal-line"></div>
     <div>
-        <a href="{{ url_for('account', id_vault=vault[0]) }}">
+        <a href="{{ url_for('account', id_vault=vault[0])}}">
             <!-- url_for('update', todo_id=todo.id, done=todo.to_dict().done) -->
             <span class="icon-text has-icons-right has-text-black-bis">
                 <span>{{ vault[1] }}</span>

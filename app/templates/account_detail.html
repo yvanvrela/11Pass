@@ -2,7 +2,7 @@
 
 {% block title %}
 {{ super() }}
-Cuentas
+Detalles
 {% endblock %}
 
 {% block content %}
@@ -93,7 +93,7 @@ Cuentas
             </h5>
         </a>
     </div> -->
-    <a class="media" href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
+    <a class="media " href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
         <div class="media-left">
             <figure class="image is-48x48">
                 <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
@@ -113,5 +113,50 @@ Cuentas
     </div>
     {% endif %}
 </section>
+
+{% endblock %}
+
+{% block details %}
+
+{% if details_account %}
+<div class="columns is-centered is-vcentered">
+    <div class="column is-8-desktop ">
+        <!-- <p class="subtitle is-6 has-text-black-bis">
+            Cuentas
+        </p> -->
+        <nav class="breadcrumb " aria-label="breadcrumbs">
+            <ul>
+                <li class="is-active">
+                    <a href="#" aria-current="page">
+                        {{details_account[0]}}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="column has-text-right">
+        <button class="js-modal-trigger button is-small is-link" data-target="modal-js-example">
+            Editar
+        </button>
+    </div>
+</div>
+
+<section>
+    <div class="box">
+        <div class="field">
+            <label class="label has-text-black-ter">Nombre</label>
+            <div class="control">
+                <input class="input" type="text" readonly value="{{ details_account[1] }}">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label has-text-black-ter">Contraseña</label>
+            <div class="control">
+                <input class="input" type="text" readonly value="{{ details_account[2] }}">
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
 
 {% endblock %}

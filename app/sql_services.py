@@ -209,7 +209,7 @@ def all_account() -> list:
 
 
 def get_accounts(id_vault):
-    """ Retorna el nombre y la pagina de todas las cuentas 
+    """ Retorna el id, nombre y la pagina de todas las cuentas 
         que esten dentro de la bóveda.
         :param id_vault: Id de la boveda.
         :return Nombre y página
@@ -217,13 +217,28 @@ def get_accounts(id_vault):
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT name_element, page_element FROM accounts WHERE id_vault = {id_vault}'
+    sql = f'SELECT id_account, name_element, page_element FROM accounts WHERE id_vault = {id_vault}'
     names = cursor.execute(sql).fetchall()
 
     conn.commit()
     conn.close()
 
     return names
+
+
+def get_account_by_id(id_account):
+
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = f'SELECT name_element, page_element, password_element, description_element \
+            FROM accounts WHERE id_account = {id_account}'
+    details = cursor.execute(sql).fetchone()
+
+    conn.commit()
+    conn.close()
+
+    return details
 
 
 def end_element_account() -> list:

@@ -6,7 +6,7 @@ from app import create_app
 from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
-from app.sql_services import add_vault, all_account, get_accounts, get_vault_name, get_vaults, put_account
+from app.sql_services import add_vault, all_account, get_account_by_id, get_accounts, get_vault_name, get_vaults, put_account
 
 app = create_app()
 
@@ -42,7 +42,7 @@ def index():
     return redirect(url_for('auth.login'))
 
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/vaults', methods=['GET', 'POST'])
 @login_required
 def home():
     vault_form = VaultForm()
@@ -73,7 +73,7 @@ def vault():
     return redirect(url_for('home'))
 
 
-@app.route('/account/<id_vault>', methods=['GET', 'POST'])
+@app.route('/vaults/<id_vault>', methods=['GET', 'POST'])
 @login_required
 def account(id_vault):
 
@@ -98,7 +98,6 @@ def add_account():
     account_form = AccountForm()
 
     id_vault_reference = account_form.id_vault.data
-    vaultname = get_vault_name(id_vault=id_vault_reference)
 
     if account_form.validate_on_submit():
 
@@ -113,3 +112,25 @@ def add_account():
         flash('Cuenta agregada', 'info')
 
         return redirect(url_for(account, id_vault_reference))
+
+
+@app.route('/vaults/<id_vault>/<id_account>', methods=['POST', 'GET'])
+@login_required
+def details_account(id_vault, id_account):
+
+    id_vault_reference = id_vault
+    details_account = get_account_by_id(id_account=id_account)
+
+    account_form = AccountForm()
+
+    context = {
+        'username': current_user.username,
+        'accounts': get_accounts(id_vault=id_vault),
+        'details_account': details_account,
+        'vaults': get_vaults(),
+        'id_vault': id_vault_reference,
+        'vaultname': get_vault_name(id_vault=id_vault),
+        'account_form': account_form,
+    }
+
+    return render_template('account_detail.html', **context)
