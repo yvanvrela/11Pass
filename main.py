@@ -6,7 +6,7 @@ from app import create_app
 from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
-from app.sql_services import add_vault, all_account, get_account_by_id, get_accounts, get_vault_name, get_vaults, put_account
+from app.sql_services import add_vault, all_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_name, get_vaults, put_account
 
 app = create_app()
 
@@ -101,17 +101,24 @@ def add_account():
 
     if account_form.validate_on_submit():
 
-        put_account(
-            name=account_form.name.data,
-            id_vault=id_vault_reference,
-            password=account_form.password.data,
-            page=account_form.page.data,
-            description=account_form.description.data
-        )
+        account_doc = get_account_by_name(account_form.name.data)
 
-        flash('Cuenta agregada', 'info')
+        if account_doc is None:
+            put_account(
+                name=account_form.name.data,
+                id_vault=id_vault_reference,
+                password=account_form.password.data,
+                page=account_form.page.data,
+                description=account_form.description.data
+            )
 
-        return redirect(url_for(account, id_vault_reference))
+            flash('Cuenta agregada', 'info')
+
+            return redirect(url_for('account', id_vault=id_vault_reference))
+
+        flash('El nombre ya existe.')
+
+        return redirect(url_for('account', id_vault=id_vault_reference))
 
 
 @app.route('/vaults/<id_vault>/<id_account>', methods=['POST', 'GET'])

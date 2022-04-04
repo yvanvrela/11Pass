@@ -4,7 +4,7 @@ from sqlite3 import Error
 
 def conection_db(db_file):
     """
-        Crea la conexión a la base de datos con 
+        Crea la conexión a la base de datos con
         SQLite database, especificamente con db_file.
         :param db_file: database file
         :return Connection object or None
@@ -165,7 +165,7 @@ def add_vault(name: str, description: str) -> None:
 
 
 def get_vaults() -> tuple:
-    """ Busca todos los baules de la base de datos, 
+    """ Busca todos los baules de la base de datos,
         retorna una lista con sus nombres.
     """
     conn = conection_db('database.db')
@@ -209,7 +209,7 @@ def all_account() -> list:
 
 
 def get_accounts(id_vault):
-    """ Retorna el id, nombre y la pagina de todas las cuentas 
+    """ Retorna el id, nombre y la pagina de todas las cuentas
         que esten dentro de la bóveda.
         :param id_vault: Id de la boveda.
         :return Nombre y página
@@ -239,6 +239,20 @@ def get_account_by_id(id_account):
     conn.close()
 
     return details
+
+
+def get_account_by_name(name: str):
+
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = f"SELECT name_element FROM accounts WHERE name_element = '{name}'"
+    data = cursor.execute(sql).fetchone()
+
+    conn.commit()
+    conn.close()
+
+    return data
 
 
 def end_element_account() -> list:
