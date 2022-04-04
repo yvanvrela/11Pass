@@ -12,11 +12,13 @@ Bienvenido
 <div id="modal-js-example" class="modal">
     <div class="modal-background"></div>
 
-    <div class="modal-content">
+    <div class="modal-content is-1">
         <div class="box">
             <form action="{{ url_for('vault') }}" method="post">
+                <p class="subtitle is-6 has-text-black-bis">
+                    Bóveda
+                </p>
                 <div class="field">
-                    <label class="label">Nombre</label>
                     <div class="control">
                         {{ vault_form.vaultname(class='input', type='text', placeholder='Nombre de la bóveda', autocomplete='off') }}
                     </div>
@@ -24,13 +26,12 @@ Bienvenido
 
 
                 <div class="field">
-                    <label class="label">Descripción</label>
                     <div class="control">
                         {{ vault_form.description(class='textarea', type='text', placeholder='Descripción del contenido, opcional', autocomplete='off') }}
                     </div>
                 </div>
 
-                <div class="control">
+                <div class="control has-text-right">
                     {{ vault_form.submit(class="button is-link has-text-light") }}
                 </div>
             </form>
@@ -57,7 +58,8 @@ Bienvenido
     {% for vault in vaults %}
     <div class="horizntal-line"></div>
     <div>
-        <a href="{{url_for('account')}}">
+        <a href="{{ url_for('account', id_vault=vault[0]) }}">
+            <!-- url_for('update', todo_id=todo.id, done=todo.to_dict().done) -->
             <span class="icon-text has-icons-right has-text-black-bis">
                 <span>{{ vault[1] }}</span>
                 <span class="icon is-right">

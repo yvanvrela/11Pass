@@ -12,38 +12,87 @@ Cuentas
 
     <div class="modal-content">
         <div class="box">
+            <form action="{{ url_for('add_account') }}" method="POST">
+                <p class="subtitle is-6 has-text-black-bis">
+                    Cuenta
+                </p>
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.name(class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off') }}
+                    </div>
+                </div>
 
+                {{account_form.id_vault(class='is-hidden', value=id_vault)}}
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off') }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.page(class='input', type='text', placeholder='Página de la cuenta', autocomplete='off') }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.description(class='textarea', type='text', placeholder='Descripción de la cuenta, opcional', autocomplete='off') }}
+                    </div>
+                </div>
+
+                <div class="control has-text-right">
+                    {{ account_form.submit(class="button is-link has-text-light") }}
+                </div>
+            </form>
         </div>
     </div>
 
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
 
-<div class="content has-text-right">
-    <button class="js-modal-trigger button is-link" data-target="modal-js-example">
-        Agregar cuenta
-    </button>
+<div class="columns is-centered is-vcentered">
+    <div class="column">
+        <p class="subtitle is-6 has-text-black-bis">
+            Cuentas
+        </p>
+    </div>
+    <div class="column has-text-right">
+        <button class="js-modal-trigger button is-small is-link" data-target="modal-js-example">
+            Agregar cuenta
+        </button>
+    </div>
 </div>
 
 <section class="content">
     {% if accounts %}
     {% for account in accounts %}
-    <a href="">
-        <div class="card m-1">
-            <header class="card-header">
-                <p class="card-header-title">
-                    {{ account[0] }}
-                </p>
-            </header>
+    <div class="horizontal-line"></div>
+    <div>
+        <a href="">
+            <div class="card m-1">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{ account[0] }}
+                    </p>
+                </header>
 
-        </div>
-    </a>
+            </div>
+        </a>
+    </div>
     {% endfor %}
     {% else %}
-    <p class="subtitle is-6 has-text-centered">
-        No hay cuentas agregadas
-    </p>
+    <div class="box">
+        <p class="subtitle is-6 has-text-centered">
+            No hay cuentas agregadas
+        </p>
+    </div>
     {% endif %}
 </section>
+
+{% endblock %}
+
+{% block details %}
 
 {% endblock %}

@@ -20,6 +20,23 @@ def test():
     unittest.TextTestRunner().run(tests)
 
 
+""" Manejos de errores"""
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html', error=error)
+
+
+@app.errorhandler(500)
+def not_found(error):
+    # se debe usar una variable abort o que nada funcione
+    return render_template('500.html', error=error)
+
+
+"""Rutas"""
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return redirect(url_for('auth.login'))
@@ -56,27 +73,38 @@ def vault():
     return redirect(url_for('home'))
 
 
-@app.route('/account', methods=['GET', 'POST'])
+@app.route('/account/<id_vault>', methods=['GET', 'POST'])
 @login_required
-def account():
+def account(id_vault):
 
-    # account_form = AccountForm()
+    account_form = AccountForm()
 
-    # if account_form.validate_on_submit():
+    context = {
+        'username': current_user.username,
+        'accounts': get_accounts(id_vault=id_vault),
+        'vaults': get_vaults(),
+        'id_vault': id_vault,
+        'account_form': account_form,
+    }
 
-    #     add_account(name=account_form.name.data,
-    #                 id_vault=account_form.id_vault.data,
-    #                 password=account_form.password.data,
-    #                 page=account_form.page.data,
-    #                 description=account_form.description.data)
-    #     flash('Cuenta agregada', 'info')
+    return render_template('account.html', **context)
 
-    #     return redirect(url_for('accounts_page'))
 
-    if request.method == 'GET':
-        context = {
-            'username': current_user.username,
-            'vaults': get_vaults(),
-            # 'accounts': get_accounts(),
-        }
-        return render_template('account.html', **context)
+@app.route('/account/add', methods=['POST', 'GET'])
+@login_required
+def add_account():
+
+    account_form = AccountForm()
+
+    id_vault_reference = account_form.id_vault.data
+
+    if account_form.validate_on_submit():
+
+        add_account(name=account_form.name.data,
+                    id_vault=id_vault_reference,
+                    password=account_form.password.data,
+                    page=account_form.page.data,
+                    description=account_form.description.data)
+        flash('Cuenta agregada', 'info')
+
+        return redirect(url_for(account, id_vault_reference))
