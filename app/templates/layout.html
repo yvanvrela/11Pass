@@ -18,11 +18,11 @@
 </head>
 
 <body>
+    <nav class="navbar has-background-dark">
+        {% include 'navbar.html'  %}
+    </nav>
 
-    <section class="hero">
-        <div class="hero-head navbar-background">
-            {% include 'navbar.html'  %}
-        </div>
+    <div class="section has-background-light is-mobile">
 
         {% for message in get_flashed_messages() %}
 
@@ -42,29 +42,35 @@
 
         {% endfor %}
 
-        <div class="hero-body">
+        <div class="columns">
 
-            <div class="columns is-fullheight">
-                <div class="column is-2">
-                    {% include 'menu.html' %}
-                </div>
-
-                <div class="column card is-3 ml-1">
-                    {% block content %}
-
-                    {% endblock %}
-                </div>
-
-                <div class="column card ml-1 has-background-light">
-                    {% block details %}
-
-                    {% endblock %}
-                </div>
+            <div class="column is-one-fifth">
+                {% include 'menu.html' %}
             </div>
+
+            <div class="vertical-line">
+            </div>
+
+            <div class="column  is-one-quarter-desktop ">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+
+            <div class="vertical-line">
+            </div>
+
+            <div class="column">
+                {% block details %}
+
+                {% endblock %}
+            </div>
+
 
         </div>
 
-    </section>
+
+    </div>
 </body>
 
 </html>

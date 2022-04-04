@@ -5,4 +5,16 @@ body {
 
 .full-height {
     height: 100%;
-  }
+}
+
+.vertical-line {
+    border-left: thick solid #cfcece;
+    border-width: 0.1rem;
+}
+
+.horizntal-line{
+    border-top: thick solid #cfcece;
+    border-width: 0.1rem;
+    margin-top: 1.5%;
+    margin-bottom: 1.7%;
+}

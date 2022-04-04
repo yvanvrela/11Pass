@@ -40,23 +40,32 @@ Bienvenido
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
 
-<div class="content has-text-right">
-    <button class="js-modal-trigger button is-link" data-target="modal-js-example">
-        Agregar bóveda
-    </button>
+<div class="columns is-centered is-vcentered">
+    <div class="column">
+        <p class="subtitle is-6 has-text-black-bis">
+            Bóvedas
+        </p>
+    </div>
+    <div class="column has-text-right">
+        <button class="js-modal-trigger button is-small is-link" data-target="modal-js-example">
+            Agregar bóveda
+        </button>
+    </div>
 </div>
 
-<section class="content">
+<section class="box">
     {% for vault in vaults %}
-    <a class="is-hovered" href="{{url_for('account')}}">
-        <div class="card m-1">
-            <header class="card-header">
-                <p class="card-header-title">
-                    {{ vault[1] }}
-                </p>
-            </header>
-        </div>
-    </a>
+    <div class="horizntal-line"></div>
+    <div>
+        <a href="{{url_for('account')}}">
+            <span class="icon-text has-icons-right has-text-black-bis">
+                <span>{{ vault[1] }}</span>
+                <span class="icon is-right">
+                    <i class="fas fa-angle-right"></i>
+                </span>
+            </span>
+        </a>
+    </div>
     {% endfor %}
 </section>
 
