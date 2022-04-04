@@ -6,7 +6,7 @@ from app import create_app
 from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
-from app.sql_services import add_account, add_vault, all_account, get_accounts, get_vault_name, get_vaults
+from app.sql_services import add_vault, all_account, get_accounts, get_vault_name, get_vaults, put_account
 
 app = create_app()
 
@@ -102,11 +102,14 @@ def add_account():
 
     if account_form.validate_on_submit():
 
-        add_account(name=account_form.name.data,
-                    id_vault=id_vault_reference,
-                    password=account_form.password.data,
-                    page=account_form.page.data,
-                    description=account_form.description.data)
+        put_account(
+            name=account_form.name.data,
+            id_vault=id_vault_reference,
+            password=account_form.password.data,
+            page=account_form.page.data,
+            description=account_form.description.data
+        )
+
         flash('Cuenta agregada', 'info')
 
-        return redirect(url_for(account, id_vault_reference, vaultname))
+        return redirect(url_for(account, id_vault_reference))
