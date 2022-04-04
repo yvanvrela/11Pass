@@ -53,10 +53,24 @@ Cuentas
 </div>
 
 <div class="columns is-centered is-vcentered">
-    <div class="column">
-        <p class="subtitle is-6 has-text-black-bis">
+    <div class="column is-8-desktop ">
+        <!-- <p class="subtitle is-6 has-text-black-bis">
             Cuentas
-        </p>
+        </p> -->
+        <nav class="breadcrumb " aria-label="breadcrumbs">
+            <ul>
+                <li>
+                    <a href="{{ url_for('home') }}">
+                        Bóvedas
+                    </a>
+                </li>
+                <li class="is-active">
+                    <a href="#" aria-current="page">
+                        {{vaultname[0].capitalize()}}
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
     <div class="column has-text-right">
         <button class="js-modal-trigger button is-small is-link" data-target="modal-js-example">

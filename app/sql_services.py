@@ -180,6 +180,20 @@ def get_vaults() -> tuple:
     return vaults
 
 
+def get_vault_name(id_vault):
+
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = (f'SELECT name FROM vaults WHERE id_vault ={id_vault}')
+    vaultname = cursor.execute(sql).fetchone()
+
+    conn.commit()
+    conn.close()
+
+    return vaultname
+
+
 def all_account() -> list:
     """Trae todas la cuentas de la tabla"""
 
