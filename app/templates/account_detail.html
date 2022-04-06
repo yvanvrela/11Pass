@@ -93,8 +93,10 @@ Detalles
             </h5>
         </a>
     </div> -->
-    <a class="media " href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
-        <div class="media-left">
+
+
+    <a class="media" href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
+        <div class="media-left ">
             <figure class="image is-48x48">
                 <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
             </figure>
@@ -104,6 +106,8 @@ Detalles
             <p class="subtitle is-7">{{ account[2] }}</p>
         </div>
     </a>
+
+
     {% endfor %}
     {% else %}
     <div class="box">
