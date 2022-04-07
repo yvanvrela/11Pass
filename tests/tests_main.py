@@ -3,7 +3,7 @@ from flask import current_app, url_for
 
 
 from main import app
-from app.sql_services import add_user, add_vault, all_account, all_users, create_table_users, create_table_accounts, create_table_vault, end_element_account,  get_user_by_name, update_account, delete_account, get_user_by_id
+from app.sql_services import add_user, add_vault, all_account, all_users, create_table_users, create_table_accounts, create_table_vault, end_element_account,  get_user_by_name, get_vault_by_name, get_vaults, update_account, delete_account, get_user_by_id
 
 
 class MainTest(TestCase):
@@ -85,6 +85,13 @@ class MainTest(TestCase):
 
         # self.assertRedirects(response, url_for('home'))
 
-    def test_add_vault(self):
-        add_user('yvan', '123', '123')
-        add_vault('gmail', '1', '')
+    # def test_add_vault(self):
+    #     add_user('yvan', '123', '123')
+    #     add_vault('gmail', '1', '')
+
+    def test_all_vault(self):
+        data = get_vault_by_name('gmail', 1)
+        add_vault('email', 1, '')
+        data1 = get_vaults(1)
+
+        print(data, data1)

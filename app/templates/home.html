@@ -55,6 +55,7 @@ Bienvenido
 </div>
 
 <section class="box">
+    {% if vaults %}
     {% for vault in vaults %}
     <div class="horizontal-line"></div>
     <div>
@@ -69,6 +70,13 @@ Bienvenido
         </a>
     </div>
     {% endfor %}
+    {% else %}
+    <div class="box">
+        <p class="subtitle is-6 has-text-centered">
+            No hay bóvedas agregadas
+        </p>
+    </div>
+    {% endif %}
 </section>
 
 

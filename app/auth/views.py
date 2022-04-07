@@ -79,7 +79,6 @@ def signup():
             #user_id = str(uuid.uuid4())
             password_hash = generate_password_hash(password)
 
-            # TODO: agregar secret_key_generator y encriptar
             secret_key = secret_key_generator()
             secret_key_encrypt = encrypt_data(
                 secret_key=secret_key, passkey=password)

@@ -47,12 +47,12 @@ def index():
 def home():
     vault_form = VaultForm()
     username = current_user.username
-
+    id_user = current_user.id
     context = {
-        'vaults': get_vaults(),
+        'vaults': get_vaults(id_user=id_user),
         'vault_form': vault_form,
         'username': username,
-        'items': account_items(),
+        'items': account_items(id_user=id_user),
     }
 
     return render_template('home.html', **context)
@@ -63,15 +63,17 @@ def home():
 def vault():
 
     vault_form = VaultForm()
+    id_user = current_user.id
 
     if vault_form.validate_on_submit():
 
-        vault_reference = get_vault_by_name(name=vault_form.vaultname.data)
+        vault_reference = get_vault_by_name(name=vault_form.vaultname.data, id_user=id_user)
 
         if vault_reference is None:
 
             add_vault(
                 name=vault_form.vaultname.data,
+                id_user=id_user,
                 description=vault_form.description.data
             )
 
@@ -89,12 +91,13 @@ def vault():
 def account(id_vault):
 
     account_form = AccountForm()
+    id_user = current_user.id
 
     context = {
         'username': current_user.username,
-        'items': account_items(),
+        'items': account_items(id_user=id_user),
         'accounts': get_accounts(id_vault=id_vault),
-        'vaults': get_vaults(),
+        'vaults': get_vaults(id_user=id_user),
         'id_vault': id_vault,
         'vaultname': get_vault_name(id_vault=id_vault),
         'account_form': account_form,
@@ -108,16 +111,18 @@ def account(id_vault):
 def add_account():
 
     account_form = AccountForm()
+    id_user = current_user.id
 
     id_vault_reference = account_form.id_vault.data
 
     if account_form.validate_on_submit():
 
-        account_reference = get_account_by_name(account_form.name.data)
+        account_reference = get_account_by_name(account_form.name.data, id_user=id_user)
 
         if account_reference is None:
             put_account(
                 name=account_form.name.data,
+                id_user=id_user,
                 id_vault=id_vault_reference,
                 password=account_form.password.data,
                 page=account_form.page.data,
@@ -139,15 +144,16 @@ def details_account(id_vault, id_account):
 
     id_vault_reference = id_vault
     details_account = get_account_by_id(id_account=id_account)
+    id_user = current_user.id
 
     account_form = AccountForm()
 
     context = {
         'username': current_user.username,
-        'items': account_items(),
+        'items': account_items(id_user=id_user),
         'accounts': get_accounts(id_vault=id_vault),
         'details_account': details_account,
-        'vaults': get_vaults(),
+        'vaults': get_vaults(id_user=id_user),
         'id_vault': id_vault_reference,
         'vaultname': get_vault_name(id_vault=id_vault),
         'account_form': account_form,
