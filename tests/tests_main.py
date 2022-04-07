@@ -3,7 +3,7 @@ from flask import current_app, url_for
 
 
 from main import app
-from app.sql_services import all_account, all_users, create_table_users, create_table_accounts, create_table_vault, end_element_account, add_account, get_user_by_name, update_account, delete_account, get_user_by_id
+from app.sql_services import add_user, add_vault, all_account, all_users, create_table_users, create_table_accounts, create_table_vault, end_element_account,  get_user_by_name, update_account, delete_account, get_user_by_id
 
 
 class MainTest(TestCase):
@@ -23,41 +23,41 @@ class MainTest(TestCase):
         self.assertTrue(current_app.config['TESTING'])
 
     def test_create_table_users(self):
-        create_table_users(db_file='db_test.db')
-        create_table_accounts(db_file='db_test.db')
-        create_table_vault(db_file='db_test.db')
+        create_table_users(db_file='database.db')
+        create_table_accounts(db_file='database.db')
+        create_table_vault(db_file='database.db')
 
-    def test_sql_add(self):
-        add_account(name='prueba', password='123',
-                    page='page', description='description')
-        account_reference = f'Cuenta agregada: {end_element_account()}'
+    # def test_sql_add(self):
+    #     add_account(name='prueba', password='123',
+    #                 page='page', description='description')
+    #     account_reference = f'Cuenta agregada: {end_element_account()}'
 
-        return print(account_reference)
+    #     return print(account_reference)
 
-    def test_sql_update(self):
-        account_id = end_element_account()[0]
-        update_account(account_id=account_id, name='editado',
-                       password='1235', page='web', description='test')
+    # def test_sql_update(self):
+    #     account_id = end_element_account()[0]
+    #     update_account(account_id=account_id, name='editado',
+    #                    password='1235', page='web', description='test')
 
-        return print(f'Cuenta editada: {end_element_account()}')
+    #     return print(f'Cuenta editada: {end_element_account()}')
 
-    def test_sql_delete(self):
-        account_id = end_element_account()
-        account_reference = f'Cuenta eliminada: {account_id}'
+    # def test_sql_delete(self):
+    #     account_id = end_element_account()
+    #     account_reference = f'Cuenta eliminada: {account_id}'
 
-        delete_account(account_id=account_id[0])
+    #     delete_account(account_id=account_id[0])
 
-        return print(account_reference)
+    #     return print(account_reference)
 
-    def test_sql_get_user(self):
-        user_by_id = get_user_by_id(1)
-        user_by_name = get_user_by_name('ivan')
+    # def test_sql_get_user(self):
+    #     user_by_id = get_user_by_id(1)
+    #     user_by_name = get_user_by_name('ivan')
 
-        print(user_by_name)
+    #     print(user_by_name)
 
-    def test_all_users(self):
-        users = all_users()
-        return print(users)
+    # def test_all_users(self):
+    #     users = all_users()
+    #     return print(users)
 
     def test_auth_blueprints_exists(self):  # Si existe blueprint
         self.assertIn('auth', self.app.blueprints)
@@ -84,3 +84,7 @@ class MainTest(TestCase):
         # response = self.client.post(url_for('auth.signup'), data=fake_form)
 
         # self.assertRedirects(response, url_for('home'))
+
+    def test_add_vault(self):
+        add_user('yvan', '123', '123')
+        add_vault('gmail', '1', '')

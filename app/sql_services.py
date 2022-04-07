@@ -1,6 +1,5 @@
 import sqlite3
 from sqlite3 import Error
-from .lib.util_fuctions import encrypt_data, decrypt_data, secret_key_generator
 
 
 def conection_db(db_file):
@@ -60,7 +59,7 @@ def create_table_vault(db_file) -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "vaults" (
                 "id_vault"	INTEGER UNIQUE,
-                "id_user"   INTEGER UNIQUE,
+                "id_user"   INTEGER,
                 "name"  TEXT UNIQUE,
                 "description"	TEXT,
                 FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
@@ -86,7 +85,7 @@ def create_table_accounts(db_file) -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "accounts" (
                 "id_account"	INTEGER UNIQUE,
-                "id_user"       INTEGER UNIQUE,
+                "id_user"       INTEGER,
                 "id_vault"      INTEGER,
                 "name_element"	TEXT UNIQUE,
                 "password_element"	TEXT,
@@ -172,14 +171,15 @@ def add_vault(name: str, id_user: int, description: str) -> None:
     conn.close()
 
 
-def get_vaults() -> tuple:
+def get_vaults(id_user: int) -> tuple:
     """ Busca todos los baules de la base de datos,
+        que tenga el usuario.
         retorna una lista con sus nombres.
     """
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = ('SELECT id_vault, name FROM vaults')
+    sql = (f'SELECT id_vault, name FROM vaults WHERE id_user = {id_user}')
     vaults = cursor.execute(sql).fetchall()
 
     conn.commit()
@@ -188,12 +188,12 @@ def get_vaults() -> tuple:
     return vaults
 
 
-def get_vault_by_name(name: str):
+def get_vault_by_name(name: str, id_user: int):
 
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f"SELECT name FROM vaults WHERE name = '{name}'"
+    sql = f"SELECT name FROM vaults WHERE name = '{name}' AND id_user = {id_user}"
     data = cursor.execute(sql).fetchone()
 
     conn.commit()
@@ -216,13 +216,13 @@ def get_vault_name(id_vault):
     return vaultname
 
 
-def all_account() -> list:
-    """Trae todas la cuentas de la tabla"""
+def all_account(id_user: int) -> list:
+    """Trae todas la cuentas de la tabla, segun el usuario"""
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
-    sql = 'SELECT * FROM accounts'
+    sql = f'SELECT * FROM accounts WHERE id_user={id_user}'
     list_accounts = cursor.execute(sql).fetchall()
     conn.commit()
     conn.close()
@@ -230,13 +230,13 @@ def all_account() -> list:
     return list_accounts
 
 
-def account_items():
-    """Trae la cantidad de cuentas en la base de datos"""
+def account_items(id_user: int):
+    """Trae la cantidad de cuentas del usuario en la base de datos"""
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
-    sql = 'SELECT COUNT(id_account) FROM accounts'
+    sql = f'SELECT COUNT(id_account) FROM accounts WHERE id_user={id_user}'
     cant = cursor.execute(sql).fetchone()
     conn.commit()
     conn.close()
