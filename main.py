@@ -52,7 +52,7 @@ def home():
         'vaults': get_vaults(),
         'vault_form': vault_form,
         'username': username,
-        'items': account_items()
+        'items': account_items(),
     }
 
     return render_template('home.html', **context)

@@ -5,10 +5,20 @@ from wtforms.widgets import TextArea
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Nombre de usuario', [validators.DataRequired()], render_kw={'autofocus': True})
+    username = StringField('Nombre de usuario', [
+                           validators.DataRequired()], render_kw={'autofocus': True})
     password = PasswordField('Password', [validators.DataRequired()])
+    secret_key = StringField('Secret_key', [validators.DataRequired()])
 
     submit = SubmitField('Ingresar')
+
+
+class SignupForm(FlaskForm):
+    username = StringField('Nombre de usuario', [
+                           validators.DataRequired()], render_kw={'autofocus': True})
+    password = PasswordField('Password', [validators.DataRequired()])
+
+    submit = SubmitField('Registrarse')
 
 
 class VaultForm(FlaskForm):

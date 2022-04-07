@@ -1,0 +1,58 @@
+{% extends 'layout_credentials.html' %}
+
+
+{% block title %}
+{{ super() }}
+Secret Key
+{% endblock %}
+
+{% block content %}
+
+{% if secret_key %}
+<div id="modal-js-example" class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">
+                <span class="icon-text">
+                    <span class="icon">
+                        <i class="fas fa-key"></i>
+                    </span>
+                    <span>Secret key</span>
+                </span>
+            </p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <p class="title is-3">
+                Instrucciones
+            </p>
+            <p class="subtitle">
+                Debes guardar tu <em>Secret Key</em> para luego iniciar sesión.
+            </p>
+            <div class="control">
+                <input class="input" type="text" value="{{ secret_key }}" readonly>
+            </div>
+        </section>
+        <footer class="modal-card-foot has-text-centered">
+            <a class="button" href="{{ url_for('home') }}">
+                Entendido!
+            </a>
+        </footer>
+    </div>
+</div>
+{% endif %}
+
+
+<div class="columns is-centered is-vcentered">
+    <div class="column">
+        <a href="{{ url_for('home') }}">
+            <p class="subtitle is-6 has-text-black-bis">
+                Inicio
+            </p>
+        </a>
+    </div>
+</div>
+
+
+{% endblock %}

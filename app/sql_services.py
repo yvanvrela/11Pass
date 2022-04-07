@@ -60,8 +60,10 @@ def create_table_vault(db_file) -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "vaults" (
                 "id_vault"	INTEGER UNIQUE,
+                "id_user"   INTEGER UNIQUE,
                 "name"  TEXT UNIQUE,
                 "description"	TEXT,
+                FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
                 PRIMARY KEY("id_vault" AUTOINCREMENT)
             );""")
         conn.commit()
@@ -84,11 +86,13 @@ def create_table_accounts(db_file) -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "accounts" (
                 "id_account"	INTEGER UNIQUE,
+                "id_user"       INTEGER UNIQUE,
                 "id_vault"      INTEGER,
                 "name_element"	TEXT UNIQUE,
                 "password_element"	TEXT,
                 "page_element"	TEXT,
                 "description_element"	TEXT,
+                FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
                 FOREIGN KEY("id_vault") REFERENCES "vaults"("id_vault"),
                 PRIMARY KEY("id_account" AUTOINCREMENT)
             );""")
@@ -108,6 +112,7 @@ def get_user_by_id(user_id: int) -> dict:
         'user_id': user[0],
         'username': user[1],
         'password': user[2],
+        'secret_key': user[3],
     }
     conn.commit()
 
@@ -123,6 +128,7 @@ def get_user_by_name(username: str):
                 'user_id': user[0],
                 'username': user[1],
                 'password': user[2],
+                'secret_key': user[3],
             }
             return user
 
@@ -152,14 +158,14 @@ def all_users() -> list:
     return list_users
 
 
-def add_vault(name: str, description: str) -> None:
+def add_vault(name: str, id_user: int, description: str) -> None:
     """ Agrega una Bóveda nueva a la base de datos """
 
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = ('INSERT INTO vaults (name, description) VALUES (?,?)')
-    values = name, description
+    sql = ('INSERT INTO vaults (id_user, name, description) VALUES (?,?,?)')
+    values = id_user, name, description
     cursor.execute(sql, values)
 
     conn.commit()

@@ -41,3 +41,11 @@ def decrypt_data(str_encoded: str, passkey_reference: str) -> str:
 
     return str_decoded
 
+
+def check_decrypt_data(secret_key, str_encode, passkey_reference):
+    str_decoded = decrypt(str_encode, passkey_reference)
+
+    if str_decoded == secret_key:
+        return True
+    else:
+        return False
