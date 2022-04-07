@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Error
+from .lib.util_fuctions import encrypt_data, decrypt_data, secret_key_generator
 
 
 def conection_db(db_file):
@@ -36,6 +37,7 @@ def create_table_users(db_file: str) -> None:
                 "id_user"	INTEGER UNIQUE,
                 "user_name"	TEXT UNIQUE,
                 "user_password"	TEXT,
+                "secret_key" TEXT,
                 PRIMARY KEY("id_user" AUTOINCREMENT)
             );""")
         conn.commit()
@@ -58,7 +60,7 @@ def create_table_vault(db_file) -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "vaults" (
                 "id_vault"	INTEGER UNIQUE,
-                "name"  TEXT,
+                "name"  TEXT UNIQUE,
                 "description"	TEXT,
                 PRIMARY KEY("id_vault" AUTOINCREMENT)
             );""")
@@ -82,8 +84,8 @@ def create_table_accounts(db_file) -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS "accounts" (
                 "id_account"	INTEGER UNIQUE,
-                "id_vault"      INTEGER UNIQUE,
-                "name_element"	TEXT,
+                "id_vault"      INTEGER,
+                "name_element"	TEXT UNIQUE,
                 "password_element"	TEXT,
                 "page_element"	TEXT,
                 "description_element"	TEXT,
@@ -125,14 +127,14 @@ def get_user_by_name(username: str):
             return user
 
 
-def add_user(username: str, password: str) -> None:
-    """Agregar un usuario a la bd, recibe username and password"""
+def add_user(username: str, password: str, secret_key: str) -> None:
+    """Agregar un usuario a la bd, recibe username and password and secret_key"""
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
-    sql = f'INSERT INTO users (user_name, user_password) VALUES (?,?)'
-    values = username, password
+    sql = f'INSERT INTO users (user_name, user_password, secret_key) VALUES (?,?,?)'
+    values = username, password, secret_key
     cursor.execute(sql, values)
     conn.commit()
 
