@@ -171,17 +171,25 @@ Detalles
 
 <section class="box">
     <div class="field">
-        <label class="label has-text-black-ter">Nombre</label>
+        <label class="label subtitle has-text-black-ter">Nombre</label>
         <div class="control">
-            <input class="input" type="text" readonly value="{{ details_account['name'] }}">
+            <p class="subtitle is-6 has-text-black-ter">{{ details_account['name'] }}</p>
         </div>
     </div>
+    <hr>
     <div class="field">
         <label class="label has-text-black-ter">Contraseña</label>
         <div class="control">
-            <input class="input" type="text" readonly value="{{ details_account['password'] }}">
+            <p class="subtitle is-6 has-text-black-ter">{{ details_account['password'] }}</p>
         </div>
     </div>
+</section>
+
+<section class="ml-2">
+    <label class="label">Página</label>
+    <a href="https://{{ details_account['page'] }}" target="_blanck">
+       <p>https://{{ details_account['page'] }}</p>
+    </a>
 </section>
 
 
