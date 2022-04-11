@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
 from app.lib.util_fuctions import check_decrypt_data, decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault, all_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account
+from app.sql_services import account_items, add_vault, all_account, delete_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account
 
 app = create_app()
 
@@ -174,6 +174,17 @@ def edit_account(id_account):
         )
         flash('Actualizado')
         return redirect(url_for('details_account', id_vault=id_vault, id_account=id_account))
+
+
+@app.route('/account/delete/<id_vault>/<id_account>', methods=['GET', 'POST'])
+@login_required
+def del_account(id_account, id_vault):
+    id_vault_reference = id_vault
+
+    delete_account(account_id=id_account)
+    flash('Cuenta eliminada')
+
+    return redirect(url_for('account', id_vault=id_vault_reference))
 
 
 @app.route('/vaults/<id_vault>/<id_account>', methods=['POST', 'GET'])
