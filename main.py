@@ -121,7 +121,7 @@ def add_account():
     if account_form.validate_on_submit():
 
         account_reference = get_account_by_name(
-            account_form.name.data, id_user=id_user)
+            account_form.name.data, id_user=id_user, id_vault=id_vault_reference)
 
         if account_reference is None:
 

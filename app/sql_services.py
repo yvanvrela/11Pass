@@ -286,12 +286,12 @@ def get_account_by_id(id_account):
     return details
 
 
-def get_account_by_name(name: str, id_user: int):
+def get_account_by_name(name: str, id_user: int, id_vault:int):
 
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f"SELECT name_element FROM accounts WHERE name_element = '{name}' AND id_user = {id_user}"
+    sql = f"SELECT name_element FROM accounts WHERE name_element = '{name}' AND id_user = {id_user} AND id_vault = {id_vault}"
     data = cursor.execute(sql).fetchone()
 
     conn.commit()
