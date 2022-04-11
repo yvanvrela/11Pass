@@ -6,8 +6,8 @@ from app import create_app
 from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
-from app.lib.util_fuctions import decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault, all_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account
+from app.lib.util_fuctions import check_decrypt_data, decrypt_data, encrypt_data
+from app.sql_services import account_items, add_vault, all_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account
 
 app = create_app()
 
@@ -147,6 +147,33 @@ def add_account():
         flash('El nombre de la cuenta ya existe.')
 
         return redirect(url_for('account', id_vault=id_vault_reference))
+
+
+@app.route('/account/edit/<id_account>', methods=['GET', 'POST'])
+@login_required
+def edit_account(id_account):
+    account_form = AccountForm()
+    id_user = current_user.id
+    secret_key_reference = current_user.secret_key
+
+    id_vault = account_form.id_vault.data
+
+    if account_form.validate_on_submit():
+
+        password_encrypt = encrypt_data(
+            secret_key=account_form.password.data, passkey=secret_key_reference)
+
+        update_account(
+            account_id=id_account,
+            id_user=id_user,
+            id_vault=account_form.id_vault.data,
+            name=account_form.name.data,
+            password=password_encrypt,
+            page=account_form.page.data,
+            description=account_form.description.data
+        )
+        flash('Actualizado')
+        return redirect(url_for('details_account', id_vault=id_vault, id_account=id_account))
 
 
 @app.route('/vaults/<id_vault>/<id_account>', methods=['POST', 'GET'])

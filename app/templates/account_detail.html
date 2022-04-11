@@ -7,50 +7,7 @@ Detalles
 
 {% block content %}
 
-<div id="modal-js-example" class="modal">
-    <div class="modal-background"></div>
 
-    <div class="modal-content">
-        <div class="box">
-            <form action="{{ url_for('add_account') }}" method="POST">
-                <p class="subtitle is-6 has-text-black-bis">
-                    Cuenta
-                </p>
-                <div class="field">
-                    <div class="control">
-                        {{ account_form.name(id='name', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off') }}
-                    </div>
-                </div>
-
-                {{account_form.id_vault(class='is-hidden', value=id_vault)}}
-
-                <div class="field">
-                    <div class="control">
-                        {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off') }}
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        {{ account_form.page(class='input', type='text', placeholder='Página de la cuenta', autocomplete='off') }}
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        {{ account_form.description(class='textarea', type='text', placeholder='Descripción de la cuenta, opcional', autocomplete='off') }}
-                    </div>
-                </div>
-
-                <div class="control has-text-right">
-                    {{ account_form.submit(class="button is-link has-text-light") }}
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <button class="modal-close is-large" aria-label="close"></button>
-</div>
 
 <div class="columns is-centered is-vcentered">
     <div class="column is-8-desktop ">
@@ -150,7 +107,7 @@ Detalles
     <div class="field">
         <label class="label has-text-black-ter">Nombre</label>
         <div class="control">
-            <input class="input" type="text" readonly value="{{ details_account['page'] }}">
+            <input class="input" type="text" readonly value="{{ details_account['name'] }}">
         </div>
     </div>
     <div class="field">
@@ -159,6 +116,53 @@ Detalles
             <input class="input" type="text" readonly value="{{ details_account['password'] }}">
         </div>
     </div>
+</div>
+
+
+
+<div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="box">
+            <form action="{{ url_for('edit_account', id_account=details_account['id_account']) }}" method="POST">
+                <p class="subtitle is-6 has-text-black-bis">
+                    Editar cuenta
+                </p>
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.name(id='name', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off', value=details_account['name']) }}
+                    </div>
+                </div>
+
+                {{account_form.id_vault(class='is-hidden', value=details_account['id_vault'])}}
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off', value=details_account['password']) }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.page(class='input', type='text', placeholder='Página de la cuenta', autocomplete='off', value=details_account['page']) }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.description(class='textarea', type='text', placeholder='Descripción de la cuenta, opcional', autocomplete='off', value=details_account['description']) }}
+                    </div>
+                </div>
+
+                <div class="control has-text-right">
+                    {{ account_form.submit(class="button is-link has-text-light") }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
 </div>
 
 {% endif %}

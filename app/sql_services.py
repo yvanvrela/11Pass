@@ -267,8 +267,8 @@ def get_account_by_id(id_account):
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT name_element, page_element, password_element, description_element \
-            FROM accounts WHERE id_account = {id_account}'
+    sql = f'SELECT name_element, page_element, password_element, description_element, \
+            id_vault, id_account FROM accounts WHERE id_account = {id_account}'
     details = cursor.execute(sql).fetchone()
 
     details = {
@@ -276,6 +276,8 @@ def get_account_by_id(id_account):
         'page': details[1],
         'password': details[2],
         'description': details[3],
+        'id_vault' : details[4],
+        'id_account':details[5],
     }
 
     conn.commit()
