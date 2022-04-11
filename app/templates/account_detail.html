@@ -7,7 +7,50 @@ Detalles
 
 {% block content %}
 
+<div id="modal-add-account" class="modal">
+    <div class="modal-background"></div>
 
+    <div class="modal-content">
+        <div class="box">
+            <form action="{{ url_for('add_account') }}" method="POST">
+                <p class="subtitle is-6 has-text-black-bis">
+                    Cuenta
+                </p>
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.name(id='name', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off') }}
+                    </div>
+                </div>
+
+                {{account_form.id_vault(class='is-hidden', value=id_vault)}}
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off') }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.page(class='input', type='text', placeholder='Página de la cuenta', autocomplete='off') }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.description(class='textarea', type='text', placeholder='Descripción de la cuenta, opcional', autocomplete='off') }}
+                    </div>
+                </div>
+
+                <div class="control has-text-right">
+                    {{ account_form.submit(class="button is-link has-text-light") }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
 
 <div class="columns is-centered is-vcentered">
     <div class="column is-8-desktop ">
@@ -30,7 +73,7 @@ Detalles
         </nav>
     </div>
     <div class="column has-text-right">
-        <button class="js-modal-trigger button is-small is-link" data-target="modal-js-example">
+        <button class="js-modal-trigger button is-small is-link" data-target="modal-add-account">
             Agregar cuenta
         </button>
     </div>
@@ -39,18 +82,6 @@ Detalles
 <section class="box">
     {% if accounts %}
     {% for account in accounts %}
-    <!-- <div class="horizontal-line"></div> -->
-    <!-- <div>
-        <a href="">
-            <h1 class="title is-6">
-                {{ account[0] }}
-            </h1>
-            <h5 class="subtitle is-7">
-                {{ account[1] }}
-            </h5>
-        </a>
-    </div> -->
-
 
     <a class="media" href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
         <div class="media-left ">
@@ -82,9 +113,7 @@ Detalles
 {% if details_account %}
 <div class="columns is-centered is-vcentered">
     <div class="column is-8-desktop-only is-5-mobile">
-        <!-- <p class="subtitle is-6 has-text-black-bis">
-            Cuentas
-        </p> -->
+
         <nav class="breadcrumb " aria-label="breadcrumbs">
             <ul>
                 <li class="is-active">
@@ -95,18 +124,35 @@ Detalles
             </ul>
         </nav>
     </div>
+
     <div class="column has-text-right">
-        <button class="button is-small is-link">
-            <a class="has-text-light"
-                href="{{ url_for('del_account', id_vault=details_account['id_vault'], id_account=details_account['id_account']) }}">
-                Eliminar
-            </a>
-        </button>
-    </div>
-    <div class="column has-text-right">
-        <button class="js-modal-trigger button is-small is-link" data-target="modal-js-example">
-            Editar
-        </button>
+
+        <div id="dropdown" class="dropdown is-right" data-target="dropdown">
+
+            <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span class="icon is-small has-text-black-bis">
+                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </div>
+
+            <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+
+                    <a class="js-modal-trigger dropdown-item" data-target="modal-js-example">
+                        Editar
+                    </a>
+
+                    <hr class="dropdown-divider">
+                    <a class="dropdown-item"
+                        href="{{ url_for('del_account', id_vault=details_account['id_vault'], id_account=details_account['id_account']) }}">
+                        Eliminar
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

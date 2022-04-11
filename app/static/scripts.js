@@ -33,6 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function closeAllDropdown() {
+        (document.querySelectorAll('.dropdown') || []).forEach(($dropdown) => {
+            closeDropdown($dropdown);
+        });
+    }
+
+    function extendsDropdown($el) {
+        $el.classList.add('is-active');
+    }
+
+    function closeDropdown($el) {
+        $el.classList.remove('is-active');
+    }
+
     // Add a click event on buttons to open a specific modal
     (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
         const modal = $trigger.dataset.target;
@@ -59,7 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (e.keyCode === 27) { // Escape key
             closeAllModals();
+            closeAllDropdown();
         }
+    });
+
+    // Add a click event on dropdown 
+    (document.querySelectorAll('.dropdown') || []).forEach(($trigger) => {
+        const dropdown = $trigger.dataset.target;
+        const $target = document.getElementById(dropdown);
+        console.log($target);
+
+        $trigger.addEventListener('click', () => {
+            extendsDropdown($target);
+        });
     });
 
     // Cierra las x
@@ -70,4 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             $notification.parentNode.removeChild($notification);
         });
     });
+
+
+
 });
