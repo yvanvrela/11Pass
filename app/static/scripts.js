@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cierra el dropdown si es que la cantidad es mayor que 0
     // main.js de bulma
 
-    var $dropdowns = getAll(".dropdown");
+    var $dropdowns = getAll(".dropdown, .target-dropdown");
 
     if ($dropdowns.length > 0) {
         $dropdowns.forEach(function ($el) {

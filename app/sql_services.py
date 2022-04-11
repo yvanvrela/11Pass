@@ -179,7 +179,7 @@ def get_vaults(id_user: int) -> tuple:
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = (f'SELECT id_vault, name FROM vaults WHERE id_user = {id_user}')
+    sql = (f'SELECT id_vault, name FROM vaults WHERE id_user = {id_user} ORDER BY name')
     vaults = cursor.execute(sql).fetchall()
 
     conn.commit()
@@ -276,8 +276,8 @@ def get_account_by_id(id_account):
         'page': details[1],
         'password': details[2],
         'description': details[3],
-        'id_vault' : details[4],
-        'id_account':details[5],
+        'id_vault': details[4],
+        'id_account': details[5],
     }
 
     conn.commit()
