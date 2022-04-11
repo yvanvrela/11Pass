@@ -52,11 +52,8 @@ Detalles
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
 
-<div class="columns is-centered is-vcentered">
-    <div class="column is-8-desktop ">
-        <!-- <p class="subtitle is-6 has-text-black-bis">
-            Cuentas
-        </p> -->
+<div class="columns is-centered is-vcentered is-mobile">
+    <div class="column is-8-desktop-only ">
         <nav class="breadcrumb " aria-label="breadcrumbs">
             <ul>
                 <li>
@@ -72,6 +69,7 @@ Detalles
             </ul>
         </nav>
     </div>
+
     <div class="column has-text-right">
         <button class="js-modal-trigger button is-small is-link" data-target="modal-add-account">
             Agregar cuenta
@@ -111,8 +109,9 @@ Detalles
 {% block details %}
 
 {% if details_account %}
-<div class="columns is-centered is-vcentered">
-    <div class="column is-8-desktop-only is-5-mobile">
+
+<div class="columns is-centered is-vcentered is-mobile">
+    <div class="column is-8-desktop-only">
 
         <nav class="breadcrumb " aria-label="breadcrumbs">
             <ul>
@@ -127,37 +126,43 @@ Detalles
 
     <div class="column has-text-right">
 
-        <div id="dropdown" class="dropdown is-right" data-target="dropdown">
+        <p class="buttons are-small is-right">
+            <button class="js-modal-trigger button is-link" data-target="modal-js-example">
+                
+                <span>
+                    Editar
+                </span>
+            </button>
+            <button  class="target-dropdown button is-ghost" data-target="dropdown">
+                <div id="dropdown" class="dropdown is-right">
+                    
+                    <div class="dropdown-trigger">
+                        <span class="is-clickable" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span class="icon  has-text-black-bis">
+                                <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                    </div>
 
-            <div class="dropdown-trigger">
-                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                    <span class="icon is-small has-text-black-bis">
-                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
-                    </span>
-                </button>
-            </div>
-
-            <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
-                <div class="dropdown-content">
-
-                    <a class="js-modal-trigger dropdown-item" data-target="modal-js-example">
-                        Editar
-                    </a>
-
-                    <hr class="dropdown-divider">
-                    <a class="dropdown-item"
-                        href="{{ url_for('del_account', id_vault=details_account['id_vault'], id_account=details_account['id_account']) }}">
-                        Eliminar
-                    </a>
+                    <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                            <a class="dropdown-item has-text-danger"
+                                href="{{ url_for('del_account', id_vault=details_account['id_vault'], id_account=details_account['id_account']) }}">
+                                Eliminar
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </button>
+        </p>
+
+
 
     </div>
 </div>
 
 
-<div class="box">
+<section class="box">
     <div class="field">
         <label class="label has-text-black-ter">Nombre</label>
         <div class="control">
@@ -170,7 +175,7 @@ Detalles
             <input class="input" type="text" readonly value="{{ details_account['password'] }}">
         </div>
     </div>
-</div>
+</section>
 
 
 

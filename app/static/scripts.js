@@ -47,6 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         $el.classList.remove('is-active');
     }
 
+    function closeDropdowns() {
+        $dropdowns.forEach(function ($el) {
+            $el.classList.remove("is-active");
+        });
+    }
+
     // Add a click event on buttons to open a specific modal
     (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
         const modal = $trigger.dataset.target;
@@ -78,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add a click event on dropdown 
-    (document.querySelectorAll('.dropdown') || []).forEach(($trigger) => {
+    (document.querySelectorAll('.target-dropdown') || []).forEach(($trigger) => {
         const dropdown = $trigger.dataset.target;
         const $target = document.getElementById(dropdown);
         console.log($target);
@@ -98,5 +104,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Cierra el dropdown si es que la cantidad es mayor que 0
+    // main.js de bulma
+
+    var $dropdowns = getAll(".dropdown");
+
+    if ($dropdowns.length > 0) {
+        $dropdowns.forEach(function ($el) {
+            $el.addEventListener("click", function (event) {
+                event.stopPropagation();
+                $el.classList.toggle("is-active");
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            closeDropdowns();
+        });
+    }
+
+    function getAll(selector) {
+        var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+
+        return Array.prototype.slice.call(parent.querySelectorAll(selector), 0);
+    }
 
 });
