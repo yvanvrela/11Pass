@@ -27,12 +27,23 @@ Secret Key
             <p class="title is-3">
                 Instrucciones
             </p>
-            <p class="subtitle">
+            <p class="subtitle is-6">
                 Debes guardar tu <em>Secret Key</em> para luego iniciar sesión.
             </p>
-            <div class="control">
-                <input class="input" type="text" value="{{ secret_key }}" readonly>
+
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input id="foo" class="input" value="{{ secret_key }}" readonly>
+                </div>
+                <div class="control">
+                    <a class="btn button tooltipped tooltipped-n" data-clipboard-target="#foo" aria-label="Copiar">
+                        <span class="icon is-small">
+                            <i class="fas fa-copy"></i>
+                        </span>
+                    </a>
+                </div>
             </div>
+
         </section>
         <footer class="modal-card-foot has-text-centered">
             <a class="button" href="{{ url_for('home') }}">

@@ -124,7 +124,7 @@ Detalles
 
 {% if details_account %}
 <div class="columns is-centered is-vcentered">
-    <div class="column is-8-desktop ">
+    <div class="column is-8-desktop-only is-5-mobile">
         <!-- <p class="subtitle is-6 has-text-black-bis">
             Cuentas
         </p> -->
@@ -145,22 +145,22 @@ Detalles
     </div>
 </div>
 
-<section>
-    <div class="box">
-        <div class="field">
-            <label class="label has-text-black-ter">Nombre</label>
-            <div class="control">
-                <input class="input" type="text" readonly value="{{ details_account[1] }}">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label has-text-black-ter">Contraseña</label>
-            <div class="control">
-                <input class="input" type="text" readonly value="{{ details_account[2] }}">
-            </div>
+
+<div class="box">
+    <div class="field">
+        <label class="label has-text-black-ter">Nombre</label>
+        <div class="control">
+            <input class="input" type="text" readonly value="{{ details_account[1] }}">
         </div>
     </div>
-</section>
+    <div class="field">
+        <label class="label has-text-black-ter">Contraseña</label>
+        <div class="control">
+            <input class="input" type="text" readonly value="{{ details_account[2] }}">
+        </div>
+    </div>
+</div>
+
 {% endif %}
 
 {% endblock %}

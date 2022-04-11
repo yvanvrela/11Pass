@@ -56,7 +56,6 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('Hasta Luego')
 
     return redirect(url_for('auth.login'))
 

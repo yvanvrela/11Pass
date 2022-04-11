@@ -60,7 +60,7 @@ def create_table_vault(db_file) -> None:
                 CREATE TABLE IF NOT EXISTS "vaults" (
                 "id_vault"	INTEGER UNIQUE,
                 "id_user"   INTEGER,
-                "name"  TEXT UNIQUE,
+                "name"  TEXT,
                 "description"	TEXT,
                 FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
                 PRIMARY KEY("id_vault" AUTOINCREMENT)
@@ -87,7 +87,7 @@ def create_table_accounts(db_file) -> None:
                 "id_account"	INTEGER UNIQUE,
                 "id_user"       INTEGER,
                 "id_vault"      INTEGER,
-                "name_element"	TEXT UNIQUE,
+                "name_element"	TEXT,
                 "password_element"	TEXT,
                 "page_element"	TEXT,
                 "description_element"	TEXT,
