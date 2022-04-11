@@ -271,6 +271,13 @@ def get_account_by_id(id_account):
             FROM accounts WHERE id_account = {id_account}'
     details = cursor.execute(sql).fetchone()
 
+    details = {
+        'name': details[0],
+        'page': details[1],
+        'password': details[2],
+        'description': details[3],
+    }
+
     conn.commit()
     conn.close()
 
@@ -304,7 +311,7 @@ def end_element_account(id_user: int) -> list:
     return end_element
 
 
-def put_account(name: str, id_user:int, id_vault: int, password: str, page: str, description: str) -> None:
+def put_account(name: str, id_user: int, id_vault: int, password: str, page: str, description: str) -> None:
     """ Agrega los datos de la cuenta a la base de datos """
 
     conn = conection_db(db_file='database.db')

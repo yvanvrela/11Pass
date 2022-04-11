@@ -6,6 +6,7 @@ from app import create_app
 from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
+from app.lib.util_fuctions import decrypt_data, encrypt_data
 from app.sql_services import account_items, add_vault, all_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account
 
 app = create_app()
@@ -67,7 +68,8 @@ def vault():
 
     if vault_form.validate_on_submit():
 
-        vault_reference = get_vault_by_name(name=vault_form.vaultname.data, id_user=id_user)
+        vault_reference = get_vault_by_name(
+            name=vault_form.vaultname.data, id_user=id_user)
 
         if vault_reference is None:
 
@@ -112,19 +114,28 @@ def add_account():
 
     account_form = AccountForm()
     id_user = current_user.id
+    secret_key_reference = current_user.secret_key
 
     id_vault_reference = account_form.id_vault.data
 
     if account_form.validate_on_submit():
 
-        account_reference = get_account_by_name(account_form.name.data, id_user=id_user)
+        account_reference = get_account_by_name(
+            account_form.name.data, id_user=id_user)
 
         if account_reference is None:
+
+            password = account_form.password.data
+
+            # encriptar la contraseña
+            password_encrypt = encrypt_data(
+                secret_key=password, passkey=secret_key_reference)
+
             put_account(
                 name=account_form.name.data,
                 id_user=id_user,
                 id_vault=id_vault_reference,
-                password=account_form.password.data,
+                password=password_encrypt,
                 page=account_form.page.data,
                 description=account_form.description.data
             )
@@ -142,8 +153,14 @@ def add_account():
 @login_required
 def details_account(id_vault, id_account):
 
+    secret_key_reference = current_user.secret_key
     id_vault_reference = id_vault
+
+    # Desencripta la contraseña para mostrarla
     details_account = get_account_by_id(id_account=id_account)
+    details_account.update({'password': decrypt_data(
+        str_encoded=details_account['password'], passkey_reference=secret_key_reference)})
+
     id_user = current_user.id
 
     account_form = AccountForm()
