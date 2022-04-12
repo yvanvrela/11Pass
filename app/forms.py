@@ -26,7 +26,7 @@ class VaultForm(FlaskForm):
         'Nombre', [validators.DataRequired()], render_kw={'autofocus': True})
     description = StringField('Descripción', widget=TextArea())
 
-    submit = SubmitField('Crear')
+    submit = SubmitField('Agregar')
 
 
 class AccountForm(FlaskForm):
@@ -37,4 +37,4 @@ class AccountForm(FlaskForm):
     page = StringField('Página', [validators.DataRequired()])
     description = StringField('Descripción', widget=TextArea())
 
-    submit = SubmitField('Guardar')
+    submit = SubmitField('Agregar')
