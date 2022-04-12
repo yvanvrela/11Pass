@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     var clipboard = new ClipboardJS('.btn');
 
     clipboard.on('success', function (e) {
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
+        // console.info('Action:', e.action);
+        // console.info('Text:', e.text);
+        // console.info('Trigger:', e.trigger);
 
         e.clearSelection();
     });
@@ -121,6 +121,33 @@ document.addEventListener('DOMContentLoaded', () => {
             closeDropdowns();
         });
     }
+
+
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+
+            });
+        });
+    }
+
+
+
+
 
     function getAll(selector) {
         var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;

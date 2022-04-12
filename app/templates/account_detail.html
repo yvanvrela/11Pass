@@ -53,7 +53,7 @@ Detalles
 </div>
 
 <div class="columns is-centered is-vcentered is-mobile">
-    <div class="column is-8-desktop-only ">
+    <div class="column is-8-desktop-only is-5-mobile">
         <nav class="breadcrumb " aria-label="breadcrumbs">
             <ul>
                 <li>
@@ -205,15 +205,35 @@ Detalles
 <section class="box">
     <div class="field">
         <label class="label subtitle has-text-black-ter">Nombre</label>
-        <div class="control">
-            <p class="subtitle is-6 has-text-black-ter">{{ details_account['name'] }}</p>
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input id="foo" class="input" value="{{ details_account['name'] }}" readonly>
+            </div>
+            <div class="control">
+                <a class="btn button tooltipped tooltipped-n" data-clipboard-target="#foo" aria-label="Copiar">
+                    <span class="icon is-small">
+                        <i class="fas fa-copy"></i>
+                    </span>
+                </a>
+            </div>
         </div>
     </div>
-    <hr>
+
+
+
     <div class="field">
         <label class="label has-text-black-ter">Contraseña</label>
-        <div class="control">
-            <p class="subtitle is-6 has-text-black-ter">{{ details_account['password'] }}</p>
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input id="foo2" class="input" value="{{ details_account['password'] }}" readonly>
+            </div>
+            <div class="control">
+                <a class="btn button tooltipped tooltipped-n" data-clipboard-target="#foo2" aria-label="Copiar">
+                    <span class="icon is-small">
+                        <i class="fas fa-copy"></i>
+                    </span>
+                </a>
+            </div>
         </div>
     </div>
 </section>
