@@ -76,7 +76,10 @@ Cuentas
         <p class="buttons are-small is-right">
 
             <button class="js-modal-trigger button is-small is-link" data-target="modal-js-example">
-                Agregar cuenta
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span>Agregar cuenta</span>
             </button>
 
             <button class="target-dropdown button is-ghost" data-target="dropdown">
@@ -92,7 +95,8 @@ Cuentas
 
                     <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
-                            <a class="dropdown-item has-text-danger" href="{{ url_for('del_vault', id_vault=id_vault) }}">
+                            <a class="dropdown-item has-text-danger"
+                                href="{{ url_for('del_vault', id_vault=id_vault) }}">
                                 <span class="icon-text">
                                     <span>Eliminar bóveda</span>
                                     <span class="icon">
@@ -126,11 +130,11 @@ Cuentas
     </a>
     {% endfor %}
     {% else %}
-    <div class="box">
-        <p class="subtitle is-6 has-text-centered">
-            No hay cuentas agregadas
-        </p>
-    </div>
+
+    <p class="subtitle is-6 has-text-centered">
+        No hay cuentas agregadas
+    </p>
+
     {% endif %}
 </section>
 
