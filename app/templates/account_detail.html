@@ -71,9 +71,39 @@ Detalles
     </div>
 
     <div class="column has-text-right">
-        <button class="js-modal-trigger button is-small is-link" data-target="modal-add-account">
-            Agregar cuenta
-        </button>
+        <p class="buttons are-small is-right">
+
+            <button class="js-modal-trigger button is-small is-link" data-target="modal-add-account">
+                Agregar cuenta
+            </button>
+
+            <button class="target-dropdown button is-ghost" data-target="dropdown">
+                <div id="dropdown" class="dropdown is-right">
+
+                    <div class="dropdown-trigger">
+                        <span class="is-clickable" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span class="icon  has-text-black-bis">
+                                <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                            <a class="dropdown-item has-text-danger"
+                                href="{{ url_for('del_vault', id_vault=id_vault) }}">
+                                <span class="icon-text">
+                                    <span>Eliminar bóveda</span>
+                                    <span class="icon">
+                                        <i class="far fa-trash-alt"></i>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </button>
+        </p>
     </div>
 </div>
 
@@ -188,7 +218,7 @@ Detalles
 <section class="ml-2">
     <label class="label">Página</label>
     <a href="https://{{ details_account['page'] }}" target="_blanck">
-       <p>https://{{ details_account['page'] }}</p>
+        <p>https://{{ details_account['page'] }}</p>
     </a>
 </section>
 

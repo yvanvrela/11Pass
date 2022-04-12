@@ -171,6 +171,21 @@ def add_vault(name: str, id_user: int, description: str) -> None:
     conn.close()
 
 
+def delete_vault(id_vault: int) -> None:
+    """Elimina la bovéda y todas sus cuentas de la bd"""
+
+    conn = conection_db(db_file='database.db')
+    cursor = conn.cursor()
+
+    sql = f"DELETE FROM accounts WHERE id_vault= {id_vault}"
+    cursor.execute(sql)
+
+    sql = f"DELETE FROM vaults WHERE id_vault= {id_vault}"
+    cursor.execute(sql)
+    
+    conn.commit()
+
+
 def get_vaults(id_user: int) -> tuple:
     """ Busca todos los baules de la base de datos,
         que tenga el usuario.
@@ -179,7 +194,8 @@ def get_vaults(id_user: int) -> tuple:
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = (f'SELECT id_vault, name FROM vaults WHERE id_user = {id_user} ORDER BY name')
+    sql = (
+        f'SELECT id_vault, name FROM vaults WHERE id_user = {id_user} ORDER BY name')
     vaults = cursor.execute(sql).fetchall()
 
     conn.commit()
@@ -286,7 +302,7 @@ def get_account_by_id(id_account):
     return details
 
 
-def get_account_by_name(name: str, id_user: int, id_vault:int):
+def get_account_by_name(name: str, id_user: int, id_vault: int):
 
     conn = conection_db('database.db')
     cursor = conn.cursor()

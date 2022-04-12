@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
 from app.lib.util_fuctions import check_decrypt_data, decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault, all_account, delete_account, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account
+from app.sql_services import account_items, add_vault, all_account, delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account
 
 app = create_app()
 
@@ -84,6 +84,17 @@ def vault():
             return redirect(url_for('home'))
 
         flash('El nombre de la bóveda ya existe.')
+
+    return redirect(url_for('home'))
+
+
+@app.route('/vault/delete/<id_vault>', methods=['GET', 'POST'])
+@login_required
+def del_vault(id_vault):
+
+    delete_vault(id_vault=id_vault)
+
+    flash('Bóveda y todas sus cuentas eliminadas')
 
     return redirect(url_for('home'))
 
