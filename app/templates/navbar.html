@@ -1,7 +1,7 @@
 <div class="container">
     <div class="navbar-brand">
         <a class="navbar-item">
-            <span class="title has-text-white">
+            <span class="title has-text-black">
                 <span class="icon"></span>
                 PyPass
             </span>
@@ -15,13 +15,15 @@
     <div id="navMenu" class="navbar-menu has-text-light is-green-aqua has-text-right">
         <div class="navbar-end">
             <span class="navbar-item">
+
                 <a class="is-hidden-desktop is-hidden-tablet" href="">
-                    <span class="icon has-text-light is-medium">
+                    <span class="icon is-medium has-text-black">
                         <i class="fas fa-user-circle"></i>
                     </span>
                 </a>
+
                 <a href="{{ url_for('auth.logout') }}">
-                    <span class="icon is-medium has-text-white">
+                    <span class="icon is-medium has-text-black">
                         <i class="fas fa-sign-out-alt"></i>
                     </span>
                 </a>
