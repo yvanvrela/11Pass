@@ -25,7 +25,7 @@
         {% include 'navbar.html'  %}
     </nav>
 
-    <div class="section has-background-white is-mobile  ">
+    <div class="section has-background-white is-mobile full-height ">
 
         {% for message in get_flashed_messages() %}
 
@@ -47,7 +47,7 @@
 
         <div class="columns full-height">
 
-            <div class="column is-one-fifth is-hidden-mobile">
+            <div class="column is-one-fifth-desktop is-hidden-mobile">
                 {% include 'menu.html' %}
             </div>
 
@@ -65,11 +65,21 @@
             </div>
             {% endif %}
 
+            <hr class="is-hidden-desktop">
+
             <div class="column">
                 {% block details %}
 
                 {% endblock %}
             </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>
+                        <strong>PyPass</strong> by <a href="#">Yván Varela</a>
+                    </p>
+                </div>
+            </footer>
         </div>
 
 
