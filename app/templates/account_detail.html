@@ -219,40 +219,38 @@ Detalles
 
 
 <section class="box">
-    <div class="field">
-        <label class="label subtitle has-text-black-ter">Nombre</label>
-        <div class="field has-addons">
-            <div class="control is-expanded">
-                <input id="foo" class="input" value="{{ details_account['name'] }}" readonly>
-            </div>
-            <div class="control">
-                <a class="btn button tooltipped tooltipped-n" data-clipboard-target="#foo" aria-label="Copiar">
-                    <span class="icon is-small">
-                        <i class="fas fa-copy"></i>
-                    </span>
-                </a>
-            </div>
-        </div>
+
+    <label class="label subtitle has-text-black-ter">Nombre</label>
+    <div class="field is-grouped">
+        <p class="control is-expanded">
+            <input id="foo" class="input" value="{{ details_account['name'] }}" readonly>
+        </p>
+        <p class="control">
+            <a class="btn button is-white tooltipped tooltipped-n " data-clipboard-target="#foo" aria-label="Copiar">
+                <span class="icon is-small has-text-black-ter">
+                    <i class="fas fa-copy"></i>
+                </span>
+            </a>
+        </p>
     </div>
 
 
 
-    <div class="field">
-        <label class="label has-text-black-ter">Contraseña</label>
-        <div class="field has-addons">
-            <div class="control is-expanded">
-                <input id="foo2" class="input" value="{{ details_account['password'] }}" readonly>
-            </div>
-            <div class="control">
-                <a class="btn button tooltipped tooltipped-n" data-clipboard-target="#foo2" aria-label="Copiar">
-                    <span class="icon is-small">
-                        <i class="fas fa-copy"></i>
-                    </span>
-                </a>
-            </div>
+    <label class="label has-text-black-ter">Contraseña</label>
+    <div class="field is-grouped">
+        <div class="control is-expanded">
+            <input id="foo2" class="input" value="{{ details_account['password'] }}" readonly>
         </div>
-        <p class="help is-success"></p>
+        <div class="control">
+            <a class="btn button is-white tooltipped tooltipped-n" data-clipboard-target="#foo2" aria-label="Copiar">
+                <span class="icon is-small has-text-black-ter">
+                    <i class="fas fa-copy"></i>
+                </span>
+            </a>
+        </div>
     </div>
+    <p class="help is-success"></p>
+
 </section>
 
 <section class="ml-2">

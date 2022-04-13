@@ -6,7 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.info('Action:', e.action);
         // console.info('Text:', e.text);
         // console.info('Trigger:', e.trigger);
+        bulmaToast.toast({
+            message: 'Copiado!',
+            position: 'top-right',
+            type: 'is-link',
+            closeOnClick: false,
+            dismissible: true,
+            animate: {
+                in: 'fadeIn',
+                out: 'fadeOut'
+            },
+        });
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            const $notification = $delete.parentNode;
 
+            $delete.addEventListener('click', () => {
+                closeAllNotification();
+            });
+        });
         e.clearSelection();
     });
 
@@ -15,7 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Trigger:', e.trigger);
     });
 
+    // Fuction close Notification
+    function closeAllNotification(){
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            const $notification = $delete.parentNode;
+            $notification.parentNode.removeChild($notification);
+        });
+    }
 
+    function closeNotification(){
+        $notification.parentNode.removeChild($notification);
+    }
 
     // Functions to open and close a modal
     function openModal($el) {
@@ -80,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.keyCode === 27) { // Escape key
             closeAllModals();
             closeAllDropdown();
+            closeAllNotification();
         }
     });
 
@@ -99,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const $notification = $delete.parentNode;
 
         $delete.addEventListener('click', () => {
-            $notification.parentNode.removeChild($notification);
+            closeAllNotification();
         });
     });
 
