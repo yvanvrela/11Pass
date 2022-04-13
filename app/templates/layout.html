@@ -54,14 +54,16 @@
             <div class="vertical-line">
             </div>
 
-            <div class="column  is-one-third-desktop ">
+            <div class="column is-one-third-desktop ">
                 {% block content %}
 
                 {% endblock %}
             </div>
 
+            {% if details_account %}
             <div class="vertical-line">
             </div>
+            {% endif %}
 
             <div class="column">
                 {% block details %}
