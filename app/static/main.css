@@ -31,8 +31,23 @@ body {
     color: black !important;
 }
 
+.has-text-orange{
+    color: #ff9f1c !important;
+}
+
+
 .is-green-aqua{
     background-color: #2ec4b6;
     border-color: transparent;
     color:  white;
+}
+
+.has-background-green-aqua{
+    background-color: #2ec4b6 !important;
+}
+
+.is-green-aqua-light{
+    background-color: #CBF3F0;
+    border-color: transparent;
+    color:  black !important;
 }

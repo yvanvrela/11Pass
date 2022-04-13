@@ -7,10 +7,10 @@ Signup
 
 {% block content %}
 
-<form class="box" action="{{ url_for('auth.signup') }}" method="POST">
+<form action="{{ url_for('auth.signup') }}" method="POST">
 
-    <div class="mb-5 has-text-centered">
-        <h6 class="subtitle is-5">
+    <div class="content has-text-centered">
+        <h6 class="title">
             Registrarse
         </h6>
     </div>
@@ -39,7 +39,7 @@ Signup
 
     <div class="field">
         <p class="control">
-            {{ signup_form.submit(class="button is-fullwidth is-link") }}
+            {{ signup_form.submit(class="button is-orange is-fullwidth") }}
         </p>
     </div>
 

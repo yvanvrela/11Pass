@@ -7,11 +7,10 @@ Login
 
 {% block content %}
 
+<form action="{{ url_for('auth.login') }}" method="POST">
 
-
-<form class="box" action="{{ url_for('auth.login') }}" method="POST">
-    <div class="mb-5 has-text-centered">
-        <h6 class="subtitle is-5">
+    <div class="content has-text-centered">
+        <h6 class="title">
             Acceder
         </h6>
     </div>
@@ -51,7 +50,7 @@ Login
 
     <div class="field">
         <p class="control">
-            {{ login_form.submit(class="button is-link is-fullwidth") }}
+            {{ login_form.submit(class="button is-orange is-fullwidth") }}
         </p>
     </div>
 
@@ -60,7 +59,6 @@ Login
             Registrarse
         </a>
     </div>
-
 </form>
 
 {% endblock %}
