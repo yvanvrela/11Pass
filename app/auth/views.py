@@ -107,7 +107,7 @@ def signup():
             }
 
             # return redirect(url_for('home'))
-            return render_template('index.html', **context)
+            return render_template('secret.html', **context)
         else:
             flash('El usuario ya existe')
 

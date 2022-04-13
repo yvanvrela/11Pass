@@ -7,6 +7,8 @@ Detalles
 
 {% block content %}
 
+<!-- Modal agregar cuenta -->
+
 <div id="modal-add-account" class="modal">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -53,7 +55,7 @@ Detalles
 
                 <div class="field is-grouped">
                     <p class="control">
-                        {{ account_form.submit(class="button is-orange") }}
+                        {{ account_form.submit(class="button is-orange", value="Agregar") }}
                     </p>
 
                     <p class="control">
@@ -273,7 +275,7 @@ Detalles
     {% endif %}
 </section>
 
-
+<!-- Modal editar cuenta -->
 
 <div id="modal-js-example" class="modal">
     <div class="modal-background"></div>
@@ -321,7 +323,7 @@ Detalles
 
                 <div class="field is-grouped">
                     <p class="control">
-                        {{ account_form.submit(class="button is-orange") }}
+                        {{ account_form.submit(class="button is-orange", value="Actualizar") }}
                     </p>
 
                     <p class="control">

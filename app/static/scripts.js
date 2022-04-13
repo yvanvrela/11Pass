@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bulmaToast.toast({
             message: 'Copiado!',
             position: 'top-right',
-            type: 'is-link',
+            type: 'is-orange',
             closeOnClick: false,
             dismissible: true,
             animate: {
