@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField, EmailField
+from wtforms.fields import StringField, PasswordField, SubmitField, EmailField, TextAreaField
 from wtforms import validators
-from wtforms.widgets import TextArea
 
 
 class LoginForm(FlaskForm):
@@ -24,7 +23,7 @@ class SignupForm(FlaskForm):
 class VaultForm(FlaskForm):
     vaultname = StringField(
         'Nombre', [validators.DataRequired()], render_kw={'autofocus': True})
-    description = StringField('Descripción', widget=TextArea())
+    description = TextAreaField('Descripcion')
 
     submit = SubmitField('Agregar')
 
@@ -35,6 +34,6 @@ class AccountForm(FlaskForm):
     id_vault = StringField('id_vault')
     password = StringField('Password', [validators.DataRequired()])
     page = StringField('Página', [validators.DataRequired()])
-    description = StringField('Descripción', widget=TextArea())
+    description = TextAreaField('Descripcion', name='Descripcion') 
 
     submit = SubmitField()
