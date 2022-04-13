@@ -10,7 +10,7 @@ Detalles
 <div id="modal-add-account" class="modal">
     <div class="modal-background"></div>
     <div class="modal-card">
-        <header class="modal-card-head has-background-black-ter">
+        <header class="modal-card-head is-green-aqua">
             <p class="modal-card-title has-text-light">
                 Agregar Cuenta
             </p>
@@ -43,7 +43,7 @@ Detalles
 
                 <div class="field">
                     <div class="control">
-                        {{ account_form.description(class='textarea', type='text', placeholder='Descripción de la cuenta, opcional', autocomplete='off') }}
+                        {{ account_form.description(class='textarea', type='text', placeholder='Descripción de la cuenta (opcional)', autocomplete='off') }}
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@ Detalles
 
                 <div class="field is-grouped">
                     <p class="control">
-                        {{ account_form.submit(class="button is-link has-text-light") }}
+                        {{ account_form.submit(class="button is-orange") }}
                     </p>
 
                     <p class="control">
@@ -89,7 +89,7 @@ Detalles
     <div class="column has-text-right">
         <p class="buttons are-small is-right">
 
-            <button class="js-modal-trigger button is-small is-link" data-target="modal-add-account">
+            <button class="js-modal-trigger button is-small is-orange" data-target="modal-add-account">
                 <span class="icon">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -176,7 +176,7 @@ Detalles
     <div class="column has-text-right">
 
         <p class="buttons are-small is-right">
-            <button class="js-modal-trigger button is-link" data-target="modal-js-example">
+            <button class="js-modal-trigger button is-orange" data-target="modal-js-example">
                 <span class="icon">
                     <i class="fas fa-edit"></i>
                 </span>
@@ -279,7 +279,7 @@ Detalles
     <div class="modal-background"></div>
 
     <div class="modal-card">
-        <header class="modal-card-head has-background-black-ter">
+        <header class="modal-card-head is-green-aqua">
             <p class="modal-card-title has-text-light">
                 Editar Cuenta
             </p>
@@ -321,7 +321,7 @@ Detalles
 
                 <div class="field is-grouped">
                     <p class="control">
-                        {{ account_form.submit(class="button is-link has-text-light") }}
+                        {{ account_form.submit(class="button is-orange") }}
                     </p>
 
                     <p class="control">
