@@ -21,11 +21,34 @@
 </head>
 
 <body class="has-background-white">
+
     <nav class="navbar has-background-black-bis">
         {% include 'navbar.html'  %}
     </nav>
 
-    <div class="section has-background-white is-mobile full-height ">
+    <!-- Navbar mobil -->
+    <nav class="navbar is-fixed-bottom is-link is-hidden-desktop is-hidden-fullhd is-hidden-tablet" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-expanded  is-block has-text-centered">
+                <i class="fa fa-user"></i>
+                <p class="is-size-7">Account</p>
+            </a>
+            <a class="navbar-item is-expanded  is-block has-text-centered">
+                <i class="fa fa-list"></i>
+                <p class="is-size-7">Tasks</p>
+            </a>
+            <a class="navbar-item is-expanded is-block has-text-centered">
+                <i class="fa fa-flag"></i>
+                <p class="is-size-7">Alerts</p>
+            </a>
+            <a class="navbar-item is-expanded  is-block has-text-centered">
+                <i class="fa fa-cog"></i>
+                <p class="is-size-7">Settings</p>
+            </a>
+        </div>
+    </nav>
+
+    <div class="section has-background-white">
 
         {% for message in get_flashed_messages() %}
 
@@ -45,9 +68,9 @@
 
         {% endfor %}
 
-        <div class="columns full-height">
+        <div class="columns">
 
-            <div class="column is-one-fifth-desktop is-hidden-mobile">
+            <div class="column is-one-fifth-desktop  is-hidden-mobile">
                 {% include 'menu.html' %}
             </div>
 
@@ -61,29 +84,32 @@
             </div>
 
             {% if details_account %}
+
             <div class="vertical-line">
             </div>
-            {% endif %}
 
             <hr class="is-hidden-desktop">
+
+            {% endif %}
 
             <div class="column">
                 {% block details %}
 
                 {% endblock %}
             </div>
-            
-            <footer class="footer">
-                <div class="content has-text-centered">
-                    <p>
-                        <strong>PyPass</strong> by <a href="#">Yván Varela</a>
-                    </p>
-                </div>
-            </footer>
+
         </div>
 
 
     </div>
+
+    <footer class="footer is-hidden-mobile">
+        <div class="content has-text-centered">
+            <p>
+                <strong>PyPass</strong> by <a href="#">Yván Varela</a>
+            </p>
+        </div>
+    </footer>
 
 </body>
 

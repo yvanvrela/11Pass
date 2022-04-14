@@ -1,6 +1,19 @@
-html,
+/* Con esto el body toma el tamaño del navegador 
+segun la pantalla, usando flex */
 body {
-    height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.is-full-height-100vh {
+    height: 100vh;
+}
+
+/* Se aplica para que automaticamente se posicione abajo */
+.footer {
+    margin-top: auto;
 }
 
 .full-height {
