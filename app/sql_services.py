@@ -171,6 +171,20 @@ def add_vault(name: str, id_user: int, description: str) -> None:
     conn.close()
 
 
+def update_vault(id_vault: int, name: str, id_user: int, description: str) -> None:
+    """ Edita la bóveda en la base de datos """
+
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = "UPDATE vaults SET  id_user = ?, name = ?, description = ? WHERE id_vault = ?"
+    values = id_user, name, description, id_vault
+    cursor.execute(sql, values)
+
+    conn.commit()
+    conn.close()
+
+
 def delete_vault(id_vault: int) -> None:
     """Elimina la bovéda y todas sus cuentas de la bd"""
 
@@ -182,7 +196,7 @@ def delete_vault(id_vault: int) -> None:
 
     sql = f"DELETE FROM vaults WHERE id_vault= {id_vault}"
     cursor.execute(sql)
-    
+
     conn.commit()
 
 
@@ -223,7 +237,7 @@ def get_vault_name(id_vault):
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = (f'SELECT name FROM vaults WHERE id_vault ={id_vault}')
+    sql = (f'SELECT name, description FROM vaults WHERE id_vault ={id_vault}')
     vaultname = cursor.execute(sql).fetchone()
 
     conn.commit()

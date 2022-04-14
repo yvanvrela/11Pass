@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
 from app.lib.util_fuctions import check_decrypt_data, decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault, all_account, delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account
+from app.sql_services import account_items, add_vault, all_account, delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_vault
 
 app = create_app()
 
@@ -88,6 +88,27 @@ def vault():
     return redirect(url_for('home'))
 
 
+@app.route('/vault/edit/<id_vault>', methods=['GET', 'POST'])
+@login_required
+def edit_vault(id_vault):
+
+    vault_form = VaultForm()
+    id_user = current_user.id
+
+    if vault_form.validate_on_submit():
+
+        update_vault(
+            name=vault_form.vaultname.data,
+            id_user=id_user,
+            description=vault_form.description.data,
+            id_vault=id_vault
+        )
+
+        flash('Actualizado', 'info')
+
+        return redirect(url_for('account', id_vault=id_vault))
+
+
 @app.route('/vault/delete/<id_vault>', methods=['GET', 'POST'])
 @login_required
 def del_vault(id_vault):
@@ -104,6 +125,7 @@ def del_vault(id_vault):
 def account(id_vault):
 
     account_form = AccountForm()
+    vault_form = VaultForm()
     id_user = current_user.id
 
     context = {
@@ -114,6 +136,7 @@ def account(id_vault):
         'id_vault': id_vault,
         'vaultname': get_vault_name(id_vault=id_vault),
         'account_form': account_form,
+        'vault_form': vault_form,
     }
 
     return render_template('account.html', **context)

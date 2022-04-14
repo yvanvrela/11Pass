@@ -116,6 +116,20 @@ Cuentas
 
                     <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
+
+                            <a class="js-modal-trigger dropdown-item has-text-black-bis" data-target="modal-edit-vault">
+
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="far fa-edit"></i>
+                                    </span>
+                                    <span>Editar bóveda</span>
+                                </span>
+
+                            </a>
+
+                            <hr class="dropdown-divider">
+
                             <a class="dropdown-item has-text-danger"
                                 href="{{ url_for('del_vault', id_vault=id_vault) }}">
                                 <span class="icon-text">
@@ -158,5 +172,55 @@ Cuentas
 
     {% endif %}
 </section>
+
+
+<!-- Modal edit vault -->
+<div id="modal-edit-vault" class="modal">
+
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head has-background-black-bis">
+            <p class="modal-card-title has-text-light">
+                Editar Bóveda
+            </p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+
+        <form action="{{ url_for('edit_vault', id_vault=id_vault) }}" method="post">
+
+            <section class="modal-card-body">
+
+                <div class="field">
+                    <div class="control">
+                        {{ vault_form.vaultname(id='name', class='input', type='text', placeholder='Nombre de la bóveda', autocomplete='off', value=vaultname[0]) }}
+                    </div>
+                </div>
+
+
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea" name="Descripcion_vault">{{ vaultname[1] }}</textarea>
+                    </div>
+                </div>
+
+            </section>
+
+            <footer class="modal-card-foot">
+
+                <div class="field is-grouped">
+                    <p class="control">
+                        {{ vault_form.submit(class="button is-orange has-text-light") }}
+                    </p>
+
+                    <p class="control">
+                        <a class="button">Cancelar</a>
+                    </p>
+                </div>
+
+            </footer>
+
+        </form>
+    </div>
+</div>
 
 {% endblock %}

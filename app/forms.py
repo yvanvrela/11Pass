@@ -23,7 +23,7 @@ class SignupForm(FlaskForm):
 class VaultForm(FlaskForm):
     vaultname = StringField(
         'Nombre', [validators.DataRequired()], render_kw={'autofocus': True})
-    description = TextAreaField('Descripcion')
+    description = TextAreaField('Descripcion', name='Descripcion_vault')
 
     submit = SubmitField('Agregar')
 
