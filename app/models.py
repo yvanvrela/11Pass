@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 
-from app.lib.util_fuctions import decrypt_data
+from app.lib.security_fuctions import decrypt_data
 from .sql_services import get_user_by_name, get_user_by_id
 
 

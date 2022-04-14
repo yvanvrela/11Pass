@@ -6,7 +6,7 @@ from app import create_app
 from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
-from app.lib.util_fuctions import check_decrypt_data, decrypt_data, encrypt_data
+from app.lib.security_fuctions import check_decrypt_data, decrypt_data, encrypt_data
 from app.sql_services import account_items, add_vault, all_account, delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_vault
 
 app = create_app()

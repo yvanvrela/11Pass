@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.lib.util_fuctions import check_decrypt_data, decrypt_data, encrypt_data, secret_key_generator
+from app.lib.security_fuctions import check_decrypt_data, decrypt_data, encrypt_data, secret_key_generator
 from app.models import UserData, UserModel
 from . import auth
 from app.forms import LoginForm, SignupForm
