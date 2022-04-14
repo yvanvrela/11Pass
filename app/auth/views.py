@@ -74,18 +74,13 @@ def signup():
         user_doc = get_user_by_name(username)
 
         if user_doc is None:
-            # Genera un id aleatorio
-            #user_id = str(uuid.uuid4())
+
             password_hash = generate_password_hash(password)
 
             secret_key = secret_key_generator()
-            secret_key_encrypt = encrypt_data(
-                secret_key=secret_key, passkey=password)
 
-            # user_data = UserData(
-            #    user_id=user_id, username=username, password=password_hash)
             add_user(username=username, password=password_hash,
-                     secret_key=secret_key_encrypt)
+                     secret_key=secret_key)
 
             user_from_db = get_user_by_name(username=username)
 
