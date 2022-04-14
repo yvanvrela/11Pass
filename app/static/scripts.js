@@ -6,24 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.info('Action:', e.action);
         // console.info('Text:', e.text);
         // console.info('Trigger:', e.trigger);
+
         bulmaToast.toast({
             message: 'Copiado!',
-            position: 'top-right',
-            type: 'is-orange',
-            closeOnClick: false,
-            dismissible: true,
+            duration: 1500,
+            position: 'bottom-right',
+            type: 'is-black',
+            closeOnClick: true,
+            dismissible: false,
             animate: {
                 in: 'fadeIn',
                 out: 'fadeOut'
             },
         });
-        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-            const $notification = $delete.parentNode;
 
-            $delete.addEventListener('click', () => {
-                closeAllNotification();
-            });
-        });
         e.clearSelection();
     });
 
@@ -33,14 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Fuction close Notification
-    function closeAllNotification(){
+    function closeAllNotification() {
         (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
             const $notification = $delete.parentNode;
             $notification.parentNode.removeChild($notification);
         });
     }
 
-    function closeNotification(){
+    function closeNotification() {
         $notification.parentNode.removeChild($notification);
     }
 
@@ -149,6 +145,27 @@ document.addEventListener('DOMContentLoaded', () => {
             closeDropdowns();
         });
     }
+
+
+    function closeNotificationClick() {
+
+        var $notifications = getAll('.notification')
+
+        if ($notifications.length > 0) {
+            $notifications.forEach(function ($el) {
+                $el.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    $el.classList.toggle("is-active");
+                });
+            });
+
+            document.addEventListener("click", function (event) {
+                closeAllNotification();
+            });
+        }
+    }
+
+    closeNotificationClick();
 
 
     // Get all "navbar-burger" elements
