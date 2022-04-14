@@ -7,10 +7,11 @@ from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
 from app.lib.security_fuctions import decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault, all_account, delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_vault
+from app.sql_services import account_items, add_vault,  delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_vault
 
 app = create_app()
 
+LOGIN_MESSAGE = 'Inicia sesión, para acceder a la página'
 
 """ Comandos de testing """
 
@@ -83,7 +84,7 @@ def vault():
 
             return redirect(url_for('home'))
 
-        flash('El nombre de la bóveda ya existe.')
+        flash('La bóveda ya existe.')
 
     return redirect(url_for('home'))
 
@@ -104,7 +105,7 @@ def edit_vault(id_vault):
             id_vault=id_vault
         )
 
-        flash('Actualizado', 'info')
+        flash('Bóveda editada', 'info')
 
         return redirect(url_for('account', id_vault=id_vault))
 
@@ -115,7 +116,7 @@ def del_vault(id_vault):
 
     delete_vault(id_vault=id_vault)
 
-    flash('Bóveda y todas sus cuentas eliminadas')
+    flash('Bóveda eliminada.')
 
     return redirect(url_for('home'))
 
@@ -206,7 +207,7 @@ def edit_account(id_account):
             page=account_form.page.data,
             description=account_form.description.data
         )
-        flash('Actualizado')
+        flash('Cuenta editada')
         return redirect(url_for('details_account', id_vault=id_vault, id_account=id_account))
 
 

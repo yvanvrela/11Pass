@@ -1,11 +1,13 @@
 from flask import Flask
-from flask_login import LoginManager
+from flask_login import LOGIN_MESSAGE, LoginManager
 from app.config import Config
 from .models import UserModel
 from .auth import auth
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
+login_manager.session_protection = 'strong'
+login_manager.login_message = u"Inicia sesión para acceder a la página"
 
 
 @login_manager.user_loader

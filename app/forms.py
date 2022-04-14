@@ -25,7 +25,7 @@ class VaultForm(FlaskForm):
         'Nombre', [validators.DataRequired()], render_kw={'autofocus': True})
     description = TextAreaField('Descripcion', name='Descripcion_vault')
 
-    submit = SubmitField('Agregar')
+    submit = SubmitField()
 
 
 class AccountForm(FlaskForm):

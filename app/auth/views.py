@@ -29,7 +29,7 @@ def login():
 
             if check_password_hash(password_from_db, password):
 
-                if check_decrypt_data(secret_key, secret_key_from_db, password):
+                if secret_key == secret_key_from_db:
                     user_data = UserData(
                         user_id=user_id_from_db,
                         username=username,
@@ -39,7 +39,7 @@ def login():
                     user = UserModel(user_data=user_data)
 
                     login_user(user)
-                    flash('Bienvenido')
+                    # flash('Bienvenido')
 
                     return redirect(url_for('home'))
                 else:
