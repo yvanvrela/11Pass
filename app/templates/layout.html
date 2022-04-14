@@ -27,23 +27,25 @@
     </nav>
 
     <!-- Navbar mobil -->
-    <nav class="navbar is-fixed-bottom is-link is-hidden-desktop is-hidden-fullhd is-hidden-tablet" role="navigation">
+    <nav class="navbar is-fixed-bottom is-hidden-desktop is-hidden-fullhd is-hidden-tablet has-background-black-bis"
+        role="navigation">
         <div class="navbar-brand">
-            <a class="navbar-item is-expanded  is-block has-text-centered">
+            <a class="js-modal-trigger navbar-item is-expanded  is-block has-text-white has-text-centered"
+                data-target="user-modal">
                 <i class="fa fa-user"></i>
-                <p class="is-size-7">Account</p>
+                <p class="is-size-7">Cuenta</p>
             </a>
-            <a class="navbar-item is-expanded  is-block has-text-centered">
-                <i class="fa fa-list"></i>
-                <p class="is-size-7">Tasks</p>
+            <a class="navbar-item is-expanded  is-block has-text-white has-text-centered">
+                <i class="fas fa-search"></i>
+                <p class="is-size-7">Buscar</p>
             </a>
-            <a class="navbar-item is-expanded is-block has-text-centered">
-                <i class="fa fa-flag"></i>
-                <p class="is-size-7">Alerts</p>
+            <a class="navbar-item is-expanded is-block has-text-white has-text-centered">
+                <i class="fas fa-star"></i>
+                <p class="is-size-7">Favoritos</p>
             </a>
-            <a class="navbar-item is-expanded  is-block has-text-centered">
-                <i class="fa fa-cog"></i>
-                <p class="is-size-7">Settings</p>
+            <a class="navbar-item is-expanded  is-block has-text-white has-text-centered" href="{{ url_for('home') }}">
+                <i class="fas fa-archive"></i>
+                <p class="is-size-7">Bóvedas</p>
             </a>
         </div>
     </nav>
@@ -110,6 +112,134 @@
             </p>
         </div>
     </footer>
+
+
+    <!-- Modal user -->
+
+    <div id="user-modal" class="modal">
+        <div class="modal-background"></div>
+
+        <div class="modal-content">
+            <div class="card">
+
+                <div class="card-content">
+
+                    <div class="has-text-centered">
+                        <figure class="image is-128x128 is-inline-block">
+                            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png"
+                                alt="Placeholder image">
+                        </figure>
+                        <p class="title is-4">{{username.capitalize()}}</p>
+                        <p class="subtitle is-6">correo@correo.com</p>
+                    </div>
+                    <hr>
+                    <div class="content">
+                        <label class="label">
+                            <span class="icon-text">
+                                <span class="icon">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                                <span>Secret Key</span>
+                            </span>
+                        </label>
+                        <p class="subtitle is-6 has-text-black-ter">
+                            dsafafafdadsfasfd
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <footer class="card-footer">
+                    <a href="#" class="card-footer-item has-text-orange">
+
+                        <span class="icon">
+                            <i class="fas fa-check"></i>
+                        </span>
+
+                    </a>
+                    <a href="#" class="js-modal-trigger card-footer-item" data-target="edit-user">
+
+                        <span class="icon">
+                            <i class="fas fa-edit"></i>
+                        </span>
+
+                    </a>
+                    <a href="{{ url_for('auth.logout') }}" class="card-footer-item has-text-black-bis">
+
+                        <span class="icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </span>
+
+                    </a>
+                </footer>
+            </div>
+
+        </div>
+
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+
+    <!-- Modal edit user -->
+
+    <div id="edit-user" class="modal">
+        <div class="modal-background"></div>
+
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-content">
+
+                    <p class="content">
+                        <p class="subtitle">Editar usuario</p>
+                    </p>
+
+                    <div class="field">
+                        <div class="control has-icons-left has-icons-right">
+
+                            <input class="input">
+
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control has-icons-left">
+
+                            <input class="input">
+
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <footer class="card-footer">
+                    <a href="#" class="card-footer-item has-text-orange">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span></span>
+                        </span>
+                    </a>
+                    <a href="#" class="exit card-footer-item has-text-danger">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            <span></span>
+                        </span>
+                    </a>
+                </footer>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 
