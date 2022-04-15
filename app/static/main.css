@@ -21,6 +21,8 @@ body {
 }
 
 .vertical-line {
+    margin-left: 0.2rem;
+    padding-right: 0.5rem;
     border-left: thick solid #cfcece;
     border-width: 0.1rem;
 }

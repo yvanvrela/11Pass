@@ -236,6 +236,7 @@ def details_account(id_vault, id_account):
 
     id_user = current_user.id
 
+    vault_form = VaultForm()
     account_form = AccountForm()
 
     context = {
@@ -246,6 +247,7 @@ def details_account(id_vault, id_account):
         'vaults': get_vaults(id_user=id_user),
         'id_vault': id_vault_reference,
         'vaultname': get_vault_name(id_vault=id_vault),
+        'vault_form': vault_form,
         'account_form': account_form,
     }
 
