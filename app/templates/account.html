@@ -94,18 +94,18 @@ Cuentas
 
     <div class="column has-text-right">
 
-        <div class="field is-grouped">
+        <div class="columns is-mobile is-vcentered">
 
-            <p class="control">
+            <div class="column">
                 <span class="js-modal-trigger button is-small is-orange" data-target="modal-js-example">
                     <span class="icon">
                         <i class="fas fa-plus"></i>
                     </span>
                     <span>Agregar cuenta</span>
                 </span>
-            </p>
+            </div>
 
-            <p class="control target-dropdown" data-target="dropdown">
+            <div class="column target-dropdown" data-target="dropdown">
 
                 <div id="dropdown" class="dropdown is-right">
 
@@ -119,6 +119,7 @@ Cuentas
 
 
                     <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
+
                         <div class="dropdown-content">
 
                             <a class="js-modal-trigger dropdown-item has-text-black-bis" data-target="modal-edit-vault">
@@ -136,18 +137,21 @@ Cuentas
 
                             <a class="dropdown-item has-text-danger"
                                 href="{{ url_for('del_vault', id_vault=id_vault) }}">
+
                                 <span class="icon-text">
                                     <span>Eliminar bóveda</span>
                                     <span class="icon">
                                         <i class="far fa-trash-alt"></i>
                                     </span>
                                 </span>
+
                             </a>
+
                         </div>
                     </div>
                 </div>
 
-            </p>
+            </div>
 
         </div>
 
