@@ -170,6 +170,7 @@ def add_account():
                 name=account_form.name.data,
                 id_user=id_user,
                 id_vault=id_vault_reference,
+                username=account_form.username.data,
                 password=password_encrypt,
                 page=account_form.page.data,
                 description=account_form.description.data
@@ -203,10 +204,12 @@ def edit_account(id_account):
             id_user=id_user,
             id_vault=account_form.id_vault.data,
             name=account_form.name.data,
+            username=account_form.username.data,
             password=password_encrypt,
             page=account_form.page.data,
             description=account_form.description.data
         )
+
         flash('Cuenta editada')
         return redirect(url_for('details_account', id_vault=id_vault, id_account=id_account))
 

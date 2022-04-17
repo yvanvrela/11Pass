@@ -33,6 +33,12 @@ Detalles
 
                 <div class="field">
                     <div class="control">
+                        {{ account_form.username( class='input', type='text', placeholder='Username o email', autocomplete='off') }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
                         {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off') }}
                     </div>
                 </div>
@@ -244,10 +250,10 @@ Detalles
 
 <section class="box">
 
-    <label class="label subtitle has-text-black-ter">Nombre</label>
+    <label class="label subtitle has-text-black-ter">Username o email</label>
     <div class="field is-grouped">
         <p class="control is-expanded">
-            <input id="foo" class="input" value="{{ details_account['name'] }}" readonly>
+            <input id="foo" class="input" value="{{ details_account['username'] }}" readonly>
         </p>
         <p class="control">
             <a class="btn button is-white tooltipped tooltipped-n " data-clipboard-target="#foo" aria-label="Copiar">
@@ -321,6 +327,12 @@ Detalles
                 </div>
 
                 {{account_form.id_vault(class='is-hidden', value=details_account['id_vault'])}}
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.username( class='input', type='text', placeholder='Username o email', autocomplete='off') }}
+                    </div>
+                </div>
 
                 <div class="field">
                     <div class="control">

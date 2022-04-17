@@ -33,6 +33,12 @@ Cuentas
 
                 <div class="field">
                     <div class="control">
+                        {{ account_form.username( class='input', type='text', placeholder='Username o email', autocomplete='off') }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
                         {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off') }}
                     </div>
                 </div>

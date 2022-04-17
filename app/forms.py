@@ -32,8 +32,9 @@ class AccountForm(FlaskForm):
     name = StringField('Nombre', [validators.DataRequired()], render_kw={
                        'autofocus': True})
     id_vault = StringField('id_vault')
+    username = StringField('Username', [validators.DataRequired()])
     password = StringField('Password', [validators.DataRequired()])
     page = StringField('Página', [validators.DataRequired()])
-    description = TextAreaField('Descripcion', name='Descripcion') 
+    description = TextAreaField('Descripcion', name='Descripcion')
 
     submit = SubmitField()

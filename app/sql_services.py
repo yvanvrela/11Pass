@@ -88,6 +88,7 @@ def create_table_accounts(db_file) -> None:
                 "id_user"       INTEGER,
                 "id_vault"      INTEGER,
                 "name_element"	TEXT,
+                "username_element" TEXT,
                 "password_element"	TEXT,
                 "page_element"	TEXT,
                 "description_element"	TEXT,
@@ -283,7 +284,7 @@ def get_accounts(id_vault):
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT id_account, name_element, page_element FROM accounts WHERE id_vault = {id_vault}'
+    sql = f'SELECT id_account, name_element, username_element FROM accounts WHERE id_vault = {id_vault}'
     names = cursor.execute(sql).fetchall()
 
     conn.commit()
@@ -297,17 +298,18 @@ def get_account_by_id(id_account):
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT name_element, page_element, password_element, description_element, \
+    sql = f'SELECT name_element, username_element, page_element, password_element, description_element, \
             id_vault, id_account FROM accounts WHERE id_account = {id_account}'
     details = cursor.execute(sql).fetchone()
 
     details = {
         'name': details[0],
-        'page': details[1],
-        'password': details[2],
-        'description': details[3],
-        'id_vault': details[4],
-        'id_account': details[5],
+        'username': details[1],
+        'page': details[2],
+        'password': details[3],
+        'description': details[4],
+        'id_vault': details[5],
+        'id_account': details[6],
     }
 
     conn.commit()
@@ -343,32 +345,32 @@ def end_element_account(id_user: int) -> list:
     return end_element
 
 
-def put_account(name: str, id_user: int, id_vault: int, password: str, page: str, description: str) -> None:
+def put_account(name: str, id_user: int, id_vault: int, username: str, password: str, page: str, description: str) -> None:
     """ Agrega los datos de la cuenta a la base de datos """
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
     sql = "INSERT INTO accounts \
-            (name_element, id_user, id_vault, password_element, page_element, description_element) \
-            VALUES (?,?,?,?,?,?)"
-    values = name, id_user, id_vault, password, page, description
+            (name_element, id_user, id_vault, username_element, password_element, page_element, description_element) \
+            VALUES (?,?,?,?,?,?,?)"
+    values = name, id_user, id_vault, username, password, page, description
 
     cursor.execute(sql, values)
     conn.commit()
 
 
-def update_account(account_id: int, id_user: int, id_vault: int, name: str, password: str, page: str, description: str) -> None:
+def update_account(account_id: int, id_user: int, id_vault: int, name: str, username: str, password: str, page: str, description: str) -> None:
     """Actualiza los datos de la cuenta"""
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
     sql = "UPDATE accounts  \
-        SET  name_element = ?, id_user = ?, id_vault = ?,password_element = ?, \
+        SET  name_element = ?, id_user = ?, id_vault = ?, username_element = ?, password_element = ?, \
         page_element = ?, description_element = ? \
         WHERE id_account = ?"
-    values = name, id_user, id_vault, password, page, description, account_id
+    values = name, id_user, id_vault, username, password, page, description, account_id
 
     cursor.execute(sql, values)
     conn.commit()
