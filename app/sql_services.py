@@ -253,7 +253,7 @@ def all_account(id_user: int) -> list:
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT * FROM accounts WHERE id_user={id_user}'
+    sql = f'SELECT * FROM accounts WHERE id_user={id_user} ORDER BY name_element'
     list_accounts = cursor.execute(sql).fetchall()
     conn.commit()
     conn.close()
@@ -276,15 +276,15 @@ def account_items(id_user: int):
 
 
 def get_accounts(id_vault):
-    """ Retorna el id, nombre y la pagina de todas las cuentas
-        que esten dentro de la bóveda.
+    """ Retorna el id, nombre, el username o email y la pagina de todas las cuentas
+        que esten dentro de la bóveda, ordenados alfabeticamente.
         :param id_vault: Id de la boveda.
         :return Nombre y página
     """
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT id_account, name_element, username_element FROM accounts WHERE id_vault = {id_vault}'
+    sql = f'SELECT id_account, name_element, username_element FROM accounts WHERE id_vault = {id_vault} ORDER BY name_element'
     names = cursor.execute(sql).fetchall()
 
     conn.commit()
