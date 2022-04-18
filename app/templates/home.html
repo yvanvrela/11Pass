@@ -88,25 +88,30 @@ Bienvenido
 
 <section class="box">
     {% if vaults %}
+
     {% for vault in vaults %}
-    <div class="horizontal-line"></div>
-    <div>
-        <a href="{{ url_for('account', id_vault=vault[0])}}">
-            <span class="icon-text has-icons-right has-text-black-bis">
-                <span>{{ vault[1] }}</span>
-                <span class="icon is-right">
-                    <i class="fas fa-angle-right"></i>
-                </span>
+
+    
+
+    <a class="hover" href="{{ url_for('account', id_vault=vault[0])}}">
+        <span class="icon-text has-text-black-bis">
+            <span class="icon is-right">
+                <i class="fas fa-lock"></i>
             </span>
-        </a>
-    </div>
+            <span>{{ vault[1] }}</span>
+        </span>
+    </a>
+
+    <hr class="mb-2 mt-2">
+
     {% endfor %}
+
     {% else %}
-    <div class="box">
-        <p class="subtitle is-6 has-text-centered">
-            No hay bóvedas agregadas
-        </p>
-    </div>
+
+    <p class="subtitle is-6 has-text-centered">
+        No hay bóvedas agregadas
+    </p>
+
     {% endif %}
 </section>
 
