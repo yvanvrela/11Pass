@@ -1,4 +1,4 @@
-<aside class="menu card full-height">
+<aside class="menu card">
     <div class="card-header">
 
         <p class="js-modal-trigger card-header-title is-clickable" data-target="user-modal">
@@ -14,7 +14,7 @@
             </a>
         </p>
     </div>
-
+    
     <div class="card-content">
 
         <div class="tags has-addons">
@@ -30,8 +30,8 @@
         </div>
 
         <ul class="menu-list">
-            <li>
-                <a href="{{ url_for('home') }}">
+            <!-- <li>
+                <a id="vault-menu" class="vault-menu" href="#">
                     <span class="icon-text">
                         <span class="icon">
                             <i class="fas fa-archive"></i>
@@ -43,15 +43,42 @@
                 </a>
                 <ul>
                     {% for vault in vaults  %}
-                    <li>
+                    <li id="content-vault" class="content-vault is-hidden">
                         <a href="{{ url_for('account', id_vault=vault[0]) }}">
                             {{ vault[1] }}
                         </a>
                     </li>
                     {% endfor %}
                 </ul>
+            </li> -->
+            <li>
+                <div class="dropdown">
+                    <div class="dropdown-trigger">
+                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span class="icon">
+                                <i class="fas fa-archive"></i>
+                            </span>
+                            <span> Bóvedas </span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                            {% for vault in vaults  %}
+                            
+                            <a href="{{ url_for('account', id_vault=vault[0]) }}">
+                                {{ vault[1] }}
+                            </a>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
 </aside>
+
 

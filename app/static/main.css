@@ -87,3 +87,11 @@ a:hover {
 .has-text-aqua-light {
     color: #CBF3F0 !important;
 }
+
+.icon-back{
+    background-color: hsl(0, 0%, 7%);
+    max-width: 1rem;
+    max-height: 1.05rem;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+}
