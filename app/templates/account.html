@@ -168,7 +168,7 @@ Cuentas
     {% if accounts %}
     {% for account in accounts %}
 
-    <a class="media" href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
+    <a class="media hover-accounts" href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
         <div class="media-left">
             <figure class="image is-48x48">
                 <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
@@ -179,6 +179,7 @@ Cuentas
             <p class="subtitle is-7">{{ account[2] }}</p>
         </div>
     </a>
+
     {% endfor %}
     {% else %}
 

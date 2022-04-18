@@ -27,6 +27,10 @@ body {
     border-width: 0.1rem;
 }
 
+.has-background-grey-native{
+    background-color: #cfcece;
+}
+
 .horizontal-line {
     border-top: thick solid #cfcece;
     border-width: 0.1rem;
@@ -94,8 +98,4 @@ a:hover {
     max-height: 1.05rem;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
-}
-
-.hover :hover{
-    color: #FFBF69;
 }

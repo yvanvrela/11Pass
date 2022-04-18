@@ -94,15 +94,15 @@ Bienvenido
     
 
     <a class="hover" href="{{ url_for('account', id_vault=vault[0])}}">
-        <span class="icon-text has-text-black-bis">
+        <span class="icon-text">
             <span class="icon is-right">
-                <i class="fas fa-lock"></i>
+                <i class="fas fa-folder has-text-dark"></i>
             </span>
-            <span>{{ vault[1] }}</span>
+            <span class="has-text-black-bis">{{ vault[1] }}</span>
         </span>
     </a>
 
-    <hr class="mb-2 mt-2">
+    <hr class="dropdown-divider has-background-grey-native">
 
     {% endfor %}
 
