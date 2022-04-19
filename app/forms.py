@@ -36,5 +36,6 @@ class AccountForm(FlaskForm):
     password = StringField('Password', [validators.DataRequired()])
     page = StringField('Página', [validators.DataRequired()])
     description = TextAreaField('Descripcion', name='Descripcion')
+    favorite = SubmitField('Favorite', name='Favorite')
 
     submit = SubmitField()

@@ -76,7 +76,7 @@ Detalles
     </div>
 </div>
 
-<div class="columns is-centered is-vcentered is-mobile">
+<div class="columns is-centered is-vcentered is-mobile is-hidden-mobile">
     <div class="column is-8-desktop-only is-5-mobile">
         <nav class="breadcrumb " aria-label="breadcrumbs">
             <ul>
@@ -156,7 +156,7 @@ Detalles
     </div>
 </div>
 
-<section class="box">
+<section class="box is-hidden-mobile">
     {% if accounts %}
     {% for account in accounts %}
 
@@ -368,6 +368,8 @@ Detalles
                         <textarea name="Descripcion" class="textarea">{{ details_account['description'] }}</textarea>
                     </div>
                 </div>
+
+                <input name="Favorite" class="is-hidden" value="{{ details_account['favorite'] }}">
             </section>
 
             <footer class="modal-card-foot">

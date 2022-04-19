@@ -174,7 +174,8 @@ def add_account():
                 username=account_form.username.data,
                 password=password_encrypt,
                 page=account_form.page.data,
-                description=account_form.description.data
+                description=account_form.description.data,
+                favorite=account_form.favorite.data
             )
 
             flash('Cuenta agregada', 'info')
@@ -208,11 +209,15 @@ def edit_account(id_account):
             username=account_form.username.data,
             password=password_encrypt,
             page=account_form.page.data,
-            description=account_form.description.data
+            description=account_form.description.data,
+            favorite=account_form.favorite.data
         )
 
+        print(account_form.favorite.data)
+
         flash('Cuenta editada')
-        return redirect(url_for('details_account', id_vault=id_vault, id_account=id_account))
+        # return redirect(url_for('details_account', id_vault=id_vault, id_account=id_account))
+        return redirect(request.referrer)
 
 
 @app.route('/account/delete/<id_vault>/<id_account>', methods=['GET', 'POST'])
@@ -277,6 +282,7 @@ def favorites():
 
 
 @app.route('/favorites/<id_account>', methods=['GET', 'POST'])
+@login_required
 def details_favorite(id_account):
 
     id_user = current_user.id
@@ -288,6 +294,8 @@ def details_favorite(id_account):
     details_account.update({'password': decrypt_data(
         str_encoded=details_account['password'], passkey_reference=secret_key_reference)})
 
+    account_form = AccountForm()
+
     context = {
         'username': current_user.username,
         'items': account_items(id_user=id_user),
@@ -296,7 +304,7 @@ def details_favorite(id_account):
         # 'id_vault': id_vault_reference,
         'list_favorites': list_favorites,
         # 'vault_form': vault_form,
-        # 'account_form': account_form,
+        'account_form': account_form,
     }
 
     return render_template('favorite_detail.html', **context)

@@ -1,0 +1,269 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+{{ super() }}
+Detalles
+{% endblock %}
+
+{% block content %}
+
+
+<div class="columns is-mobile is-hidden-mobile">
+    <div class="column is-8-desktop-only is-5-mobile">
+        <nav class="breadcrumb " aria-label="breadcrumbs">
+            <ul>
+                <li class="is-active">
+                    <a href="#">
+                        Favoritos
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+<section class="box is-hidden-mobile">
+
+    {% if list_favorites %}
+
+    {% for favorite in list_favorites %}
+
+    <a class="media hover-accounts"
+        href="{{ url_for('details_favorite', id_account=favorite['detail']['id_account']) }}">
+        <div class="media-left">
+            <figure class="image is-48x48">
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+            </figure>
+        </div>
+        <div class="media-content">
+            <p class="title is-6">{{ favorite['name'] }}</p>
+            <p class="subtitle is-7">{{ favorite['detail']['username'] }}</p>
+        </div>
+    </a>
+
+    {% endfor %}
+    {% else %}
+
+    <p class="subtitle is-6 has-text-centered">
+        No hay favoritos
+    </p>
+
+    {% endif %}
+    
+</section>
+
+{% endblock %}
+
+{% block details %}
+
+{% if details_account %}
+
+<div class="columns is-centered is-vcentered is-mobile">
+
+    <div class="column is-8-desktop-only is-5-mobile">
+
+        <nav class="breadcrumb " aria-label="breadcrumbs">
+            <ul>
+                <strong>
+
+                    <li class="is-active">
+                        <a href="#" aria-current="page">
+                            {{details_account['name']}}
+                        </a>
+                    </li>
+                </strong>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="column has-text-right">
+
+        <div class="columns is-mobile is-vcentered">
+
+            <div class="column">
+                <span class="js-modal-trigger button is-small is-orange" data-target="modal-js-example">
+                    <span class="icon">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span>
+                        Editar
+                    </span>
+                </span>
+            </div>
+
+            <div class="column">
+
+                <div id="dropdown-details-account target-dropdown" class="dropdown is-right"
+                    data-target="dropdown-details-account">
+
+                    <div class="dropdown-trigger">
+
+                        <span class="is-clickable" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span class="icon  has-text-black-bis">
+                                <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                            </span>
+                        </span>
+
+                    </div>
+
+                    <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
+
+                        <div class="dropdown-content">
+
+                            <a class="dropdown-item has-text-danger"
+                                href="{{ url_for('del_account', id_vault=details_account['id_vault'], id_account=details_account['id_account']) }}">
+
+                                <span class="icon-text">
+                                    <span>Eliminar</span>
+                                    <span class="icon">
+                                        <i class="far fa-trash-alt"></i>
+                                    </span>
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<section class="box">
+
+    <label class="label subtitle has-text-black-ter">Username o email</label>
+    <div class="field is-grouped">
+        <p class="control is-expanded">
+            <input id="foo" class="input" value="{{ details_account['username'] }}" readonly>
+        </p>
+        <p class="control">
+            <a class="btn button is-white tooltipped tooltipped-n " data-clipboard-target="#foo" aria-label="Copiar">
+                <span class="icon is-small has-text-black-ter">
+                    <i class="fas fa-copy"></i>
+                </span>
+            </a>
+        </p>
+    </div>
+
+
+
+    <label class="label has-text-black-ter">Contraseña</label>
+    <div class="field is-grouped">
+        <div class="control is-expanded">
+            <input id="foo2" class="input" value="{{ details_account['password'] }}" readonly>
+        </div>
+        <div class="control">
+            <a class="btn button is-white tooltipped tooltipped-n" data-clipboard-target="#foo2" aria-label="Copiar">
+                <span class="icon is-small has-text-black-ter">
+                    <i class="fas fa-copy"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+    <p class="help is-success"></p>
+
+</section>
+
+<section class="content ml-2">
+    <div class="content">
+        <label class="label">Página</label>
+        <a href="https://{{ details_account['page'] }}" target="_blanck">
+            <p>https://{{ details_account['page'] }}</p>
+        </a>
+    </div>
+
+    {% if details_account['description'] %}
+
+    <div class="content">
+        <label class="label">Descripción</label>
+        <p class="subtitle is-6 has-text-black-ter">
+            {{ details_account['description'] }}
+        </p>
+    </div>
+
+    {% endif %}
+</section>
+
+<!-- Modal editar cuenta -->
+
+<div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-card">
+        <header class="modal-card-head has-background-black-bis">
+            <p class="modal-card-title has-text-light">
+                Editar Cuenta
+            </p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+
+        <form action="{{ url_for('edit_account', id_account=details_account['id_account']) }}" method="POST">
+
+            <section class="modal-card-body">
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.name(id='name', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off', value=details_account['name']) }}
+                    </div>
+                </div>
+
+                {{account_form.id_vault(class='is-hidden', value=details_account['id_vault'])}}
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.username( class='input', type='text', placeholder='Username o email', autocomplete='off', value=details_account['username']) }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off', value=details_account['password']) }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.page(class='input', type='text', placeholder='Página de la cuenta', autocomplete='off', value=details_account['page']) }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <textarea name="Descripcion" class="textarea">{{ details_account['description'] }}</textarea>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="modal-card-foot">
+
+                <div class="field is-grouped">
+                    <p class="control">
+                        {{ account_form.submit(class="button is-orange", value="Actualizar") }}
+                    </p>
+
+                    <p class="control">
+                        <a class="button">Cancelar</a>
+                    </p>
+
+                </div>
+            </footer>
+
+        </form>
+
+    </div>
+</div>
+
+<button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+{% endif %}
+
+
+{% endblock %}
