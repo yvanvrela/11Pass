@@ -55,7 +55,7 @@ def home():
         'vault_form': vault_form,
         'username': username,
         'items': account_items(id_user=id_user),
-        'list_favorites':get_favorite_accounts(id_user=id_user)
+        'list_favorites': get_favorite_accounts(id_user=id_user)
     }
 
     return render_template('home.html', **context)
@@ -256,3 +256,47 @@ def details_account(id_vault, id_account):
     }
 
     return render_template('account_detail.html', **context)
+
+
+@app.route('/favorites', methods=['GET', 'POST'])
+@login_required
+def favorites():
+
+    id_user = current_user.id
+
+    list_favorites = get_favorite_accounts(id_user=id_user)
+
+    context = {
+        'username': current_user.username,
+        'list_favorites': list_favorites,
+        'items': account_items(id_user=id_user),
+        'vaults': get_vaults(id_user=id_user),
+    }
+
+    return render_template('favorite.html', **context)
+
+
+@app.route('/favorites/<id_account>', methods=['GET', 'POST'])
+def details_favorite(id_account):
+
+    id_user = current_user.id
+    secret_key_reference = current_user.secret_key
+
+    list_favorites = get_favorite_accounts(id_user=id_user)
+
+    details_account = get_account_by_id(id_account=id_account)
+    details_account.update({'password': decrypt_data(
+        str_encoded=details_account['password'], passkey_reference=secret_key_reference)})
+
+    context = {
+        'username': current_user.username,
+        'items': account_items(id_user=id_user),
+        'details_account': details_account,
+        'vaults': get_vaults(id_user=id_user),
+        # 'id_vault': id_vault_reference,
+        'list_favorites': list_favorites,
+        # 'vault_form': vault_form,
+        # 'account_form': account_form,
+    }
+
+    return render_template('favorite_detail.html', **context)

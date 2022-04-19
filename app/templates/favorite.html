@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+{{ super() }}
+Cuentas
+{% endblock %}
+
+{% block content %}
+
+
+<div class="columns is-centered is-vcentered is-mobile">
+
+    <div class="column is-8-desktop-only is-5-mobile">
+        <nav class="breadcrumb " aria-label="breadcrumbs">
+            <ul>
+                <li class="is-active">
+                    <a href="#">
+                        Favoritos
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+<section class="box">
+    
+    {% if list_favorites %}
+
+    {% for favorite in list_favorites %}
+
+    <a class="media hover-accounts" href="{{ url_for('details_favorite', id_account=favorite['detail']['id_account']) }}">
+        <div class="media-left">
+            <figure class="image is-48x48">
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+            </figure>
+        </div>
+        <div class="media-content">
+            <p class="title is-6">{{ favorite['name'] }}</p>
+            <p class="subtitle is-7">{{ favorite['detail']['username'] }}</p>
+        </div>
+    </a>
+
+    {% endfor %}
+    {% else %}
+
+    <p class="subtitle is-6 has-text-centered">
+        No hay favoritos
+    </p>
+
+    {% endif %}
+</section>
+
+{% endblock %}
