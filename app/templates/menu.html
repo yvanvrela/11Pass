@@ -14,71 +14,73 @@
             </a>
         </p>
     </div>
-    
+
     <div class="card-content">
 
-        <div class="tags has-addons">
-            <span class="tag has-text-black">
-                <div class="icon-text">
-                    <span class="icon">
-                        <i class="fas fa-clipboard-list"></i>
+        <div class="content">
+
+            <div class="tags has-addons">
+                <span class="tag has-text-black">
+                    <div class="icon-text">
+                        <span class="icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </span>
+                        <span>Items</span>
+                    </div>
+                </span>
+                <span class="tag is-orange has-text-black">{{ items[0] }}</span>
+
+            </div>
+
+            <a href="">
+
+                <div class="tags has-addons">
+                    <span class="tag has-text-black">
+                        <div class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-star has-text-orange-light"></i>
+                            </span>
+                            <span>Favoritos</span>
+                        </div>
                     </span>
-                    <span>Items</span>
                 </div>
-            </span>
-            <span class="tag is-orange has-text-black">{{ items[0] }}</span>
+            </a>
+
         </div>
 
-        <ul class="menu-list">
-            <!-- <li>
-                <a id="vault-menu" class="vault-menu" href="#">
-                    <span class="icon-text">
+
+        <div class="content">
+
+            <div class="dropdown">
+                <div class="dropdown-trigger">
+                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
                         <span class="icon">
-                            <i class="fas fa-archive"></i>
+                            <i class="fas fa-lock"></i>
                         </span>
-                        <span>
-                            Bóvedas
+                        <span> Bóvedas </span>
+                        <span class="icon is-small">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
                         </span>
-                    </span>
-                </a>
-                <ul>
-                    {% for vault in vaults  %}
-                    <li id="content-vault" class="content-vault is-hidden">
-                        <a href="{{ url_for('account', id_vault=vault[0]) }}">
+                    </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+
+
+                        {% for vault in vaults  %}
+
+
+                        <a class="dropdown-item" href="{{ url_for('account', id_vault=vault[0]) }}">
                             {{ vault[1] }}
                         </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li> -->
-            <li>
-                <div class="dropdown">
-                    <div class="dropdown-trigger">
-                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                            <span class="icon">
-                                <i class="fas fa-lock"></i>
-                            </span>
-                            <span> Bóvedas </span>
-                            <span class="icon is-small">
-                                <i class="fas fa-angle-down" aria-hidden="true"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                        <div class="dropdown-content">
-                            {% for vault in vaults  %}
-                            
-                            <a href="{{ url_for('account', id_vault=vault[0]) }}">
-                                {{ vault[1] }}
-                            </a>
 
-                            {% endfor %}
-                        </div>
+
+                        {% endfor %}
+
                     </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+
+        </div>
     </div>
 </aside>
-
-

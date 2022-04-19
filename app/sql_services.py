@@ -92,6 +92,7 @@ def create_table_accounts(db_file) -> None:
                 "password_element"	TEXT,
                 "page_element"	TEXT,
                 "description_element"	TEXT,
+                "favorite_element" INTEGER,
                 FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
                 FOREIGN KEY("id_vault") REFERENCES "vaults"("id_vault"),
                 PRIMARY KEY("id_account" AUTOINCREMENT)
@@ -332,6 +333,40 @@ def get_account_by_name(name: str, id_user: int, id_vault: int):
     return data
 
 
+def get_favorite_accounts(id_user:int) -> list:
+    """ Retorna todas las cuentas favoritas del usuario.
+        :param id_account id_user
+        :return Lista de favoritos 
+    """
+
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = f'SELECT id_account, id_vault, name_element, username_element FROM accounts WHERE favorite_element = 1 AND id_user = {id_user}'
+
+    favorites = cursor.execute(sql).fetchall()
+
+    favorites_list = []
+
+    for account in favorites:
+        favorites_list.append(
+            {
+                'name': account[2],
+                'detail': {
+                    'id_account': account[0],
+                    'id_vault': account[1],
+                    'id_user': id_user,
+                    'username': account[3],
+                },
+            }
+        )
+
+    conn.commit()
+    conn.close()
+
+    return favorites_list
+
+
 def end_element_account(id_user: int) -> list:
     """Datos del ultimo elemento"""
 
@@ -345,22 +380,22 @@ def end_element_account(id_user: int) -> list:
     return end_element
 
 
-def put_account(name: str, id_user: int, id_vault: int, username: str, password: str, page: str, description: str) -> None:
+def put_account(name: str, id_user: int, id_vault: int, username: str, password: str, page: str, description: str, favorite: int) -> None:
     """ Agrega los datos de la cuenta a la base de datos """
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
     sql = "INSERT INTO accounts \
-            (name_element, id_user, id_vault, username_element, password_element, page_element, description_element) \
-            VALUES (?,?,?,?,?,?,?)"
-    values = name, id_user, id_vault, username, password, page, description
+            (name_element, id_user, id_vault, username_element, password_element, page_element, description_element, favorite_element) \
+            VALUES (?,?,?,?,?,?,?,?)"
+    values = name, id_user, id_vault, username, password, page, description, favorite
 
     cursor.execute(sql, values)
     conn.commit()
 
 
-def update_account(account_id: int, id_user: int, id_vault: int, name: str, username: str, password: str, page: str, description: str) -> None:
+def update_account(account_id: int, id_user: int, id_vault: int, name: str, username: str, password: str, page: str, description: str, favorite: int) -> None:
     """Actualiza los datos de la cuenta"""
 
     conn = conection_db(db_file='database.db')
@@ -368,9 +403,9 @@ def update_account(account_id: int, id_user: int, id_vault: int, name: str, user
 
     sql = "UPDATE accounts  \
         SET  name_element = ?, id_user = ?, id_vault = ?, username_element = ?, password_element = ?, \
-        page_element = ?, description_element = ? \
+        page_element = ?, description_element = ?, favorite_element = ? \
         WHERE id_account = ?"
-    values = name, id_user, id_vault, username, password, page, description, account_id
+    values = name, id_user, id_vault, username, password, page, description, favorite, account_id
 
     cursor.execute(sql, values)
     conn.commit()
