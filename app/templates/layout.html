@@ -12,8 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bulma-toast@2.4.1/dist/bulma-toast.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.0.0/animate.min.css" />
-    <link rel="icon"
-        href="{{ url_for('static', filename='images/icon.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}">
     <title>
         {% block title %}
         PyPass |
@@ -31,22 +30,23 @@
     <nav class="navbar is-fixed-bottom is-hidden-desktop is-hidden-fullhd is-hidden-tablet has-background-black-bis"
         role="navigation">
         <div class="navbar-brand">
+            <a class="navbar-item is-expanded  is-block has-text-white has-text-centered" href="{{ url_for('home') }}">
+                <i class="fas fa-archive"></i>
+                <p class="is-size-7">Bóvedas</p>
+            </a>
+            <!-- <a class="navbar-item is-expanded  is-block has-text-white has-text-centered">
+                <i class="fas fa-search"></i>
+                <p class="is-size-7">Buscar</p>
+            </a> -->
+            <a class="navbar-item is-expanded is-block has-text-white has-text-centered"
+                href="{{ url_for('favorites') }}">
+                <i class="fas fa-star"></i>
+                <p class="is-size-7">Favoritos</p>
+            </a>
             <a class="js-modal-trigger navbar-item is-expanded  is-block has-text-white has-text-centered"
                 data-target="user-modal">
                 <i class="fa fa-user"></i>
                 <p class="is-size-7">Cuenta</p>
-            </a>
-            <a class="navbar-item is-expanded  is-block has-text-white has-text-centered">
-                <i class="fas fa-search"></i>
-                <p class="is-size-7">Buscar</p>
-            </a>
-            <a class="navbar-item is-expanded is-block has-text-white has-text-centered" href="{{ url_for('favorites') }}">
-                <i class="fas fa-star"></i>
-                <p class="is-size-7">Favoritos</p>
-            </a>
-            <a class="navbar-item is-expanded  is-block has-text-white has-text-centered" href="{{ url_for('home') }}">
-                <i class="fas fa-archive"></i>
-                <p class="is-size-7">Bóvedas</p>
             </a>
         </div>
     </nav>

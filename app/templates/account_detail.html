@@ -195,14 +195,26 @@ Detalles
 
         <nav class="breadcrumb " aria-label="breadcrumbs">
             <ul>
-                <strong>
-
+                <strong class="is-hidden-mobile">
                     <li class="is-active">
                         <a href="#" aria-current="page">
                             {{details_account['name']}}
                         </a>
                     </li>
                 </strong>
+
+                <li class="is-hidden-desktop is-hidden-widescreen is-hidden-fullhd is-hidden-tablet">
+                    <a class="has-text-orange-light" href="{{ url_for('account', id_vault=details_account['id_vault']) }}">
+                        {{vaultname[0].capitalize()}}
+                    </a>
+                </li>
+
+                <li class="is-active is-hidden-desktop is-hidden-widescreen is-hidden-fullhd is-hidden-tablet">
+                    <a href="#" aria-current="page">
+                        {{details_account['name']}}
+                    </a>
+                </li>
+
             </ul>
         </nav>
     </div>
