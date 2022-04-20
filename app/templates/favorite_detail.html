@@ -17,6 +17,7 @@ Detalles
                         Favoritos
                     </a>
                 </li>
+                <li></li>
             </ul>
         </nav>
     </div>
@@ -50,7 +51,7 @@ Detalles
     </p>
 
     {% endif %}
-    
+
 </section>
 
 {% endblock %}
@@ -65,14 +66,26 @@ Detalles
 
         <nav class="breadcrumb " aria-label="breadcrumbs">
             <ul>
-                <strong>
-
+                <strong class="is-hidden-mobile">
                     <li class="is-active">
                         <a href="#" aria-current="page">
                             {{details_account['name']}}
                         </a>
                     </li>
                 </strong>
+                
+                <li class="is-hidden-desktop is-hidden-widescreen is-hidden-fullhd is-hidden-tablet">
+                    <a class="has-text-orange-light" href="{{ url_for('favorites') }}">
+                        Favoritos
+                    </a>
+                </li>
+                
+                <li class="is-active is-hidden-desktop is-hidden-widescreen is-hidden-fullhd is-hidden-tablet">
+                    <a href="#" aria-current="page">
+                        {{details_account['name']}}
+                    </a>
+                </li>
+
             </ul>
         </nav>
     </div>
@@ -80,6 +93,30 @@ Detalles
     <div class="column has-text-right">
 
         <div class="columns is-mobile is-vcentered">
+
+            <div class="column">
+                {% if details_account['favorite'] %}
+
+                <a href="{{ url_for('edit_favorite', id_account = details_account['id_account'], data=0 ) }}">
+
+                    <span class="icon is-medium">
+                        <i class="fas fa-star fa-lg has-text-orange-light"></i>
+                    </span>
+
+                </a>
+
+                {% else %}
+
+                <a href="{{ url_for('edit_favorite', id_account = details_account['id_account'], data=1 ) }}">
+
+                    <span class="icon is-medium">
+                        <i class="far fa-star fa-lg has-text-black-bis"></i>
+                    </span>
+
+                </a>
+
+                {% endif %}
+            </div>
 
             <div class="column">
                 <span class="js-modal-trigger button is-small is-orange" data-target="modal-js-example">
@@ -107,12 +144,12 @@ Detalles
 
                     </div>
 
-                    <div class="dropdown-menu has-text-centered" id="dropdown-menu" role="menu">
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
 
                         <div class="dropdown-content">
 
                             <a class="dropdown-item has-text-danger"
-                                href="{{ url_for('del_account', id_vault=details_account['id_vault'], id_account=details_account['id_account']) }}">
+                                href="{{ url_for('edit_favorite', id_account=details_account['id_account'], data=0) }}">
 
                                 <span class="icon-text">
                                     <span>Eliminar</span>
@@ -239,6 +276,9 @@ Detalles
                         <textarea name="Descripcion" class="textarea">{{ details_account['description'] }}</textarea>
                     </div>
                 </div>
+
+                <input name="Favorite" class="is-hidden" value="{{ details_account['favorite'] }}">
+
             </section>
 
             <footer class="modal-card-foot">

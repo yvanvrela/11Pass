@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 
 from app.forms import AccountForm, VaultForm
 from app.lib.security_fuctions import decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault,  delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_vault
+from app.sql_services import account_items, add_vault,  delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_vault
 
 app = create_app()
 
@@ -184,7 +184,7 @@ def add_account():
 
         flash('El nombre de la cuenta ya existe.')
 
-        return redirect(url_for('account', id_vault=id_vault_reference))
+        return redirect(request.referrer)
 
 
 @app.route('/account/edit/<id_account>', methods=['GET', 'POST'])
@@ -213,10 +213,9 @@ def edit_account(id_account):
             favorite=account_form.favorite.data
         )
 
-        print(account_form.favorite.data)
 
         flash('Cuenta editada')
-        # return redirect(url_for('details_account', id_vault=id_vault, id_account=id_account))
+
         return redirect(request.referrer)
 
 
@@ -290,21 +289,38 @@ def details_favorite(id_account):
 
     list_favorites = get_favorite_accounts(id_user=id_user)
 
-    details_account = get_account_by_id(id_account=id_account)
-    details_account.update({'password': decrypt_data(
-        str_encoded=details_account['password'], passkey_reference=secret_key_reference)})
+    details_account = get_favorite_by_id(id_account=id_account)
 
-    account_form = AccountForm()
+    if details_account:
 
-    context = {
-        'username': current_user.username,
-        'items': account_items(id_user=id_user),
-        'details_account': details_account,
-        'vaults': get_vaults(id_user=id_user),
-        # 'id_vault': id_vault_reference,
-        'list_favorites': list_favorites,
-        # 'vault_form': vault_form,
-        'account_form': account_form,
-    }
+        details_account.update({'password': decrypt_data(
+            str_encoded=details_account['password'], passkey_reference=secret_key_reference)})
 
-    return render_template('favorite_detail.html', **context)
+        account_form = AccountForm()
+
+        context = {
+            'username': current_user.username,
+            'items': account_items(id_user=id_user),
+            'details_account': details_account,
+            'vaults': get_vaults(id_user=id_user),
+            'list_favorites': list_favorites,
+            'account_form': account_form,
+        }
+
+        return render_template('favorite_detail.html', **context)
+    else:
+        return redirect(url_for('favorites'))
+
+
+@app.route('/favorite/add/<id_account>/<data>', methods=['GET', 'POST'])
+@login_required
+def edit_favorite(id_account, data):
+
+    update_favorite(data=data, id_account=id_account)
+
+    if data == '1':
+        flash('Cuenta agregada a favoritos')
+        return redirect(request.referrer)
+    else:
+        flash('Cuenta eliminada de favoritos')
+        return redirect(request.referrer)

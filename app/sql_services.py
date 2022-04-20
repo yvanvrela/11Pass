@@ -311,13 +311,45 @@ def get_account_by_id(id_account):
         'description': details[4],
         'id_vault': details[5],
         'id_account': details[6],
-        'favorite':details[7],
+        'favorite': details[7],
     }
 
     conn.commit()
     conn.close()
 
     return details
+
+
+def get_favorite_by_id(id_account):
+
+    conn = conection_db('database.db')
+    cursor = conn.cursor()
+
+    sql = f'SELECT name_element, username_element, page_element, password_element, description_element,  \
+            id_vault, id_account, favorite_element FROM accounts WHERE id_account = {id_account} and favorite_element = 1'
+    details = cursor.execute(sql).fetchone()
+
+    if details == None:
+        conn.commit()
+        conn.close()
+
+        return False
+    else:
+        details = {
+            'name': details[0],
+            'username': details[1],
+            'page': details[2],
+            'password': details[3],
+            'description': details[4],
+            'id_vault': details[5],
+            'id_account': details[6],
+            'favorite': details[7],
+        }
+
+        conn.commit()
+        conn.close()
+
+        return details
 
 
 def get_account_by_name(name: str, id_user: int, id_vault: int):
@@ -334,7 +366,7 @@ def get_account_by_name(name: str, id_user: int, id_vault: int):
     return data
 
 
-def get_favorite_accounts(id_user:int) -> list:
+def get_favorite_accounts(id_user: int) -> list:
     """ Retorna todas las cuentas favoritas del usuario.
         :param id_account id_user
         :return Lista de favoritos 
@@ -343,7 +375,7 @@ def get_favorite_accounts(id_user:int) -> list:
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT id_account, id_vault, name_element, username_element FROM accounts WHERE favorite_element = 1 AND id_user = {id_user}'
+    sql = f'SELECT id_account, id_vault, name_element, username_element FROM accounts WHERE favorite_element = 1 AND id_user = {id_user} ORDER BY name_element'
 
     favorites = cursor.execute(sql).fetchall()
 
@@ -366,6 +398,18 @@ def get_favorite_accounts(id_user:int) -> list:
     conn.close()
 
     return favorites_list
+
+
+def update_favorite(data: int, id_account: int) -> None:
+
+    conn = conection_db(db_file='database.db')
+    cursor = conn.cursor()
+
+    sql = "UPDATE accounts SET favorite_element = ? WHERE id_account = ?"
+    value = data, id_account
+
+    cursor.execute(sql, value)
+    conn.commit()
 
 
 def end_element_account(id_user: int) -> list:
