@@ -440,7 +440,7 @@ def put_account(name: str, id_user: int, id_vault: int, username: str, password:
     conn.commit()
 
 
-def update_account(account_id: int, id_user: int, id_vault: int, name: str, username: str, password: str, page: str, description: str, favorite: int) -> None:
+def update_account(account_id: int, id_user: int, id_vault: int, name: str, username: str, password: str, page: str, description: str) -> None:
     """Actualiza los datos de la cuenta"""
 
     conn = conection_db(db_file='database.db')
@@ -448,9 +448,9 @@ def update_account(account_id: int, id_user: int, id_vault: int, name: str, user
 
     sql = "UPDATE accounts  \
         SET  name_element = ?, id_user = ?, id_vault = ?, username_element = ?, password_element = ?, \
-        page_element = ?, description_element = ?, favorite_element = ? \
+        page_element = ?, description_element = ? \
         WHERE id_account = ?"
-    values = name, id_user, id_vault, username, password, page, description, favorite, account_id
+    values = name, id_user, id_vault, username, password, page, description, account_id
 
     cursor.execute(sql, values)
     conn.commit()

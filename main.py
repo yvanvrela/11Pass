@@ -175,12 +175,12 @@ def add_account():
                 password=password_encrypt,
                 page=account_form.page.data,
                 description=account_form.description.data,
-                favorite=account_form.favorite.data
+                favorite=0
             )
 
             flash('Cuenta agregada', 'info')
 
-            return redirect(url_for('account', id_vault=id_vault_reference))
+            return redirect(request.referrer)
 
         flash('El nombre de la cuenta ya existe.')
 
@@ -193,8 +193,6 @@ def edit_account(id_account):
     account_form = AccountForm()
     id_user = current_user.id
     secret_key_reference = current_user.secret_key
-
-    id_vault = account_form.id_vault.data
 
     if account_form.validate_on_submit():
 
@@ -209,10 +207,8 @@ def edit_account(id_account):
             username=account_form.username.data,
             password=password_encrypt,
             page=account_form.page.data,
-            description=account_form.description.data,
-            favorite=account_form.favorite.data
+            description=account_form.description.data
         )
-
 
         flash('Cuenta editada')
 
