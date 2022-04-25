@@ -25,7 +25,7 @@ Detalles
 
                 <div class="field">
                     <div class="control">
-                        {{ account_form.name(id='name', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off') }}
+                        {{ account_form.name(id='name-account', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off') }}
                     </div>
                 </div>
 
@@ -204,7 +204,8 @@ Detalles
                 </strong>
 
                 <li class="is-hidden-desktop is-hidden-widescreen is-hidden-fullhd is-hidden-tablet">
-                    <a class="has-text-orange-light" href="{{ url_for('account', id_vault=details_account['id_vault']) }}">
+                    <a class="has-text-orange-light"
+                        href="{{ url_for('account', id_vault=details_account['id_vault']) }}">
                         {{vaultname[0].capitalize()}}
                     </a>
                 </li>
@@ -324,10 +325,17 @@ Detalles
     <label class="label has-text-black-ter">Contraseña</label>
     <div class="field is-grouped">
         <div class="control is-expanded">
-            <input id="foo2" class="input" value="{{ details_account['password'] }}" readonly>
+            <input id="foo2" class="input" type="password" value="{{ details_account['password'] }}">
         </div>
         <div class="control">
-            <a class="btn button is-white tooltipped tooltipped-n" data-clipboard-target="#foo2" aria-label="Copiar">
+            <a class="button is-white" onclick="viewPass('foo2')">
+                <span class="icon is-small has-text-black-ter">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </a>
+        </div>
+        <div class="control">
+            <a class="button btn is-white tooltipped tooltipped-n" data-clipboard-target="#foo2"  aria-label="Copiar" onclick="viewPassCopy('foo2')">
                 <span class="icon is-small has-text-black-ter">
                     <i class="fas fa-copy"></i>
                 </span>
@@ -377,27 +385,27 @@ Detalles
 
                 <div class="field">
                     <div class="control">
-                        {{ account_form.name(id='name', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off', value=details_account['name']) }}
+                        {{ account_form.name(id='name-vault-edit', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off', value=details_account['name']) }}
                     </div>
                 </div>
 
-                {{account_form.id_vault(class='is-hidden', value=details_account['id_vault'])}}
+                {{account_form.id_vault(id='id_vault-edit', class='is-hidden', value=details_account['id_vault'])}}
 
                 <div class="field">
                     <div class="control">
-                        {{ account_form.username( class='input', type='text', placeholder='Username o email', autocomplete='off', value=details_account['username']) }}
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off', value=details_account['password']) }}
+                        {{ account_form.username(id='username-edit', class='input', type='text', placeholder='Username o email', autocomplete='off', value=details_account['username']) }}
                     </div>
                 </div>
 
                 <div class="field">
                     <div class="control">
-                        {{ account_form.page(class='input', type='text', placeholder='Página de la cuenta', autocomplete='off', value=details_account['page']) }}
+                        {{ account_form.password(id='password-edit', class='input', type='text', placeholder='Contraseña', autocomplete='off', value=details_account['password']) }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ account_form.page(id='page-edit', class='input', type='text', placeholder='Página de la cuenta', autocomplete='off', value=details_account['page']) }}
                     </div>
                 </div>
 
@@ -414,7 +422,7 @@ Detalles
 
                 <div class="field is-grouped">
                     <p class="control">
-                        {{ account_form.submit(class="button is-orange", value="Actualizar") }}
+                        {{ account_form.submit(id='submit-form-edit', class="button is-orange", value="Actualizar") }}
                     </p>
 
                     <p class="control">

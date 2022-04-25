@@ -189,54 +189,102 @@
         <div class="modal-background"></div>
 
         <div class="modal-content">
-            <div class="card">
-                <div class="card-content">
-
-                    <p class="content">
-                        <p class="subtitle">Editar usuario</p>
+            <div class="modal-card">
+                <header class="modal-card-head has-background-black-bis">
+                    <p class="modal-card-title has-text-light">
+                        Editar usuario
                     </p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
 
-                    <div class="field">
-                        <div class="control has-icons-left has-icons-right">
+                <div class="modal-card-body">
 
-                            <input class="input">
+                    <div class="column container is-6">
 
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>
+                        <div class="field">
+                            <label class="label">Usuario</label>
+                            <div class="control has-icons-left has-icons-right">
+
+                                <input class="input" type="text" value="{{username}}">
+
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="field">
-                        <div class="control has-icons-left">
+                        <label class="label">Nueva contraseña</label>
+                        <div class="field is-grouped is-expanded">
 
-                            <input class="input">
+                            <div class="control has-icons-left">
 
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-lock"></i>
-                            </span>
+                                <input id="user-password" class="input" type="password">
+
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="control">
+
+                                <a class="btn button is-white" onclick="viewPass('user-password')">
+                                    <span class="icon is-small has-text-black-ter">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </a>
+
+                            </div>
+
                         </div>
+
+
+                        <label class="label">Confirmar contraseña</label>
+                        <div class="field is-grouped is-expanded">
+
+                            <div class="control has-icons-left">
+
+                                <input id="user-password-confirm" class="input" type="password">
+
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="control">
+
+                                <a class="btn button is-white" onclick="viewPass('user-password-confirm')">
+                                    <span class="icon is-small has-text-black-ter">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </a>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
-                <footer class="card-footer">
-                    <a href="#" class="card-footer-item has-text-orange">
-                        <span class="icon-text">
-                            <span class="icon">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <span></span>
-                        </span>
-                    </a>
-                    <a href="#" class="exit card-footer-item has-text-danger">
-                        <span class="icon-text">
-                            <span class="icon">
-                                <i class="fas fa-times"></i>
-                            </span>
-                            <span></span>
-                        </span>
-                    </a>
+                <footer class="modal-card-foot">
+
+                    <div class="field is-grouped">
+
+                        <p class="control">
+                            <a href="#" class="btn button is-orange">
+                                Editar
+                            </a>
+                        </p>
+
+                        <p class="control">
+                            <a class="button">Cancelar</a>
+                        </p>
+
+                    </div>
+
                 </footer>
 
             </div>
@@ -244,5 +292,23 @@
     </div>
 
 </body>
+
+<script>
+    function viewPass(id) {
+        var tipo = document.getElementById(id);
+        if (tipo.type === "password") {
+            tipo.type = "text";
+        } else {
+            tipo.type = "password";
+        }
+    }
+
+    function viewPassCopy(id) {
+        var tipo = document.getElementById(id);
+        if (tipo.type === "password") {
+            tipo.type = "text";
+        }
+    }
+</script>
 
 </html>

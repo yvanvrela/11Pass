@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         e.clearSelection();
+        var tipo = document.getElementById('foo2')
+        if (tipo.type === 'text'){
+            tipo.type = 'password'
+        }
     });
 
     clipboard.on('error', function (e) {

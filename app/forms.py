@@ -37,4 +37,4 @@ class AccountForm(FlaskForm):
     page = StringField('Página', [validators.DataRequired()])
     description = TextAreaField('Descripcion', name='Descripcion')
 
-    submit = SubmitField()
+    submit = SubmitField(id='submit-form')
