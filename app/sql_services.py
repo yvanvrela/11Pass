@@ -146,6 +146,19 @@ def add_user(username: str, password: str, secret_key: str) -> None:
     conn.commit()
 
 
+def update_user(id_user: int, username: str, password: str) -> None:
+    """ Actualizar datos del usuario """
+
+    conn = conection_db(db_file='database.db')
+    cursor = conn.cursor()
+
+    sql = f"UPDATE users SET user_name='{username}', user_password='{password}' WHERE id_user={id_user}"
+    cursor.execute(sql)
+
+    conn.commit()
+    conn.close()
+
+
 def all_users() -> list:
     """Trae todos los usuarios de la bd"""
 

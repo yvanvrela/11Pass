@@ -19,6 +19,12 @@ class SignupForm(FlaskForm):
 
     submit = SubmitField('Registrarse')
 
+class UserForm(FlaskForm):
+    username = StringField('username', [validators.DataRequired()])
+    password_reference = PasswordField(id='user-password', validators=[validators.DataRequired()])
+    new_password = PasswordField(id='new-password', validators=[validators.DataRequired()])
+
+    submit = SubmitField(id='submit-user')
 
 class VaultForm(FlaskForm):
     vaultname = StringField(

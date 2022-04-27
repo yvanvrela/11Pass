@@ -1,0 +1,250 @@
+<!-- Modal user -->
+
+<div id="user-modal" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="card">
+
+            <div class="card-content">
+
+                <div class="has-text-centered">
+                    <figure class="image is-128x128 is-inline-block">
+                        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png"
+                            alt="Placeholder image">
+                    </figure>
+                    <p class="title is-4">{{username.capitalize()}}</p>
+                    <p class="subtitle is-6">correo@correo.com</p>
+                </div>
+                <hr>
+                <div class="content">
+                    <label class="label">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-key"></i>
+                            </span>
+                            <span>Secret Key</span>
+                        </span>
+                    </label>
+                    <p class="subtitle is-6 has-text-black-ter">
+                        dsafafafdadsfasfd
+                    </p>
+
+                </div>
+
+            </div>
+
+            <footer class="card-footer">
+                <a href="#" class="card-footer-item has-text-orange">
+
+                    <span class="icon">
+                        <i class="fas fa-check"></i>
+                    </span>
+
+                </a>
+                <a href="#" class="js-modal-trigger card-footer-item" data-target="edit-user">
+
+                    <span class="icon">
+                        <i class="fas fa-edit"></i>
+                    </span>
+
+                </a>
+                <a href="{{ url_for('auth.logout') }}" class="card-footer-item has-text-black-bis">
+
+                    <span class="icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </span>
+
+                </a>
+            </footer>
+        </div>
+
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+<!-- Modal edit user -->
+
+<div id="edit-user" class="modal is-active">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head has-background-black-bis">
+                <p class="modal-card-title has-text-light">
+                    Editar usuario
+                </p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+
+            <form action="{{ url_for('edit_user') }}" method="POST">
+
+                <div class="modal-card-body">
+
+                    <div class="column container is-6">
+
+
+                        <div class="content">
+                            <div class="field">
+                                <label class="label">Username</label>
+                                <div class="control has-icons-left has-icons-right">
+
+                                    {{user_form.username(class='input', value=username)}}
+                                    <!-- Icon -->
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="content">
+
+                            <p class="title is-5">
+                                Cambiar contraseña
+                            </p>
+
+                            <label class="label">Contraseña actual</label>
+                            <div class="field is-grouped is-expanded">
+
+                                <div class="control has-icons-left">
+
+                                    {{user_form.password_reference(class='input', placeholder='Ingrese su contraseña actual')}}
+
+                                    <!-- Icon -->
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                </div>
+
+                                <!-- Button view pass -->
+                                <div class="control">
+
+                                    <a class="btn button is-white" onclick="viewPass('user-password')">
+                                        <span class="icon is-small has-text-black-ter">
+                                            <i id="icon-user-password" class="fas fa-eye"></i>
+                                        </span>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <label class="label">Nueva contraseña</label>
+                            <div class="field is-grouped is-expanded">
+
+                                <div class="control has-icons-left">
+
+                                    {{user_form.new_password(class='input')}}
+
+                                    <!-- Icon -->
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                </div>
+
+                                <!-- Button view pass -->
+                                <div class="control">
+
+                                    <a class="btn button is-white" onclick="viewPass('new-password')">
+                                        <span class="icon is-small has-text-black-ter">
+                                            <i id="icon-new-password" class="fas fa-eye"></i>
+                                        </span>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                            <label class="label">Confirmar contraseña</label>
+                            <div class="field is-grouped is-expanded">
+
+                                <div class="control has-icons-left">
+
+                                    <input id="password-confirm" class="input" type="password">
+
+                                    <!-- Icon -->
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                </div>
+
+                                <!-- Button view pass -->
+                                <div class="control">
+
+                                    <a class="btn button is-white" onclick="viewPass('password-confirm')">
+                                        <span class="icon is-small has-text-black-ter">
+                                            <i id="icon-password-confirm" class="fas fa-eye"></i>
+                                        </span>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+                <footer class="modal-card-foot">
+
+                    <div class="field is-grouped">
+
+                        <p class="control">
+                            {{user_form.submit(class='button is-orange', value='Editar')}}
+                        </p>
+
+                        <p class="control">
+                            <a class="button">Cancelar</a>
+                        </p>
+
+                    </div>
+
+                </footer>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script>
+    function viewPass(id) {
+        var tipo = document.getElementById(id);
+        var icon = document.getElementById('icon-' + id);
+
+        if (tipo.type === "password") {
+            tipo.type = "text";
+
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            tipo.type = "password";
+
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+
+    function viewPassCopy(id) {
+        var tipo = document.getElementById(id);
+        if (tipo.type === "password") {
+            tipo.type = "text";
+        }
+    }
+</script>

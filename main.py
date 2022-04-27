@@ -4,10 +4,10 @@ from flask import(
 )
 from app import create_app
 from flask_login import login_required, current_user
-
-from app.forms import AccountForm, VaultForm
+from app.forms import AccountForm, UserForm, VaultForm
+from werkzeug.security import generate_password_hash, check_password_hash
 from app.lib.security_fuctions import decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault,  delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_vault
+from app.sql_services import account_items, add_vault,  delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_user_by_id, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_user, update_vault
 
 app = create_app()
 
@@ -44,6 +44,36 @@ def index():
     return redirect(url_for('auth.login'))
 
 
+@app.route('/user/update', methods=['GET', 'POST'])
+@login_required
+def edit_user():
+
+    user_form = UserForm()
+    id_user = current_user.id
+
+    if user_form.validate_on_submit():
+
+        password_form_db = current_user.password
+
+        new_username = user_form.username.data
+        password_reference = user_form.password_reference.data
+        new_password = user_form.new_password.data
+
+        if check_password_hash(password_form_db, password_reference):
+
+            update_user(
+                id_user=id_user,
+                username=new_username,
+                password=new_password
+            )
+
+            flash('Datos del usuario actualizados')
+            return redirect(request.referrer)
+        else:
+            flash('Contraseña incorrecta')
+            return redirect(request.referrer)
+
+
 @app.route('/vaults', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -55,7 +85,8 @@ def home():
         'vault_form': vault_form,
         'username': username,
         'items': account_items(id_user=id_user),
-        'list_favorites': get_favorite_accounts(id_user=id_user)
+        'list_favorites': get_favorite_accounts(id_user=id_user),
+        'user_form': UserForm(),
     }
 
     return render_template('home.html', **context)
