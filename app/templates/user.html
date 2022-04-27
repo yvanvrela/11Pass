@@ -17,7 +17,7 @@
                     <p class="subtitle is-6">correo@correo.com</p>
                 </div>
                 <hr>
-                <div class="content">
+                <div class="content has-text-centered">
                     <label class="label">
                         <span class="icon-text">
                             <span class="icon">
@@ -27,29 +27,32 @@
                         </span>
                     </label>
                     <p class="subtitle is-6 has-text-black-ter">
-                        dsafafafdadsfasfd
+                        {{secret_key}}
                     </p>
-
+                    <!-- #TODO: crear modal para eliminar la cuenta -->
+                    <hr>
+                    <a class="subtitle is-7 has-text-danger-dark">Eliminar cuenta</a>
                 </div>
+
 
             </div>
 
             <footer class="card-footer">
-                <a href="#" class="card-footer-item has-text-orange">
+                <a href="#" class="card-footer-item exit">
 
                     <span class="icon">
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-user-check has-text-black-bis"></i>
                     </span>
 
                 </a>
                 <a href="#" class="js-modal-trigger card-footer-item" data-target="edit-user">
 
                     <span class="icon">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-user-edit"></i>
                     </span>
 
                 </a>
-                <a href="{{ url_for('auth.logout') }}" class="card-footer-item has-text-black-bis">
+                <a href="{{ url_for('auth.logout') }}" class="card-footer-item has-text-danger-dark">
 
                     <span class="icon">
                         <i class="fas fa-sign-out-alt"></i>
@@ -67,7 +70,7 @@
 
 <!-- Modal edit user -->
 
-<div id="edit-user" class="modal is-active">
+<div id="edit-user" class="modal">
     <div class="modal-background"></div>
 
     <div class="modal-content">
@@ -101,7 +104,7 @@
                             </div>
 
                         </div>
-                        <hr>
+                        
                         <div class="content">
 
                             <p class="title is-5">
@@ -192,8 +195,6 @@
                             </div>
 
                         </div>
-
-
 
                     </div>
 

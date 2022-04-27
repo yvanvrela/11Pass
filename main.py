@@ -114,6 +114,7 @@ def home():
         'items': account_items(id_user=id_user),
         'list_favorites': get_favorite_accounts(id_user=id_user),
         'user_form': UserForm(),
+        'secret_key': current_user.secret_key,
     }
 
     return render_template('home.html', **context)
