@@ -1,3 +1,4 @@
+from flask import redirect, url_for
 from flask_login import UserMixin
 
 from app.lib.security_fuctions import decrypt_data
@@ -38,12 +39,16 @@ class UserModel(UserMixin):
     def queryId(user_id):
         user_doc = get_user_by_id(user_id)  # Trae el usuario, si existe
 
-        # Nueva instancia de UserData, busca en la bd si existe el usuario
-        user_data = UserData(
-            user_id=user_doc['user_id'],
-            username=user_doc['username'],
-            password=user_doc['password'],
-            secret_key= user_doc['secret_key'],
-        )
+        if user_doc is not None:
 
-        return UserModel(user_data)
+            # Nueva instancia de UserData, busca en la bd si existe el usuario
+            user_data = UserData(
+                user_id=user_doc['user_id'],
+                username=user_doc['username'],
+                password=user_doc['password'],
+                secret_key= user_doc['secret_key'],
+            )
+
+            return UserModel(user_data)
+        else:
+            return redirect(url_for('auth.login'))

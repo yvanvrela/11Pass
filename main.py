@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 from app.forms import AccountForm, UserForm, VaultForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.lib.security_fuctions import decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault,  delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_user_by_id, get_user_by_name, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_user, update_vault
+from app.sql_services import account_items, add_vault,  delete_account, delete_user, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_user_by_id, get_user_by_name, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_user, update_vault
 
 app = create_app()
 
@@ -99,6 +99,18 @@ def edit_user():
         else:
             flash('El nombre de usuario ya existe!')
             return redirect(request.referrer)
+
+
+@app.route('/user/delete', methods=['GET', 'POST'])
+@login_required
+def del_user():
+    id_user = current_user.id
+
+    delete_user(id_user=id_user)
+
+    flash(message='Cuenta eliminada', category='delete')
+
+    return redirect(url_for('index'))
 
 
 @app.route('/vaults', methods=['GET', 'POST'])

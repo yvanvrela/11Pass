@@ -109,15 +109,18 @@ def get_user_by_id(user_id: int) -> dict:
     cursor = conn.cursor()
     sql = f'SELECT * FROM users WHERE id_user = {user_id}'
     user = cursor.execute(sql).fetchone()
-    user = {
-        'user_id': user[0],
-        'username': user[1],
-        'password': user[2],
-        'secret_key': user[3],
-    }
-    conn.commit()
+    if user is not None:
+        user = {
+            'user_id': user[0],
+            'username': user[1],
+            'password': user[2],
+            'secret_key': user[3],
+        }
+        conn.commit()
 
-    return user
+        return user
+    else:
+        return None
 
 
 def get_user_by_name(username: str):
@@ -153,6 +156,30 @@ def update_user(id_user: int, username: str, password: str) -> None:
     cursor = conn.cursor()
 
     sql = f"UPDATE users SET user_name='{username}', user_password='{password}' WHERE id_user={id_user}"
+    cursor.execute(sql)
+
+    conn.commit()
+    conn.close()
+
+
+def delete_user(id_user: int) -> None:
+    """Elimina el usuario, todas sus bovedas y cuentas de la bd"""
+
+    conn = conection_db(db_file='database.db')
+    cursor = conn.cursor()
+
+    exists_account = all_account(id_user=id_user)
+    exists_vault = get_vaults(id_user=id_user)
+
+    if exists_account:
+        sql = f"DELETE FROM accounts WHERE id_user= {id_user}"
+        cursor.execute(sql)
+
+    if exists_vault:
+        sql = f"DELETE FROM vaults WHERE id_user= {id_user}"
+        cursor.execute(sql)
+
+    sql = f"DELETE FROM users WHERE id_user= {id_user}"
     cursor.execute(sql)
 
     conn.commit()
@@ -213,6 +240,7 @@ def delete_vault(id_vault: int) -> None:
     cursor.execute(sql)
 
     conn.commit()
+    conn.close()
 
 
 def get_vaults(id_user: int) -> tuple:

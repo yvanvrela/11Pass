@@ -31,7 +31,7 @@
                     </p>
                     <!-- #TODO: crear modal para eliminar la cuenta -->
                     <hr>
-                    <a class="subtitle is-7 has-text-danger-dark">Eliminar cuenta</a>
+                    <a class="subtitle is-7 has-text-danger-dark js-modal-trigger" data-target="delete-user">Eliminar cuenta</a>
                 </div>
 
 
@@ -104,7 +104,7 @@
                             </div>
 
                         </div>
-                        
+
                         <div class="content">
 
                             <p class="title is-5">
@@ -206,6 +206,51 @@
 
                         <p class="control">
                             {{user_form.submit(class='button  is-orange', value='Editar')}}
+                        </p>
+
+                        <p class="control">
+                            <a class="button exit">Cancelar</a>
+                        </p>
+
+                    </div>
+
+                </footer>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal elimar cuenta -->
+<div id="delete-user" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">
+                    Eliminar usuario
+                </p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+
+            <form action="{{ url_for('del_user') }}" method="POST">
+
+                <div class="modal-card-body">
+
+                    <p class="subtitle has-text-black-bis">
+                        Está seguro de que quiere eliminar su cuenta?
+                    </p>
+
+                </div>
+
+                <footer class="modal-card-foot">
+
+                    <div class="field is-grouped">
+
+                        <p class="control">
+                            <button href="" class="button is-danger">Elimnar</button>
                         </p>
 
                         <p class="control">
