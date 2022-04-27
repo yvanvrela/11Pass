@@ -90,3 +90,26 @@
 {% endfor %}
 {% endif %}
 {% endwith %}
+
+<!-- Error toast -->
+
+{% with errors = get_flashed_messages(category_filter=['error']) %}
+{% if errors %}
+{% for msg in errors %}
+<script>
+    bulmaToast.toast({
+        message: '{{ msg }}',
+        duration: 2050,
+        position: 'top-right',
+        type: 'is-danger',
+        closeOnClick: true,
+        dismissible: true,
+        animate: {
+            in: 'fadeIn',
+            out: 'fadeOut'
+        },
+    });
+</script>
+{% endfor %}
+{% endif %}
+{% endwith %}

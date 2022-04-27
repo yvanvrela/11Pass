@@ -47,7 +47,7 @@ def login():
             else:
                 flash('Contraseña incorrecta', 'error')
         else:
-            flash(message='El usuario no existe', category='info')
+            flash('El usuario no existe', 'info')
 
     return render_template('login.html', **context)
 
@@ -104,6 +104,6 @@ def signup():
             # return redirect(url_for('home'))
             return render_template('secret.html', **context)
         else:
-            flash('El usuario ya existe')
+            flash('El usuario ya existe', 'info')
 
     return render_template('signup.html', **context)
