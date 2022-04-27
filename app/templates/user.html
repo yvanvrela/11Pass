@@ -91,7 +91,7 @@
                                 <label class="label">Username</label>
                                 <div class="control has-icons-left has-icons-right">
 
-                                    {{user_form.username(class='input', value=username)}}
+                                    {{user_form.username(class='input', value=username, autocomplete='off')}}
                                     <!-- Icon -->
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-user"></i>
@@ -204,11 +204,11 @@
                     <div class="field is-grouped">
 
                         <p class="control">
-                            {{user_form.submit(class='button is-orange', value='Editar')}}
+                            {{user_form.submit(class='button  is-orange', value='Editar')}}
                         </p>
 
                         <p class="control">
-                            <a class="button">Cancelar</a>
+                            <a class="button exit">Cancelar</a>
                         </p>
 
                     </div>

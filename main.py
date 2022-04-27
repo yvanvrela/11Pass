@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 from app.forms import AccountForm, UserForm, VaultForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.lib.security_fuctions import decrypt_data, encrypt_data
-from app.sql_services import account_items, add_vault,  delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_user_by_id, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_user, update_vault
+from app.sql_services import account_items, add_vault,  delete_account, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_user_by_id, get_user_by_name, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_user, update_vault
 
 app = create_app()
 
@@ -59,18 +59,45 @@ def edit_user():
         password_reference = user_form.password_reference.data
         new_password = user_form.new_password.data
 
-        if check_password_hash(password_form_db, password_reference):
+        user_from_db = get_user_by_name(username=new_username)
 
-            update_user(
-                id_user=id_user,
-                username=new_username,
-                password=new_password
-            )
+        if user_from_db is not None and user_from_db['username'] == current_user.username:
 
-            flash('Datos del usuario actualizados')
-            return redirect(request.referrer)
+            if check_password_hash(password_form_db, password_reference):
+
+                pasword_hash = generate_password_hash(new_password)
+
+                update_user(
+                    id_user=id_user,
+                    username=new_username,
+                    password=pasword_hash
+                )
+
+                flash('Datos del usuario actualizados')
+                return redirect(request.referrer)
+            else:
+                flash('Contraseña incorrecta')
+                return redirect(request.referrer)
+
+        elif user_from_db is None:
+
+            if check_password_hash(password_form_db, password_reference):
+
+                pasword_hash = generate_password_hash(new_password)
+
+                update_user(
+                    id_user=id_user,
+                    username=new_username,
+                    password=pasword_hash
+                )
+
+                flash('Datos del usuario actualizados')
+                return redirect(request.referrer)
+            else:
+                flash('Contraseña incorrecta')
+                return redirect(request.referrer)
         else:
-            flash('Contraseña incorrecta')
+            flash('El nombre de usuario ya existe!')
             return redirect(request.referrer)
 
 
@@ -170,6 +197,7 @@ def account(id_vault):
         'vaultname': get_vault_name(id_vault=id_vault),
         'account_form': account_form,
         'vault_form': vault_form,
+        'user_form': UserForm(),
     }
 
     return render_template('account.html', **context)
@@ -284,6 +312,7 @@ def details_account(id_vault, id_account):
         'vaultname': get_vault_name(id_vault=id_vault),
         'vault_form': vault_form,
         'account_form': account_form,
+        'user_form': UserForm(),
     }
 
     return render_template('account_detail.html', **context)
@@ -302,6 +331,7 @@ def favorites():
         'list_favorites': list_favorites,
         'items': account_items(id_user=id_user),
         'vaults': get_vaults(id_user=id_user),
+        'user_form': UserForm(),
     }
 
     return render_template('favorite.html', **context)
@@ -332,6 +362,7 @@ def details_favorite(id_account):
             'vaults': get_vaults(id_user=id_user),
             'list_favorites': list_favorites,
             'account_form': account_form,
+            'user_form': UserForm(),
         }
 
         return render_template('favorite_detail.html', **context)
