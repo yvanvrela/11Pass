@@ -1,0 +1,92 @@
+<!-- Add toast -->
+
+{% with aggregates = get_flashed_messages(category_filter=['add']) %}
+{% if aggregates %}
+{% for msg in aggregates %}
+<script>
+    bulmaToast.toast({
+        message: '{{ msg }}',
+        duration: 2050,
+        position: 'top-right',
+        type: 'is-success',
+        closeOnClick: true,
+        dismissible: true,
+        animate: {
+            in: 'fadeIn',
+            out: 'fadeOut'
+        },
+    });
+</script>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<!-- Update toast -->
+
+{% with updates = get_flashed_messages(category_filter=['update']) %}
+{% if updates %}
+{% for msg in updates %}
+<script>
+    bulmaToast.toast({
+        message: '{{ msg }}',
+        duration: 2050,
+        position: 'top-right',
+        type: 'is-success',
+        closeOnClick: true,
+        dismissible: true,
+        animate: {
+            in: 'fadeIn',
+            out: 'fadeOut'
+        },
+    });
+</script>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<!-- Information toast -->
+
+{% with informations = get_flashed_messages(category_filter=['info']) %}
+{% if informations %}
+{% for msg in informations %}
+<script>
+    bulmaToast.toast({
+        message: '{{ msg }}',
+        duration: 2050,
+        position: 'top-right',
+        type: 'is-info',
+        closeOnClick: true,
+        dismissible: true,
+        animate: {
+            in: 'fadeIn',
+            out: 'fadeOut'
+        },
+    });
+</script>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<!-- Delete toast -->
+
+{% with deleted = get_flashed_messages(category_filter=['delete']) %}
+{% if deleted %}
+{% for msg in deleted %}
+<script>
+    bulmaToast.toast({
+        message: '{{ msg }}',
+        duration: 2050,
+        position: 'top-right',
+        type: 'is-danger',
+        closeOnClick: true,
+        dismissible: true,
+        animate: {
+            in: 'fadeIn',
+            out: 'fadeOut'
+        },
+    });
+</script>
+{% endfor %}
+{% endif %}
+{% endwith %}

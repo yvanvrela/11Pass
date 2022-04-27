@@ -53,42 +53,7 @@
 
     <div class="section has-background-white">
 
-        {% for message in get_flashed_messages() %}
-        {% if message['message'] == 'delete' %}
-        <script>
-            bulmaToast.toast({
-                message: '{{ message }}',
-                duration: 2050,
-                position: 'top-right',
-                type: 'is-danger',
-                closeOnClick: true,
-                dismissible: true,
-                animate: {
-                    in: 'fadeIn',
-                    out: 'fadeOut'
-                },
-            });
-        </script>
-
-        {% else %}
-
-        <script>
-            bulmaToast.toast({
-                message: '{{ message }}',
-                duration: 2050,
-                position: 'top-right',
-                type: 'is-orange-light',
-                closeOnClick: true,
-                dismissible: true,
-                animate: {
-                    in: 'fadeIn',
-                    out: 'fadeOut'
-                },
-            });
-        </script>
-        
-        {% endif %}
-        {% endfor %}
+        {% include 'message.html' %}
 
         <div class="columns">
 

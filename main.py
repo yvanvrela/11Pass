@@ -152,7 +152,7 @@ def vault():
                 description=vault_form.description.data
             )
 
-            flash('Bóveda creada', 'info')
+            flash('Bóveda creada', 'add')
 
             return redirect(url_for('home'))
 
@@ -177,7 +177,7 @@ def edit_vault(id_vault):
             id_vault=id_vault
         )
 
-        flash('Bóveda editada', 'info')
+        flash('Bóveda editada', 'update')
 
         return redirect(url_for('account', id_vault=id_vault))
 
@@ -188,7 +188,7 @@ def del_vault(id_vault):
 
     delete_vault(id_vault=id_vault)
 
-    flash('Bóveda eliminada.')
+    flash('Bóveda eliminada.', 'delete')
 
     return redirect(url_for('home'))
 
@@ -250,7 +250,7 @@ def add_account():
                 favorite=0
             )
 
-            flash('Cuenta agregada', 'info')
+            flash('Cuenta agregada', 'add')
 
             return redirect(request.referrer)
 
@@ -282,7 +282,7 @@ def edit_account(id_account):
             description=account_form.description.data
         )
 
-        flash('Cuenta editada')
+        flash('Cuenta editada', 'update')
 
         return redirect(request.referrer)
 
@@ -293,7 +293,7 @@ def del_account(id_account, id_vault):
     id_vault_reference = id_vault
 
     delete_account(account_id=id_account)
-    flash('Cuenta eliminada')
+    flash('Cuenta eliminada', 'delete')
 
     return redirect(url_for('account', id_vault=id_vault_reference))
 
@@ -390,8 +390,8 @@ def edit_favorite(id_account, data):
     update_favorite(data=data, id_account=id_account)
 
     if data == '1':
-        flash('Cuenta agregada a favoritos')
+        flash('Cuenta agregada a favoritos', 'add')
         return redirect(request.referrer)
     else:
-        flash('Cuenta eliminada de favoritos')
+        flash('Cuenta eliminada de favoritos', 'delete')
         return redirect(request.referrer)
