@@ -1,0 +1,131 @@
+<label class="label">Icono</label>
+<div class="field">
+
+    <!-- Icon select -->
+    <a class="button is-static">
+        <span class="icon is-small">
+            <i id="icon-select" class="fas fa-folder has-text-dark"></i>
+        </span>
+    </a>
+
+    <div class="dropdown is-hoverable">
+        <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>Elegir icono</span>
+                <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+            <div class="dropdown-content">
+                <div class="dropdown-item">
+                    <p class="buttons">
+
+                        <a class="button is-white has-text-dark"
+                            onclick="folderValue('folder-value', 'fa-folder', 'has-text-dark')">
+                            <span class="icon is-small">
+                                <i class="fas fa-folder"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-info"
+                            onclick="folderValue('folder-value', 'fa-folder', 'has-text-info')">
+                            <span class="icon is-small">
+                                <i class="fas fa-folder"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-success"
+                            onclick="folderValue('folder-value', 'fa-folder',  'has-text-success')">
+                            <span class="icon is-small">
+                                <i class="fas fa-folder"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-orange"
+                            onclick="folderValue('folder-value', 'fa-folder', 'has-text-orange')">
+                            <span class="icon is-small">
+                                <i class="fas fa-folder"></i>
+                            </span>
+                        </a>
+
+
+                        <a class="button is-white has-text-danger"
+                            onclick="folderValue('folder-value', 'fa-folder',  'has-text-danger')">
+                            <span class="icon is-small">
+                                <i class="fas fa-folder"></i>
+                            </span>
+                        </a>
+
+
+                        <a class="button is-white has-text-dark"
+                            onclick="folderValue('folder-value', 'fa-envelope',  'has-text-dark')">
+                            <span class="icon is-small">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-dark"
+                            onclick="folderValue('folder-value', 'fa-shopping-cart',  'has-text-dark')">
+                            <span class="icon is-small">
+                                <i class="fas fa-shopping-cart"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-dark"
+                            onclick="folderValue('folder-value', 'fa-wallet',  'has-text-dark')">
+                            <span class="icon is-small">
+                                <i class="fas fa-wallet"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-dark"
+                            onclick="folderValue('folder-value', 'fa-wifi',  'has-text-dark')">
+                            <span class="icon is-small">
+                                <i class="fas fa-wifi"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-dark"
+                            onclick="folderValue('folder-value', 'fa-laptop-code',  'has-text-dark')">
+                            <span class="icon is-small">
+                                <i class="fas fa-laptop-code"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-dark"
+                            onclick="folderValue('folder-value', 'fa-code',  'has-text-dark')">
+                            <span class="icon is-small">
+                                <i class="fas fa-code"></i>
+                            </span>
+                        </a>
+
+                        <a class="button is-white has-text-dark"
+                            onclick="folderValue('folder-value', 'fa-key',  'has-text-dark')">
+                            <span class="icon is-small">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        </a>
+
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function folderValue(id, icon, color) {
+        var input = document.getElementById(id);
+        input.value = ''
+        input.value = icon + ' ' + color
+
+        var iconSelect = document.getElementById('icon-select');
+        iconSelect.className = '';
+        iconSelect.classList.add('fas');
+        iconSelect.classList.add(icon);
+        iconSelect.classList.add(color);
+    }
+</script>

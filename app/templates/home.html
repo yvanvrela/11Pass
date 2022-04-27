@@ -9,7 +9,7 @@ Bienvenido
 {% block content %}
 
 
-<div id="modal-js-example" class="modal">
+<div id="modal-js-example" class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head has-background-black-bis">
@@ -23,13 +23,18 @@ Bienvenido
 
             <section class="modal-card-body">
 
+                <label class="label">Nombre</label>
                 <div class="field">
                     <div class="control">
                         {{ vault_form.vaultname(id='name', class='input', type='text', placeholder='Nombre de la bóveda', autocomplete='off') }}
                     </div>
                 </div>
 
+                {% include 'select_icon.html' %}
 
+                <input id="folder-value" type="text" hidden>
+
+                <label class="label">Descripción</label>
                 <div class="field">
                     <div class="control">
                         {{ vault_form.description(class='textarea', type='text', placeholder='Descripción del contenido, opcional', autocomplete='off') }}
@@ -91,7 +96,7 @@ Bienvenido
 
     {% for vault in vaults %}
 
-    
+
 
     <a class="hover" href="{{ url_for('account', id_vault=vault[0])}}">
         <span class="icon-text">
