@@ -214,6 +214,21 @@ Cuentas
                     </div>
                 </div>
 
+                <label class="label">Icono</label>
+                <div class="field">
+
+                    <!-- Icon select -->
+                    <a class="button is-static">
+                        <span class="icon is-small">
+                            <i id="icon-select" class="fas fa-folder has-text-dark"></i>
+                        </span>
+                    </a>
+
+                    {% include 'select_icon.html' %}
+
+                </div>
+
+                {{ vault_form.icon_vault(class='is-hidden', value=vaultname[2]) }}
 
                 <div class="field">
                     <div class="control">

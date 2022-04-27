@@ -62,6 +62,7 @@ def create_table_vault(db_file) -> None:
                 "id_user"   INTEGER,
                 "name"  TEXT,
                 "description"	TEXT,
+                "icon"  TEXT,
                 FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
                 PRIMARY KEY("id_vault" AUTOINCREMENT)
             );""")
@@ -199,28 +200,28 @@ def all_users() -> list:
     return list_users
 
 
-def add_vault(name: str, id_user: int, description: str) -> None:
+def add_vault(name: str, id_user: int, description: str, icon: str) -> None:
     """ Agrega una Bóveda nueva a la base de datos """
 
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = ('INSERT INTO vaults (id_user, name, description) VALUES (?,?,?)')
-    values = id_user, name, description
+    sql = ('INSERT INTO vaults (id_user, name, description, icon) VALUES (?,?,?,?)')
+    values = id_user, name, description, icon
     cursor.execute(sql, values)
 
     conn.commit()
     conn.close()
 
 
-def update_vault(id_vault: int, name: str, id_user: int, description: str) -> None:
+def update_vault(id_vault: int, name: str, id_user: int, description: str, icon: str) -> None:
     """ Edita la bóveda en la base de datos """
 
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = "UPDATE vaults SET  id_user = ?, name = ?, description = ? WHERE id_vault = ?"
-    values = id_user, name, description, id_vault
+    sql = "UPDATE vaults SET  id_user = ?, name = ?, description = ?, icon = ? WHERE id_vault = ?"
+    values = id_user, name, description, icon, id_vault
     cursor.execute(sql, values)
 
     conn.commit()
@@ -252,7 +253,7 @@ def get_vaults(id_user: int) -> tuple:
     cursor = conn.cursor()
 
     sql = (
-        f'SELECT id_vault, name FROM vaults WHERE id_user = {id_user} ORDER BY name')
+        f'SELECT id_vault, name, icon FROM vaults WHERE id_user = {id_user} ORDER BY name')
     vaults = cursor.execute(sql).fetchall()
 
     conn.commit()
@@ -280,7 +281,8 @@ def get_vault_name(id_vault):
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = (f'SELECT name, description FROM vaults WHERE id_vault ={id_vault}')
+    sql = (
+        f'SELECT name, description, icon FROM vaults WHERE id_vault ={id_vault}')
     vaultname = cursor.execute(sql).fetchone()
 
     conn.commit()

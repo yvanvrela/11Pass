@@ -29,6 +29,7 @@ class UserForm(FlaskForm):
 class VaultForm(FlaskForm):
     vaultname = StringField(
         'Nombre', [validators.DataRequired()], render_kw={'autofocus': True})
+    icon_vault = StringField(id='icon-vault')
     description = TextAreaField('Descripcion', name='Descripcion_vault')
 
     submit = SubmitField()

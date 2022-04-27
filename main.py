@@ -149,7 +149,8 @@ def vault():
             add_vault(
                 name=vault_form.vaultname.data,
                 id_user=id_user,
-                description=vault_form.description.data
+                description=vault_form.description.data,
+                icon=vault_form.icon_vault.data
             )
 
             flash('Bóveda creada', 'add')
@@ -174,6 +175,7 @@ def edit_vault(id_vault):
             name=vault_form.vaultname.data,
             id_user=id_user,
             description=vault_form.description.data,
+            icon=vault_form.icon_vault.data,
             id_vault=id_vault
         )
 

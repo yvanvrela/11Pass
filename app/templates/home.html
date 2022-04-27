@@ -9,7 +9,7 @@ Bienvenido
 {% block content %}
 
 
-<div id="modal-js-example" class="modal is-active">
+<div id="modal-js-example" class="modal">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head has-background-black-bis">
@@ -30,9 +30,21 @@ Bienvenido
                     </div>
                 </div>
 
-                {% include 'select_icon.html' %}
+                <label class="label">Icono</label>
+                <div class="field">
 
-                <input id="folder-value" type="text" hidden>
+                    <!-- Icon select -->
+                    <a class="button is-static">
+                        <span class="icon is-small">
+                            <i id="icon-select" class="fas fa-folder has-text-dark"></i>
+                        </span>
+                    </a>
+
+                    {% include 'select_icon.html' %}
+
+                </div>
+
+                {{ vault_form.icon_vault(class='is-hidden', value='fa-folder has-text-dark')}}
 
                 <label class="label">Descripción</label>
                 <div class="field">
@@ -101,7 +113,7 @@ Bienvenido
     <a class="hover" href="{{ url_for('account', id_vault=vault[0])}}">
         <span class="icon-text">
             <span class="icon is-right">
-                <i class="fas fa-folder has-text-dark"></i>
+                <i class="fas {{ vault[2] }}"></i>
             </span>
             <span class="has-text-black-bis">{{ vault[1] }}</span>
         </span>
