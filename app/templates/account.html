@@ -41,7 +41,7 @@ Cuentas
                     <!-- Icon select -->
                     <a class="button is-static">
                         <span class="icon is-small">
-                            <i id="icon-select-account" class="fab fa-github has-text-dark"></i>
+                            <i id="icon-select-account" class="fas fa-icons has-text-dark"></i>
                         </span>
                     </a>
 
@@ -246,7 +246,7 @@ Cuentas
                         </span>
                     </a>
 
-                    {% include 'select_icon.html' %}
+                    {% include 'icon_vault.html' %}
 
                 </div>
 
@@ -277,19 +277,5 @@ Cuentas
         </form>
     </div>
 </div>
-
-<script>
-    function iconValue(id, fa, icon, color) {
-        var input = document.getElementById('icon-account');
-        input.value = ''
-        input.value = fa + ' ' + icon + ' ' + color
-
-        var iconSelect = document.getElementById('icon-select-account');
-        iconSelect.className = '';
-        iconSelect.classList.add(fa);
-        iconSelect.classList.add(icon);
-        iconSelect.classList.add(color);
-    }
-</script>
 
 {% endblock %}

@@ -252,32 +252,54 @@ Detalles
 
             <section class="modal-card-body">
 
+                <label class="label">Nombre</label>
                 <div class="field">
                     <div class="control">
-                        {{ account_form.name(id='name', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off', value=details_account['name']) }}
+                        {{ account_form.name(id='name-vault-edit', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off', value=details_account['name']) }}
                     </div>
                 </div>
 
-                {{account_form.id_vault(class='is-hidden', value=details_account['id_vault'])}}
+                {{account_form.id_vault(id='id_vault-edit', class='is-hidden', value=details_account['id_vault'])}}
 
+                {{account_form.icon_account(id='icon-account-edit', class='is-hidden', value=details_account['icon'])}}
+
+
+                <label class="label">Icono</label>
+                <div class="field">
+
+                    <!-- Icon select -->
+                    <a class="button is-static">
+                        <span class="icon is-small">
+                            <i id="icon-select-account-edit" class="{{details_account['icon']}}"></i>
+                        </span>
+                    </a>
+
+                    {% include 'icon_account_detail.html' %}
+
+                </div>
+
+                <label class="label">Username</label>
                 <div class="field">
                     <div class="control">
-                        {{ account_form.username( class='input', type='text', placeholder='Username o email', autocomplete='off', value=details_account['username']) }}
+                        {{ account_form.username(id='username-edit', class='input', type='text', placeholder='Username o email', autocomplete='off', value=details_account['username']) }}
                     </div>
                 </div>
 
+                <label class="label">Contraseña</label>
                 <div class="field">
                     <div class="control">
-                        {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off', value=details_account['password']) }}
+                        {{ account_form.password(id='password-edit', class='input', type='text', placeholder='Contraseña', autocomplete='off', value=details_account['password']) }}
                     </div>
                 </div>
 
+                <label class="label">Página</label>
                 <div class="field">
                     <div class="control">
-                        {{ account_form.page(class='input', type='text', placeholder='Página de la cuenta', autocomplete='off', value=details_account['page']) }}
+                        {{ account_form.page(id='page-edit', class='input', type='text', placeholder='Página de la cuenta', autocomplete='off', value=details_account['page']) }}
                     </div>
                 </div>
 
+                <label class="label">Descripción</label>
                 <div class="field">
                     <div class="control">
                         <textarea name="Descripcion" class="textarea">{{ details_account['description'] }}</textarea>
@@ -291,11 +313,11 @@ Detalles
 
                 <div class="field is-grouped">
                     <p class="control">
-                        {{ account_form.submit(class="button is-orange", value="Actualizar") }}
+                        {{ account_form.submit(id='submit-form-edit', class="button is-orange", value="Actualizar") }}
                     </p>
 
                     <p class="control">
-                        <a class="button">Cancelar</a>
+                        <a class="button exit">Cancelar</a>
                     </p>
 
                 </div>
