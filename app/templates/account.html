@@ -23,6 +23,7 @@ Cuentas
 
             <section class="modal-card-body">
 
+                <label class="label">Nombre</label>
                 <div class="field">
                     <div class="control">
                         {{ account_form.name(id='name-2', class='input', type='text', placeholder='Nombre de la cuenta', autocomplete='off') }}
@@ -31,24 +32,45 @@ Cuentas
 
                 {{account_form.id_vault(class='is-hidden', value=id_vault)}}
 
+                {{account_form.icon_account(class='is-hidden', value='')}}
+
+
+                <label class="label">Icono</label>
+                <div class="field">
+
+                    <!-- Icon select -->
+                    <a class="button is-static">
+                        <span class="icon is-small">
+                            <i id="icon-select-account" class="fab fa-github has-text-dark"></i>
+                        </span>
+                    </a>
+
+                    {% include 'select_icon_account.html' %}
+
+                </div>
+
+                <label class="label">Username</label>
                 <div class="field">
                     <div class="control">
                         {{ account_form.username( class='input', type='text', placeholder='Username o email', autocomplete='off') }}
                     </div>
                 </div>
 
+                <label class="label">Contraseña</label>
                 <div class="field">
                     <div class="control">
                         {{ account_form.password(class='input', type='text', placeholder='Contraseña', autocomplete='off') }}
                     </div>
                 </div>
 
+                <label class="label">Página</label>
                 <div class="field">
                     <div class="control">
                         {{ account_form.page(class='input', type='text', placeholder='Página de la cuenta', autocomplete='off') }}
                     </div>
                 </div>
 
+                <label class="label">Descripción</label>
                 <div class="field">
                     <div class="control">
                         {{ account_form.description(class='textarea', type='text', placeholder='Descripción de la cuenta, opcional', autocomplete='off') }}
@@ -66,7 +88,7 @@ Cuentas
                     </p>
 
                     <p class="control">
-                        <a class="button">Cancelar</a>
+                        <a class="button exit">Cancelar</a>
                     </p>
                 </div>
 
@@ -171,9 +193,9 @@ Cuentas
 
     <a class="media hover-accounts" href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
         <div class="media-left">
-            <figure class="image is-48x48">
-                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-            </figure>
+            <span class="icon is-medium">
+                <i class="{{ account[3] }} fa-2x"></i>
+            </span>
         </div>
         <div class="media-content">
             <p class="title is-6">{{ account[1] }}</p>
@@ -246,7 +268,7 @@ Cuentas
                     </p>
 
                     <p class="control">
-                        <a class="button">Cancelar</a>
+                        <a class="button exit">Cancelar</a>
                     </p>
                 </div>
 
@@ -255,5 +277,19 @@ Cuentas
         </form>
     </div>
 </div>
+
+<script>
+    function iconValue(id, fa, icon, color) {
+        var input = document.getElementById('icon-account');
+        input.value = ''
+        input.value = fa + ' ' + icon + ' ' + color
+
+        var iconSelect = document.getElementById('icon-select-account');
+        iconSelect.className = '';
+        iconSelect.classList.add(fa);
+        iconSelect.classList.add(icon);
+        iconSelect.classList.add(color);
+    }
+</script>
 
 {% endblock %}

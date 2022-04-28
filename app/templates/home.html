@@ -44,7 +44,7 @@ Bienvenido
 
                 </div>
 
-                {{ vault_form.icon_vault(class='is-hidden', value='fa-folder has-text-dark')}}
+                {{ vault_form.icon_vault(class='is-hidden', value='fas fa-folder has-text-dark')}}
 
                 <label class="label">Descripción</label>
                 <div class="field">
@@ -114,7 +114,7 @@ Bienvenido
     <a class="hover" href="{{ url_for('account', id_vault=vault[0])}}">
         <span class="icon-text">
             <span class="icon is-right">
-                <i class="fas {{ vault[2] }}"></i>
+                <i class="{{ vault[2] }}"></i>
             </span>
             <span class="has-text-black-bis">{{ vault[1] }}</span>
         </span>

@@ -162,9 +162,12 @@ Detalles
 
     <a class="media" href="{{ url_for('details_account', id_vault=id_vault, id_account=account[0]) }}">
         <div class="media-left ">
-            <figure class="image is-48x48">
+            <!-- <figure class="image is-48x48">
                 <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-            </figure>
+            </figure> -->
+            <span class="icon is-medium">
+                <i class="{{ account[3] }} fa-2x"></i>
+            </span>
         </div>
         <div class="media-content">
             <p class="title is-6">{{ account[1] }}</p>
@@ -335,7 +338,8 @@ Detalles
             </a>
         </div>
         <div class="control">
-            <a class="button btn is-white tooltipped tooltipped-n" data-clipboard-target="#foo2"  aria-label="Copiar" onclick="viewPassCopy('foo2')">
+            <a class="button btn is-white tooltipped tooltipped-n" data-clipboard-target="#foo2" aria-label="Copiar"
+                onclick="viewPassCopy('foo2')">
                 <span class="icon is-small has-text-black-ter">
                     <i class="fas fa-copy"></i>
                 </span>
@@ -390,6 +394,23 @@ Detalles
                 </div>
 
                 {{account_form.id_vault(id='id_vault-edit', class='is-hidden', value=details_account['id_vault'])}}
+
+                {{account_form.icon_account(id='icon-account-edit' , class='is-hidden', value=details_account['icon'])}}
+
+
+                <label class="label">Icono</label>
+                <div class="field">
+
+                    <!-- Icon select -->
+                    <a class="button is-static">
+                        <span class="icon is-small">
+                            <i id="icon-select-account-edit" class="{{details_account['icon']}}"></i>
+                        </span>
+                    </a>
+
+                    {% include 'select_icon_account.html' %}
+
+                </div>
 
                 <div class="field">
                     <div class="control">
@@ -490,5 +511,19 @@ Detalles
         </form>
     </div>
 </div>
+
+<script>
+    function iconValue(id, fa, icon, color) {
+        var input = document.getElementById('icon-account-edit');
+        input.value = ''
+        input.value = fa + ' ' + icon + ' ' + color
+
+        var iconSelect = document.getElementById('icon-select-account-edit');
+        iconSelect.className = '';
+        iconSelect.classList.add(fa);
+        iconSelect.classList.add(icon);
+        iconSelect.classList.add(color);
+    }
+</script>
 
 {% endblock %}

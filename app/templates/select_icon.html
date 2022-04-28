@@ -13,28 +13,28 @@
                 <p class="buttons">
 
                     <a class="button is-white has-text-dark"
-                        onclick="folderValue('icon-vault', 'fa-folder', 'has-text-dark')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-folder', 'has-text-dark')">
                         <span class="icon is-small">
                             <i class="fas fa-folder"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-info"
-                        onclick="folderValue('icon-vault', 'fa-folder', 'has-text-info')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-folder', 'has-text-info')">
                         <span class="icon is-small">
                             <i class="fas fa-folder"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-success"
-                        onclick="folderValue('icon-vault', 'fa-folder',  'has-text-success')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-folder',  'has-text-success')">
                         <span class="icon is-small">
                             <i class="fas fa-folder"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-orange"
-                        onclick="folderValue('icon-vault', 'fa-folder', 'has-text-orange')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-folder', 'has-text-orange')">
                         <span class="icon is-small">
                             <i class="fas fa-folder"></i>
                         </span>
@@ -42,7 +42,7 @@
 
 
                     <a class="button is-white has-text-danger"
-                        onclick="folderValue('icon-vault', 'fa-folder',  'has-text-danger')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-folder',  'has-text-danger')">
                         <span class="icon is-small">
                             <i class="fas fa-folder"></i>
                         </span>
@@ -50,49 +50,49 @@
 
 
                     <a class="button is-white has-text-dark"
-                        onclick="folderValue('icon-vault', 'fa-envelope',  'has-text-dark')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-envelope',  'has-text-dark')">
                         <span class="icon is-small">
                             <i class="fas fa-envelope"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-dark"
-                        onclick="folderValue('icon-vault', 'fa-shopping-cart',  'has-text-dark')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-shopping-cart',  'has-text-dark')">
                         <span class="icon is-small">
                             <i class="fas fa-shopping-cart"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-dark"
-                        onclick="folderValue('icon-vault', 'fa-wallet',  'has-text-dark')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-wallet',  'has-text-dark')">
                         <span class="icon is-small">
                             <i class="fas fa-wallet"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-dark"
-                        onclick="folderValue('icon-vault', 'fa-wifi',  'has-text-dark')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-wifi',  'has-text-dark')">
                         <span class="icon is-small">
                             <i class="fas fa-wifi"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-dark"
-                        onclick="folderValue('icon-vault', 'fa-laptop-code',  'has-text-dark')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-laptop-code',  'has-text-dark')">
                         <span class="icon is-small">
                             <i class="fas fa-laptop-code"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-dark"
-                        onclick="folderValue('icon-vault', 'fa-code',  'has-text-dark')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-code',  'has-text-dark')">
                         <span class="icon is-small">
                             <i class="fas fa-code"></i>
                         </span>
                     </a>
 
                     <a class="button is-white has-text-dark"
-                        onclick="folderValue('icon-vault', 'fa-key',  'has-text-dark')">
+                        onclick="folderValue('icon-vault', 'fas', 'fa-key',  'has-text-dark')">
                         <span class="icon is-small">
                             <i class="fas fa-key"></i>
                         </span>
@@ -107,14 +107,14 @@
 
 
 <script>
-    function folderValue(id, icon, color) {
+    function folderValue(id, fa, icon, color) {
         var input = document.getElementById(id);
         input.value = ''
-        input.value = icon + ' ' + color
+        input.value = fa + ' ' + icon + ' ' + color
 
         var iconSelect = document.getElementById('icon-select');
         iconSelect.className = '';
-        iconSelect.classList.add('fas');
+        iconSelect.classList.add(fa);
         iconSelect.classList.add(icon);
         iconSelect.classList.add(color);
     }

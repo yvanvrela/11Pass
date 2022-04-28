@@ -42,6 +42,7 @@ class AccountForm(FlaskForm):
     username = StringField('Username', [validators.DataRequired()])
     password = StringField('Password', [validators.DataRequired()])
     page = StringField('Página', [validators.DataRequired()])
+    icon_account = StringField(id='icon-account')
     description = TextAreaField('Descripcion', name='Descripcion')
 
     submit = SubmitField(id='submit-form')

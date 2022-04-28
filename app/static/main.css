@@ -27,7 +27,7 @@ body {
     border-width: 0.1rem;
 }
 
-.has-background-grey-native{
+.has-background-grey-native {
     background-color: #cfcece;
 }
 
@@ -92,10 +92,14 @@ a:hover {
     color: #CBF3F0 !important;
 }
 
-.icon-back{
+.icon-back {
     background-color: hsl(0, 0%, 7%);
     max-width: 1rem;
     max-height: 1.05rem;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
+}
+
+.modal-card {
+    overflow: auto;
 }

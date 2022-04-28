@@ -94,6 +94,7 @@ def create_table_accounts(db_file) -> None:
                 "page_element"	TEXT,
                 "description_element"	TEXT,
                 "favorite_element" INTEGER,
+                "icon_element"	TEXT,
                 FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
                 FOREIGN KEY("id_vault") REFERENCES "vaults"("id_vault"),
                 PRIMARY KEY("id_account" AUTOINCREMENT)
@@ -328,7 +329,7 @@ def get_accounts(id_vault):
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT id_account, name_element, username_element FROM accounts WHERE id_vault = {id_vault} ORDER BY name_element'
+    sql = f'SELECT id_account, name_element, username_element, icon_element FROM accounts WHERE id_vault = {id_vault} ORDER BY name_element'
     names = cursor.execute(sql).fetchall()
 
     conn.commit()
@@ -343,7 +344,7 @@ def get_account_by_id(id_account):
     cursor = conn.cursor()
 
     sql = f'SELECT name_element, username_element, page_element, password_element, description_element,  \
-            id_vault, id_account, favorite_element FROM accounts WHERE id_account = {id_account}'
+            id_vault, id_account, favorite_element, icon_element FROM accounts WHERE id_account = {id_account}'
     details = cursor.execute(sql).fetchone()
 
     details = {
@@ -355,6 +356,7 @@ def get_account_by_id(id_account):
         'id_vault': details[5],
         'id_account': details[6],
         'favorite': details[7],
+        'icon': details[8],
     }
 
     conn.commit()
@@ -369,7 +371,7 @@ def get_favorite_by_id(id_account):
     cursor = conn.cursor()
 
     sql = f'SELECT name_element, username_element, page_element, password_element, description_element,  \
-            id_vault, id_account, favorite_element FROM accounts WHERE id_account = {id_account} and favorite_element = 1'
+            id_vault, id_account, favorite_element, icon_element FROM accounts WHERE id_account = {id_account} and favorite_element = 1'
     details = cursor.execute(sql).fetchone()
 
     if details == None:
@@ -387,6 +389,7 @@ def get_favorite_by_id(id_account):
             'id_vault': details[5],
             'id_account': details[6],
             'favorite': details[7],
+            'icon': details[8],
         }
 
         conn.commit()
@@ -418,7 +421,7 @@ def get_favorite_accounts(id_user: int) -> list:
     conn = conection_db('database.db')
     cursor = conn.cursor()
 
-    sql = f'SELECT id_account, id_vault, name_element, username_element FROM accounts WHERE favorite_element = 1 AND id_user = {id_user} ORDER BY name_element'
+    sql = f'SELECT id_account, id_vault, name_element, username_element, icon_element FROM accounts WHERE favorite_element = 1 AND id_user = {id_user} ORDER BY name_element'
 
     favorites = cursor.execute(sql).fetchall()
 
@@ -468,22 +471,22 @@ def end_element_account(id_user: int) -> list:
     return end_element
 
 
-def put_account(name: str, id_user: int, id_vault: int, username: str, password: str, page: str, description: str, favorite: int) -> None:
+def put_account(name: str, id_user: int, id_vault: int, username: str, password: str, page: str, description: str, favorite: int, icon: str) -> None:
     """ Agrega los datos de la cuenta a la base de datos """
 
     conn = conection_db(db_file='database.db')
     cursor = conn.cursor()
 
     sql = "INSERT INTO accounts \
-            (name_element, id_user, id_vault, username_element, password_element, page_element, description_element, favorite_element) \
+            (name_element, id_user, id_vault, username_element, password_element, page_element, description_element, favorite_element, icon_element) \
             VALUES (?,?,?,?,?,?,?,?)"
-    values = name, id_user, id_vault, username, password, page, description, favorite
+    values = name, id_user, id_vault, username, password, page, description, favorite, icon
 
     cursor.execute(sql, values)
     conn.commit()
 
 
-def update_account(account_id: int, id_user: int, id_vault: int, name: str, username: str, password: str, page: str, description: str) -> None:
+def update_account(account_id: int, id_user: int, id_vault: int, name: str, username: str, password: str, page: str, description: str, icon: str) -> None:
     """Actualiza los datos de la cuenta"""
 
     conn = conection_db(db_file='database.db')
@@ -491,9 +494,9 @@ def update_account(account_id: int, id_user: int, id_vault: int, name: str, user
 
     sql = "UPDATE accounts  \
         SET  name_element = ?, id_user = ?, id_vault = ?, username_element = ?, password_element = ?, \
-        page_element = ?, description_element = ? \
+        page_element = ?, description_element = ?, icon_element = ? \
         WHERE id_account = ?"
-    values = name, id_user, id_vault, username, password, page, description, account_id
+    values = name, id_user, id_vault, username, password, page, description, icon, account_id
 
     cursor.execute(sql, values)
     conn.commit()

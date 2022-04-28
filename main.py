@@ -249,7 +249,8 @@ def add_account():
                 password=password_encrypt,
                 page=account_form.page.data,
                 description=account_form.description.data,
-                favorite=0
+                favorite=0,
+                icon=account_form.icon_account.data
             )
 
             flash('Cuenta agregada', 'add')
@@ -281,7 +282,8 @@ def edit_account(id_account):
             username=account_form.username.data,
             password=password_encrypt,
             page=account_form.page.data,
-            description=account_form.description.data
+            description=account_form.description.data,
+            icon=account_form.icon_account.data
         )
 
         flash('Cuenta editada', 'update')
