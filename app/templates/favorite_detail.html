@@ -33,9 +33,9 @@ Detalles
     <a class="media hover-accounts"
         href="{{ url_for('details_favorite', id_account=favorite['detail']['id_account']) }}">
         <div class="media-left">
-            <figure class="image is-48x48">
-                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-            </figure>
+            <span class="icon is-medium">
+                <i class="{{ favorite['detail']['icon'] }} fa-2x"></i>
+            </span>
         </div>
         <div class="media-content">
             <p class="title is-6">{{ favorite['name'] }}</p>

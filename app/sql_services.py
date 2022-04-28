@@ -436,6 +436,7 @@ def get_favorite_accounts(id_user: int) -> list:
                     'id_vault': account[1],
                     'id_user': id_user,
                     'username': account[3],
+                    'icon': account[4],
                 },
             }
         )
@@ -479,7 +480,7 @@ def put_account(name: str, id_user: int, id_vault: int, username: str, password:
 
     sql = "INSERT INTO accounts \
             (name_element, id_user, id_vault, username_element, password_element, page_element, description_element, favorite_element, icon_element) \
-            VALUES (?,?,?,?,?,?,?,?)"
+            VALUES (?,?,?,?,?,?,?,?,?)"
     values = name, id_user, id_vault, username, password, page, description, favorite, icon
 
     cursor.execute(sql, values)
