@@ -3,3 +3,4 @@ __pycache__
 *.db
 all_config.py
 run.sh
+message.py
