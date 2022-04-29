@@ -135,7 +135,7 @@ Detalles
 
                     <div class="dropdown-trigger">
                         <span class="is-clickable" aria-haspopup="true" aria-controls="dropdown-menu">
-                            <span class="icon  has-text-black-bis">
+                            <span class="icon  has-text-white">
                                 <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
                             </span>
                         </span>
@@ -178,7 +178,7 @@ Detalles
     </div>
 </div>
 
-<section class="box is-hidden-mobile">
+<section class="box is-hidden-mobile has-background-black-bis">
     {% if accounts %}
     {% for account in accounts %}
 
@@ -192,8 +192,8 @@ Detalles
             </span>
         </div>
         <div class="media-content">
-            <p class="title is-6">{{ account[1] }}</p>
-            <p class="subtitle is-7">{{ account[2] }}</p>
+            <p class="title is-6 has-text-white">{{ account[1] }}</p>
+            <p class="subtitle is-7 has-text-white-ter">{{ account[2] }}</p>
         </div>
     </a>
 
@@ -222,7 +222,7 @@ Detalles
             <ul>
                 <strong class="is-hidden-mobile">
                     <li class="is-active">
-                        <a href="#" aria-current="page">
+                        <a href="#" class="has-text-white" aria-current="page">
                             {{details_account['name']}}
                         </a>
                     </li>
@@ -293,7 +293,7 @@ Detalles
                     <div class="dropdown-trigger">
 
                         <span class="is-clickable" aria-haspopup="true" aria-controls="dropdown-menu">
-                            <span class="icon  has-text-black-bis">
+                            <span class="icon  has-text-white">
                                 <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
                             </span>
                         </span>
@@ -329,16 +329,16 @@ Detalles
 </div>
 
 
-<section class="box">
+<section class="box has-background-black-bis">
 
-    <label class="label subtitle has-text-black-ter">Username o email</label>
+    <label class="label subtitle has-text-white">Username o email</label>
     <div class="field is-grouped">
         <p class="control is-expanded">
-            <input id="foo" class="input" value="{{ details_account['username'] }}" readonly>
+            <input id="foo" class="input has-background-black-ter is-dark has-text-white" value="{{ details_account['username'] }}" readonly>
         </p>
         <p class="control">
-            <a class="btn button is-white tooltipped tooltipped-n " data-clipboard-target="#foo" aria-label="Copiar">
-                <span class="icon is-small has-text-black-ter">
+            <a class="btn button has-background-black-ter is-dark tooltipped tooltipped-n " data-clipboard-target="#foo" aria-label="Copiar">
+                <span class="icon is-small has-text-white">
                     <i class="fas fa-copy"></i>
                 </span>
             </a>
@@ -347,22 +347,22 @@ Detalles
 
 
 
-    <label class="label has-text-black-ter">Contraseña</label>
+    <label class="label has-text-white">Contraseña</label>
     <div class="field is-grouped">
         <div class="control is-expanded">
-            <input id="foo2" class="input" type="password" value="{{ details_account['password'] }}">
+            <input id="foo2" class="input has-background-black-ter is-dark has-text-white" type="password" value="{{ details_account['password'] }}">
         </div>
         <div class="control">
-            <a class="button is-white" onclick="viewPass('foo2')">
-                <span class="icon is-small has-text-black-ter">
+            <a class="button has-background-black-ter is-dark" onclick="viewPass('foo2')">
+                <span class="icon is-small has-text-white">
                     <i id="icon-foo2" class="fas fa-eye"></i>
                 </span>
             </a>
         </div>
         <div class="control">
-            <a class="button btn is-white tooltipped tooltipped-n" data-clipboard-target="#foo2" aria-label="Copiar"
+            <a class="button btn has-background-black-ter is-dark tooltipped tooltipped-n" data-clipboard-target="#foo2" aria-label="Copiar"
                 onclick="viewPassCopy('foo2')">
-                <span class="icon is-small has-text-black-ter">
+                <span class="icon is-small has-text-white">
                     <i class="fas fa-copy"></i>
                 </span>
             </a>
@@ -374,7 +374,7 @@ Detalles
 
 <section class="content ml-2">
     <div class="content">
-        <label class="label">Página</label>
+        <label class="label has-text-white">Página</label>
         <a href="https://{{ details_account['page'] }}" target="_blanck">
             <p>https://{{ details_account['page'] }}</p>
         </a>
@@ -383,8 +383,8 @@ Detalles
     {% if details_account['description'] %}
 
     <div class="content">
-        <label class="label">Descripción</label>
-        <p class="subtitle is-6 has-text-black-ter">
+        <label class="label has-text-white">Descripción</label>
+        <p class="subtitle is-6 has-text-white-ter">
             {{ details_account['description'] }}
         </p>
     </div>

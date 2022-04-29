@@ -1,13 +1,13 @@
-<aside class="menu card has-background-black-ter">
+<aside class="menu card has-background-black-bis">
     <div class="card-header">
 
         <p class="js-modal-trigger card-header-title is-clickable" data-target="user-modal">
             <a>
-                <span class="icon-text has-text-black-bis">
+                <span class="icon-text">
                     <span class="icon">
-                        <i class="fas fa-user-circle fa-2x"></i>
+                        <i class="fas fa-user-circle fa-2x has-text-dark"></i>
                     </span>
-                    <span class="pl-1 subtitle has-text-black-bis">
+                    <span class="pl-1 subtitle has-text-white">
                         {{ username.capitalize() }}
                     </span>
                 </span>
@@ -20,7 +20,7 @@
         <div class="content">
 
             <div class="tags has-addons">
-                <span class="tag has-text-black">
+                <span class="tag has-text-white has-background-black-ter">
                     <div class="icon-text">
                         <span class="icon">
                             <i class="fas fa-clipboard-list"></i>
@@ -35,7 +35,7 @@
             <a href=" {{ url_for('favorites') }} ">
 
                 <div class="tags has-addons">
-                    <span class="tag has-text-black">
+                    <span class="tag has-text-white has-background-black-ter">
                         <div class="icon-text">
                             <span class="icon">
                                 <i class="fas fa-star has-text-orange-light"></i>
@@ -53,7 +53,7 @@
 
             <div class="dropdown">
                 <div class="dropdown-trigger">
-                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <button class="button has-background-black-ter has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
                         <span class="icon">
                             <i class="fas fa-lock"></i>
                         </span>
@@ -64,13 +64,13 @@
                     </button>
                 </div>
                 <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                    <div class="dropdown-content">
+                    <div class="dropdown-content has-background-black-ter">
 
 
                         {% for vault in vaults  %}
 
 
-                        <a class="dropdown-item" href="{{ url_for('account', id_vault=vault[0]) }}">
+                        <a class="dropdown-item has-text-white" href="{{ url_for('account', id_vault=vault[0]) }}">
                             {{ vault[1] }}
                         </a>
 
