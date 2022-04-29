@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bulmaToast.toast({
             message: 'Copiado!',
             duration: 1500,
-            position: 'bottom-right',
+            position: 'center',
             type: 'is-black',
             closeOnClick: true,
             dismissible: false,
