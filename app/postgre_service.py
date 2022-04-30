@@ -54,10 +54,10 @@ def create_table_vault() -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS vaults (
                 id_vault	SERIAL PRIMARY KEY,
-                id_user   INT,
-                name  TEXT,
-                description	TEXT,
-                icon  TEXT,
+                id_user   INT NOT NULL,
+                name  VARCHAR(255) NOT NULL,
+                description	VARCHAR(255),
+                icon  VARCHAR(40),
                 FOREIGN KEY (id_user) REFERENCES users (id_user)
             );""")
         conn.commit()
@@ -80,8 +80,8 @@ def create_table_accounts() -> None:
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS accounts (
                 id_account	SERIAL PRIMARY KEY,
-                id_user       INT,
-                id_vault      INT,
+                id_user       INT NOT NULL,
+                id_vault      INT NOT NULL,
                 name_element	VARCHAR(255) NOT NULL,
                 username_element VARCHAR(255) NOT NULL,
                 password_element	VARCHAR(255) NOT NULL,
