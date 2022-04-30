@@ -6,7 +6,7 @@ from app.lib.security_fuctions import check_decrypt_data, decrypt_data, encrypt_
 from app.models import UserData, UserModel
 from . import auth
 from app.forms import LoginForm, SignupForm
-from app.sql_services import get_user_by_name, add_user
+from app.postgre_service import get_user_by_name, add_user
 
 
 @auth.route('login', methods=['GET', 'POST'])

@@ -2,7 +2,7 @@ from flask import redirect, url_for
 from flask_login import UserMixin
 
 from app.lib.security_fuctions import decrypt_data
-from .sql_services import get_user_by_name, get_user_by_id
+from .postgre_service import get_user_by_name, get_user_by_id
 
 
 class UserData:

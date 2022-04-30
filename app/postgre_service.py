@@ -1,43 +1,38 @@
-import sqlite3
-from sqlite3 import Error
+import os
+import psycopg2
+from psycopg2 import Error
+
+DATABASE_URL = os.environ['DATABASE_URL']
 
 
-def conection_db(db_file):
+def conection_db():
     """
         Crea la conexión a la base de datos con
-        SQLite database, especificamente con db_file.
-        :param db_file: database file
+        Postgresql.
         :return Connection object or None
     """
 
-    conn = None
-
-    try:
-        conn = sqlite3.connect(db_file)
-        return conn
-    except Error as e:
-        print(e)
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
     return conn
 
 
-def create_table_users(db_file: str) -> None:
+def create_table_users() -> None:
     """ Crea la tabla usuarios en la base de datos,
         si aún no existe. Indicando la base de datos
         especifica.
-        :param db_file: archivo de la base de datos
+        :param : archivo de la base de datos
         :return None
     """
     try:
-        conn = conection_db(db_file=db_file)
+        conn = conection_db()
         cursor = conn.cursor()
 
-        cursor.execute("""CREATE TABLE IF NOT EXISTS "users" (
-                "id_user"	INTEGER UNIQUE,
-                "user_name"	TEXT UNIQUE,
-                "user_password"	TEXT,
-                "secret_key" TEXT,
-                PRIMARY KEY("id_user" AUTOINCREMENT)
+        cursor.execute("""CREATE TABLE IF NOT EXISTS users (
+                id_user	 SERIAL PRIMARY KEY NOT NULL,
+                user_name	VARCHAR(255) UNIQUE NOT NULL,
+                user_password	VARCHAR(255) NOT NULL,
+                secret_key VARCHAR(255) NOT NULL
             );""")
         conn.commit()
         conn.close()
@@ -45,26 +40,25 @@ def create_table_users(db_file: str) -> None:
         print(e)
 
 
-def create_table_vault(db_file) -> None:
+def create_table_vault() -> None:
     """ Crea la tabla vaults en la base de datos,
         si aún no existe. Indicando la base de datos
         especifica.
-        :param db_file: archivo de la base de datos
+        :param : archivo de la base de datos
         :return None
     """
     try:
-        conn = conection_db(db_file=db_file)
+        conn = conection_db()
         cursor = conn.cursor()
 
         cursor.execute("""
-                CREATE TABLE IF NOT EXISTS "vaults" (
-                "id_vault"	INTEGER UNIQUE,
-                "id_user"   INTEGER,
-                "name"  TEXT,
-                "description"	TEXT,
-                "icon"  TEXT,
-                FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
-                PRIMARY KEY("id_vault" AUTOINCREMENT)
+                CREATE TABLE IF NOT EXISTS vaults (
+                id_vault	SERIAL PRIMARY KEY,
+                id_user   INT,
+                name  TEXT,
+                description	TEXT,
+                icon  TEXT,
+                FOREIGN KEY (id_user) REFERENCES users (id_user),
             );""")
         conn.commit()
         conn.close()
@@ -72,32 +66,31 @@ def create_table_vault(db_file) -> None:
         print(e)
 
 
-def create_table_accounts(db_file) -> None:
+def create_table_accounts() -> None:
     """ Crea la tabla accounts en la base de datos,
         si aún no existe. Indicando la base de datos
         especifica.
-        :param db_file: archivo de la base de datos
+        :param : archivo de la base de datos
         :return None
     """
     try:
-        conn = conection_db(db_file=db_file)
+        conn = conection_db()
         cursor = conn.cursor()
 
         cursor.execute("""
-                CREATE TABLE IF NOT EXISTS "accounts" (
-                "id_account"	INTEGER UNIQUE,
-                "id_user"       INTEGER,
-                "id_vault"      INTEGER,
-                "name_element"	TEXT,
-                "username_element" TEXT,
-                "password_element"	TEXT,
-                "page_element"	TEXT,
-                "description_element"	TEXT,
-                "favorite_element" INTEGER,
-                "icon_element"	TEXT,
-                FOREIGN KEY("id_user") REFERENCES "users"("id_user"),
-                FOREIGN KEY("id_vault") REFERENCES "vaults"("id_vault"),
-                PRIMARY KEY("id_account" AUTOINCREMENT)
+                CREATE TABLE IF NOT EXISTS accounts (
+                id_account	SERIAL PRIMARY KEY,
+                id_user       INT,
+                id_vault      INT,
+                name_element	VARCHAR(255) NOT NULL,
+                username_element VARCHAR(255) NOT NULL,
+                password_element	VARCHAR(255) NOT NULL,
+                page_element	VARCHAR(100) NOT NULL,
+                description_element	VARCHAR(255),
+                favorite_element INT NOT NULL,
+                icon_element	VARCHAR(40) NOT NULL,
+                FOREIGN KEY (id_user) REFERENCES users (id_user),
+                FOREIGN KEY (id_vault) REFERENCES vaults (id_vault)
             );""")
         conn.commit()
         conn.close()
@@ -107,7 +100,7 @@ def create_table_accounts(db_file) -> None:
 
 def get_user_by_id(user_id: int) -> dict:
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
     sql = f'SELECT * FROM users WHERE id_user = {user_id}'
     user = cursor.execute(sql).fetchone()
@@ -142,19 +135,19 @@ def get_user_by_name(username: str):
 def add_user(username: str, password: str, secret_key: str) -> None:
     """Agregar un usuario a la bd, recibe username and password and secret_key"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
-    sql = f'INSERT INTO users (user_name, user_password, secret_key) VALUES (?,?,?)'
-    values = username, password, secret_key
-    cursor.execute(sql, values)
+    sql = f"INSERT INTO users (user_name, user_password, secret_key) VALUES ('{username}','{password}','{secret_key}')"
+
+    cursor.execute(sql)
     conn.commit()
 
 
 def update_user(id_user: int, username: str, password: str) -> None:
     """ Actualizar datos del usuario """
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f"UPDATE users SET user_name='{username}', user_password='{password}' WHERE id_user={id_user}"
@@ -167,7 +160,7 @@ def update_user(id_user: int, username: str, password: str) -> None:
 def delete_user(id_user: int) -> None:
     """Elimina el usuario, todas sus bovedas y cuentas de la bd"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     exists_account = all_account(id_user=id_user)
@@ -191,7 +184,7 @@ def delete_user(id_user: int) -> None:
 def all_users() -> list:
     """Trae todos los usuarios de la bd"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = 'SELECT * FROM users'
@@ -204,12 +197,12 @@ def all_users() -> list:
 def add_vault(name: str, id_user: int, description: str, icon: str) -> None:
     """ Agrega una Bóveda nueva a la base de datos """
 
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
-    sql = ('INSERT INTO vaults (id_user, name, description, icon) VALUES (?,?,?,?)')
-    values = id_user, name, description, icon
-    cursor.execute(sql, values)
+    sql = f"INSERT INTO vaults (id_user, name, description, icon) VALUES ({id_user},'{name}','{description}','{icon}')"
+
+    cursor.execute(sql)
 
     conn.commit()
     conn.close()
@@ -218,12 +211,12 @@ def add_vault(name: str, id_user: int, description: str, icon: str) -> None:
 def update_vault(id_vault: int, name: str, id_user: int, description: str, icon: str) -> None:
     """ Edita la bóveda en la base de datos """
 
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
-    sql = "UPDATE vaults SET  id_user = ?, name = ?, description = ?, icon = ? WHERE id_vault = ?"
-    values = id_user, name, description, icon, id_vault
-    cursor.execute(sql, values)
+    sql = f"UPDATE vaults SET  id_user = {id_user}, name = '{name}', description = '{description}', icon = '{icon}' WHERE id_vault = {id_vault}"
+
+    cursor.execute(sql)
 
     conn.commit()
     conn.close()
@@ -232,7 +225,7 @@ def update_vault(id_vault: int, name: str, id_user: int, description: str, icon:
 def delete_vault(id_vault: int) -> None:
     """Elimina la bovéda y todas sus cuentas de la bd"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f"DELETE FROM accounts WHERE id_vault= {id_vault}"
@@ -250,7 +243,7 @@ def get_vaults(id_user: int) -> tuple:
         que tenga el usuario.
         retorna una lista con sus nombres.
     """
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = (
@@ -265,7 +258,7 @@ def get_vaults(id_user: int) -> tuple:
 
 def get_vault_by_name(name: str, id_user: int):
 
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f"SELECT name FROM vaults WHERE name = '{name}' AND id_user = {id_user}"
@@ -279,7 +272,7 @@ def get_vault_by_name(name: str, id_user: int):
 
 def get_vault_name(id_vault):
 
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = (
@@ -295,7 +288,7 @@ def get_vault_name(id_vault):
 def all_account(id_user: int) -> list:
     """Trae todas la cuentas de la tabla, segun el usuario"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f'SELECT * FROM accounts WHERE id_user={id_user} ORDER BY name_element'
@@ -309,7 +302,7 @@ def all_account(id_user: int) -> list:
 def account_items(id_user: int):
     """Trae la cantidad de cuentas del usuario en la base de datos"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f'SELECT COUNT(id_account) FROM accounts WHERE id_user={id_user}'
@@ -326,7 +319,7 @@ def get_accounts(id_vault):
         :param id_vault: Id de la boveda.
         :return Nombre y página
     """
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f'SELECT id_account, name_element, username_element, icon_element FROM accounts WHERE id_vault = {id_vault} ORDER BY name_element'
@@ -340,7 +333,7 @@ def get_accounts(id_vault):
 
 def get_account_by_id(id_account):
 
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f'SELECT name_element, username_element, page_element, password_element, description_element,  \
@@ -367,7 +360,7 @@ def get_account_by_id(id_account):
 
 def get_favorite_by_id(id_account):
 
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f'SELECT name_element, username_element, page_element, password_element, description_element,  \
@@ -400,7 +393,7 @@ def get_favorite_by_id(id_account):
 
 def get_account_by_name(name: str, id_user: int, id_vault: int):
 
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f"SELECT name_element FROM accounts WHERE name_element = '{name}' AND id_user = {id_user} AND id_vault = {id_vault}"
@@ -418,7 +411,7 @@ def get_favorite_accounts(id_user: int) -> list:
         :return Lista de favoritos 
     """
 
-    conn = conection_db('database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f'SELECT id_account, id_vault, name_element, username_element, icon_element FROM accounts WHERE favorite_element = 1 AND id_user = {id_user} ORDER BY name_element'
@@ -449,20 +442,19 @@ def get_favorite_accounts(id_user: int) -> list:
 
 def update_favorite(data: int, id_account: int) -> None:
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
-    sql = "UPDATE accounts SET favorite_element = ? WHERE id_account = ?"
-    value = data, id_account
+    sql = f"UPDATE accounts SET favorite_element = {data} WHERE id_account = {id_account}"
 
-    cursor.execute(sql, value)
+    cursor.execute(sql)
     conn.commit()
 
 
 def end_element_account(id_user: int) -> list:
     """Datos del ultimo elemento"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f"SELECT * FROM accounts ORDER BY accounts.id_account DESC LIMIT 1 WHERE id_user = {id_user}"
@@ -475,38 +467,36 @@ def end_element_account(id_user: int) -> list:
 def put_account(name: str, id_user: int, id_vault: int, username: str, password: str, page: str, description: str, favorite: int, icon: str) -> None:
     """ Agrega los datos de la cuenta a la base de datos """
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
-    sql = "INSERT INTO accounts \
+    sql = f"INSERT INTO accounts \
             (name_element, id_user, id_vault, username_element, password_element, page_element, description_element, favorite_element, icon_element) \
-            VALUES (?,?,?,?,?,?,?,?,?)"
-    values = name, id_user, id_vault, username, password, page, description, favorite, icon
+            VALUES ('{name}',{id_user},{id_vault},'{username}','{password}','{page}','{description}','{favorite}','{icon}')"
 
-    cursor.execute(sql, values)
+    cursor.execute(sql)
     conn.commit()
 
 
 def update_account(account_id: int, id_user: int, id_vault: int, name: str, username: str, password: str, page: str, description: str, icon: str) -> None:
     """Actualiza los datos de la cuenta"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
-    sql = "UPDATE accounts  \
-        SET  name_element = ?, id_user = ?, id_vault = ?, username_element = ?, password_element = ?, \
-        page_element = ?, description_element = ?, icon_element = ? \
-        WHERE id_account = ?"
-    values = name, id_user, id_vault, username, password, page, description, icon, account_id
+    sql = f"UPDATE accounts  \
+        SET  name_element = '{name}', id_user = {id_user}, id_vault = {id_vault}, username_element = '{username}', password_element = '{password}', \
+        page_element = '{page}', description_element = '{description}', icon_element = '{icon}' \
+        WHERE id_account = {account_id}"
 
-    cursor.execute(sql, values)
+    cursor.execute(sql)
     conn.commit()
 
 
 def delete_account(account_id: int) -> None:
     """Eliminar la cuenta, de la bd"""
 
-    conn = conection_db(db_file='database.db')
+    conn = conection_db()
     cursor = conn.cursor()
 
     sql = f"DELETE FROM accounts WHERE id_account= {account_id}"
