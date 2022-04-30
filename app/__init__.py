@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_login import LOGIN_MESSAGE, LoginManager
+from flask_login import LoginManager
 from app.config import Config
 from .models import UserModel
 from .auth import auth
