@@ -7,9 +7,12 @@ from flask_login import login_required, current_user
 from app.forms import AccountForm, UserForm, VaultForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.lib.security_fuctions import decrypt_data, encrypt_data
-from app.postgre_service import account_items, add_vault,  delete_account, delete_user, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_user_by_id, get_user_by_name, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_user, update_vault
+from app.postgre_service import account_items, add_vault, create_table_accounts, create_table_users, create_table_vault,  delete_account, delete_user, delete_vault, get_account_by_id, get_account_by_name, get_accounts, get_favorite_accounts, get_favorite_by_id, get_user_by_id, get_user_by_name, get_vault_by_name, get_vault_name, get_vaults, put_account, update_account, update_favorite, update_user, update_vault
 
 app = create_app()
+create_table_users()
+create_table_vault()
+create_table_accounts()
 
 LOGIN_MESSAGE = 'Inicia sesión, para acceder a la página'
 
