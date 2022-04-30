@@ -103,7 +103,10 @@ def get_user_by_id(user_id: int) -> dict:
     conn = conection_db()
     cursor = conn.cursor()
     sql = f'SELECT * FROM users WHERE id_user = {user_id}'
-    user = cursor.execute(sql).fetchone()
+    cursor.execute(sql)
+
+    user = cursor.fetchone()
+
     if user is not None:
         user = {
             'user_id': user[0],
@@ -190,6 +193,7 @@ def all_users() -> list:
     sql = 'SELECT * FROM users'
     cursor.execute(sql)
     list_users = cursor.fetchall()
+
     conn.commit()
 
     return list_users
@@ -249,7 +253,8 @@ def get_vaults(id_user: int) -> tuple:
 
     sql = (
         f'SELECT id_vault, name, icon FROM vaults WHERE id_user = {id_user} ORDER BY name')
-    vaults = cursor.execute(sql).fetchall()
+    cursor.execute(sql)
+    vaults = cursor.fetchall()
 
     conn.commit()
     conn.close()
@@ -263,7 +268,8 @@ def get_vault_by_name(name: str, id_user: int):
     cursor = conn.cursor()
 
     sql = f"SELECT name FROM vaults WHERE name = '{name}' AND id_user = {id_user}"
-    data = cursor.execute(sql).fetchone()
+    cursor.execute(sql)
+    data = cursor.fetchone()
 
     conn.commit()
     conn.close()
@@ -278,7 +284,8 @@ def get_vault_name(id_vault):
 
     sql = (
         f'SELECT name, description, icon FROM vaults WHERE id_vault ={id_vault}')
-    vaultname = cursor.execute(sql).fetchone()
+    cursor.execute(sql)
+    vaultname = cursor.fetchone()
 
     conn.commit()
     conn.close()
@@ -293,7 +300,9 @@ def all_account(id_user: int) -> list:
     cursor = conn.cursor()
 
     sql = f'SELECT * FROM accounts WHERE id_user={id_user} ORDER BY name_element'
-    list_accounts = cursor.execute(sql).fetchall()
+    cursor.execute(sql)
+    list_accounts = cursor.fetchall()
+
     conn.commit()
     conn.close()
 
@@ -307,7 +316,9 @@ def account_items(id_user: int):
     cursor = conn.cursor()
 
     sql = f'SELECT COUNT(id_account) FROM accounts WHERE id_user={id_user}'
-    cant = cursor.execute(sql).fetchone()
+    cursor.execute(sql)
+    cant = cursor.fetchone()
+
     conn.commit()
     conn.close()
 
@@ -324,7 +335,8 @@ def get_accounts(id_vault):
     cursor = conn.cursor()
 
     sql = f'SELECT id_account, name_element, username_element, icon_element FROM accounts WHERE id_vault = {id_vault} ORDER BY name_element'
-    names = cursor.execute(sql).fetchall()
+    cursor.execute(sql)
+    names = cursor.fetchall()
 
     conn.commit()
     conn.close()
@@ -339,7 +351,8 @@ def get_account_by_id(id_account):
 
     sql = f'SELECT name_element, username_element, page_element, password_element, description_element,  \
             id_vault, id_account, favorite_element, icon_element FROM accounts WHERE id_account = {id_account}'
-    details = cursor.execute(sql).fetchone()
+    cursor.execute(sql)
+    details = cursor.fetchone()
 
     details = {
         'name': details[0],
@@ -366,7 +379,8 @@ def get_favorite_by_id(id_account):
 
     sql = f'SELECT name_element, username_element, page_element, password_element, description_element,  \
             id_vault, id_account, favorite_element, icon_element FROM accounts WHERE id_account = {id_account} and favorite_element = 1'
-    details = cursor.execute(sql).fetchone()
+    cursor.execute(sql)
+    details = cursor.fetchone()
 
     if details == None:
         conn.commit()
@@ -398,7 +412,8 @@ def get_account_by_name(name: str, id_user: int, id_vault: int):
     cursor = conn.cursor()
 
     sql = f"SELECT name_element FROM accounts WHERE name_element = '{name}' AND id_user = {id_user} AND id_vault = {id_vault}"
-    data = cursor.execute(sql).fetchone()
+    cursor.execute(sql)
+    data = cursor.fetchone()
 
     conn.commit()
     conn.close()
@@ -417,7 +432,8 @@ def get_favorite_accounts(id_user: int) -> list:
 
     sql = f'SELECT id_account, id_vault, name_element, username_element, icon_element FROM accounts WHERE favorite_element = 1 AND id_user = {id_user} ORDER BY name_element'
 
-    favorites = cursor.execute(sql).fetchall()
+    cursor.execute(sql)
+    favorites = cursor.fetchall()
 
     favorites_list = []
 
@@ -459,7 +475,9 @@ def end_element_account(id_user: int) -> list:
     cursor = conn.cursor()
 
     sql = f"SELECT * FROM accounts ORDER BY accounts.id_account DESC LIMIT 1 WHERE id_user = {id_user}"
-    end_element = cursor.execute(sql).fetchone()
+    cursor.execute(sql)
+    end_element = cursor.fetchone()
+
     conn.commit()
 
     return end_element
