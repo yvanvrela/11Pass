@@ -58,7 +58,7 @@ def create_table_vault() -> None:
                 name  TEXT,
                 description	TEXT,
                 icon  TEXT,
-                FOREIGN KEY (id_user) REFERENCES users (id_user),
+                FOREIGN KEY (id_user) REFERENCES users (id_user)
             );""")
         conn.commit()
         conn.close()
