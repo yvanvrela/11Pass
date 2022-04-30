@@ -188,7 +188,8 @@ def all_users() -> list:
     cursor = conn.cursor()
 
     sql = 'SELECT * FROM users'
-    list_users = cursor.execute(sql).fetchall()
+    cursor.execute(sql)
+    list_users = cursor.fetchall()
     conn.commit()
 
     return list_users
