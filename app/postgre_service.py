@@ -2,7 +2,7 @@ import os
 import psycopg2
 from psycopg2 import Error
 
-DATABASE_URL = os.environ['DATABASE_URL']
+# DATABASE_URL = os.environ['DATABASE_URL']
 
 
 def conection_db():
@@ -12,7 +12,12 @@ def conection_db():
         :return Connection object or None
     """
 
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    conn = psycopg2.connect(
+        host="localhost",
+        database="pypass_db",
+        user=os.environ['DB_USERNAME'],
+        password=os.environ['DB_PASSWORD'])
 
     return conn
 
