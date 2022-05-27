@@ -126,3 +126,35 @@ a:hover {
 .modal-card {
     overflow: auto;
 }
+
+.modal-card-head{
+    border-bottom: 1px solid #121212;
+}
+
+.modal-card-foot{
+    border-top: 1px solid #121212;
+}
+
+.input::-moz-placeholder,
+.select select::-moz-placeholder,
+.textarea::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.575)
+}
+
+.input::-webkit-input-placeholder,
+.select select::-webkit-input-placeholder,
+.textarea::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.575)
+}
+
+.input:-moz-placeholder,
+.select select:-moz-placeholder,
+.textarea:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.575)
+}
+
+.input:-ms-input-placeholder,
+.select select:-ms-input-placeholder,
+.textarea:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.575)
+}

@@ -16,6 +16,7 @@ class SignupForm(FlaskForm):
     username = StringField('Nombre de usuario', [
                            validators.DataRequired()], render_kw={'autofocus': True})
     password = PasswordField('Password', [validators.DataRequired()])
+    email = EmailField('Email', [validators.DataRequired()])
 
     submit = SubmitField('Registrarse')
 
@@ -23,6 +24,8 @@ class UserForm(FlaskForm):
     username = StringField('username', [validators.DataRequired()])
     password_reference = PasswordField(id='user-password', validators=[validators.DataRequired()])
     new_password = PasswordField(id='new-password', validators=[validators.DataRequired()])
+    email = EmailField('Email', [validators.DataRequired()])
+
 
     submit = SubmitField(id='submit-user')
 

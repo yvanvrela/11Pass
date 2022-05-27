@@ -26,6 +26,7 @@ def login():
             user_id_from_db = user_from_db['user_id']
             password_from_db = user_from_db['password']
             secret_key_from_db = user_from_db['secret_key']
+            email_from_db = user_from_db['email']
 
             if check_password_hash(password_from_db, password):
 
@@ -35,6 +36,7 @@ def login():
                         username=username,
                         password=password,
                         secret_key=secret_key,
+                        email= email_from_db,
                     )
                     user = UserModel(user_data=user_data)
 
@@ -70,6 +72,7 @@ def signup():
     if signup_form.validate_on_submit():
         username = signup_form.username.data
         password = signup_form.password.data
+        email = signup_form.email.data
 
         user_doc = get_user_by_name(username)
 
@@ -80,7 +83,7 @@ def signup():
             secret_key = secret_key_generator()
 
             add_user(username=username, password=password_hash,
-                     secret_key=secret_key)
+                     secret_key=secret_key, email=email)
 
             user_from_db = get_user_by_name(username=username)
 
@@ -89,6 +92,7 @@ def signup():
                 username=user_from_db['username'],
                 password=user_from_db['password'],
                 secret_key=secret_key,
+                email= user_from_db['email'],
             )
 
             user = UserModel(user_data)

@@ -9,7 +9,7 @@ Bienvenido
 {% block content %}
 
 
-<div id="modal-js-example" class="modal">
+<div id="modal-js-example" class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head has-background-black-bis">
@@ -21,22 +21,22 @@ Bienvenido
 
         <form action="{{ url_for('vault') }}" method="post">
 
-            <section class="modal-card-body">
+            <section class="modal-card-body is-dark-mode">
 
-                <label class="label">Nombre</label>
+                <label class="label  has-text-white">Nombre</label>
                 <div class="field">
                     <div class="control">
-                        {{ vault_form.vaultname(id='name', class='input', type='text', placeholder='Nombre de la bóveda', autocomplete='off') }}
+                        {{ vault_form.vaultname(id='name', class='input has-background-black-ter is-dark has-text-white', type='text', placeholder='Nombre de la bóveda', autocomplete='off') }}
                     </div>
                 </div>
 
-                <label class="label">Icono</label>
+                <label class="label  has-text-white">Icono</label>
                 <div class="field">
 
                     <!-- Icon select -->
-                    <a class="button is-static">
+                    <a class="button is-dark has-background-black-ter">
                         <span class="icon is-small">
-                            <i id="icon-select" class="fas fa-folder has-text-dark"></i>
+                            <i id="icon-select" class="fas fa-folder has-text-white"></i>
                         </span>
                     </a>
 
@@ -46,16 +46,16 @@ Bienvenido
 
                 {{ vault_form.icon_vault(class='is-hidden', value='fas fa-folder has-text-dark')}}
 
-                <label class="label">Descripción</label>
+                <label class="label has-text-white">Descripción</label>
                 <div class="field">
                     <div class="control">
-                        {{ vault_form.description(class='textarea', type='text', placeholder='Descripción del contenido, opcional', autocomplete='off') }}
+                        {{ vault_form.description(class='textarea has-background-black-ter is-dark has-text-white', type='text', placeholder='Descripción del contenido, opcional', autocomplete='off') }}
                     </div>
                 </div>
 
             </section>
 
-            <footer class="modal-card-foot">
+            <footer class="modal-card-foot has-background-black-bis">
 
                 <div class="field is-grouped">
                     <p class="control">
@@ -63,7 +63,7 @@ Bienvenido
                     </p>
 
                     <p class="control">
-                        <a class="button exit">Cancelar</a>
+                        <a class="button exit is-dark">Cancelar</a>
                     </p>
                 </div>
 

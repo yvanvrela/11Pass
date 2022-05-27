@@ -15,7 +15,7 @@ def conection_db():
     # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     conn = psycopg2.connect(
         host="localhost",
-        database="pypass_db",
+        database="elevenpass_db",
         user=os.environ['DB_USERNAME'],
         password=os.environ['DB_PASSWORD'])
 
@@ -37,7 +37,8 @@ def create_table_users() -> None:
                 id_user	 SERIAL PRIMARY KEY NOT NULL,
                 user_name	VARCHAR(255) UNIQUE NOT NULL,
                 user_password	VARCHAR(255) NOT NULL,
-                secret_key VARCHAR(255) NOT NULL
+                secret_key VARCHAR(255) NOT NULL,
+                user_email VARCHAR(100) NOT NULL
             );""")
         conn.commit()
         conn.close()
@@ -118,6 +119,7 @@ def get_user_by_id(user_id: int) -> dict:
             'username': user[1],
             'password': user[2],
             'secret_key': user[3],
+            'email': user[4],
         }
         conn.commit()
 
@@ -136,29 +138,30 @@ def get_user_by_name(username: str):
                 'username': user[1],
                 'password': user[2],
                 'secret_key': user[3],
+                'email': user[4],
             }
             return user
 
 
-def add_user(username: str, password: str, secret_key: str) -> None:
+def add_user(email: str, username: str, password: str, secret_key: str) -> None:
     """Agregar un usuario a la bd, recibe username and password and secret_key"""
 
     conn = conection_db()
     cursor = conn.cursor()
 
-    sql = f"INSERT INTO users (user_name, user_password, secret_key) VALUES ('{username}','{password}','{secret_key}')"
+    sql = f"INSERT INTO users (user_email, user_name, user_password, secret_key) VALUES ('{email}','{username}','{password}','{secret_key}')"
 
     cursor.execute(sql)
     conn.commit()
 
 
-def update_user(id_user: int, username: str, password: str) -> None:
+def update_user(id_user: int, email: str, username: str, password: str) -> None:
     """ Actualizar datos del usuario """
 
     conn = conection_db()
     cursor = conn.cursor()
 
-    sql = f"UPDATE users SET user_name='{username}', user_password='{password}' WHERE id_user={id_user}"
+    sql = f"UPDATE users SET user_email='{email}', user_name='{username}', user_password='{password}' WHERE id_user={id_user}"
     cursor.execute(sql)
 
     conn.commit()

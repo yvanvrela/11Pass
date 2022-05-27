@@ -13,8 +13,8 @@
                         <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png"
                             alt="Placeholder image">
                     </figure>
-                    <p class="title is-4">{{username.capitalize()}}</p>
-                    <p class="subtitle is-6">correo@correo.com</p>
+                    <p class="title is-4">{{username}}</p>
+                    <p class="subtitle is-6">{{user_email}}</p>
                 </div>
                 <hr>
                 <div class="content has-text-centered">
@@ -29,9 +29,10 @@
                     <p class="subtitle is-6 has-text-black-ter">
                         {{secret_key}}
                     </p>
-                    <!-- #TODO: crear modal para eliminar la cuenta -->
+
                     <hr>
-                    <a class="subtitle is-7 has-text-danger-dark js-modal-trigger" data-target="delete-user">Eliminar cuenta</a>
+                    <a class="subtitle is-7 has-text-danger-dark js-modal-trigger" data-target="delete-user">Eliminar
+                        cuenta</a>
                 </div>
 
 
@@ -106,10 +107,22 @@
                         </div>
 
                         <div class="content">
+                            <div class="field">
+                                <label class="label">Email</label>
+                                <div class="control has-icons-left has-icons-right">
 
-                            <p class="title is-5">
-                                Cambiar contraseña
-                            </p>
+                                    {{user_form.email(class='input', value=user_email, autocomplete='off')}}
+                                    <!-- Icon -->
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-at"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="content">
 
                             <label class="label">Contraseña actual</label>
                             <div class="field is-grouped is-expanded">

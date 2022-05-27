@@ -126,6 +126,7 @@ def home():
         'vaults': get_vaults(id_user=id_user),
         'vault_form': vault_form,
         'username': username,
+        'user_email': current_user.email,
         'items': account_items(id_user=id_user),
         'list_favorites': get_favorite_accounts(id_user=id_user),
         'user_form': UserForm(),
@@ -208,6 +209,7 @@ def account(id_vault):
 
     context = {
         'username': current_user.username,
+        'user_email': current_user.email,
         'items': account_items(id_user=id_user),
         'accounts': get_accounts(id_vault=id_vault),
         'vaults': get_vaults(id_user=id_user),
@@ -324,6 +326,7 @@ def details_account(id_vault, id_account):
 
     context = {
         'username': current_user.username,
+        'user_email': current_user.email,
         'items': account_items(id_user=id_user),
         'accounts': get_accounts(id_vault=id_vault),
         'details_account': details_account,
@@ -348,6 +351,7 @@ def favorites():
 
     context = {
         'username': current_user.username,
+        'user_email': current_user.email,
         'list_favorites': list_favorites,
         'items': account_items(id_user=id_user),
         'vaults': get_vaults(id_user=id_user),

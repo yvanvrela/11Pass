@@ -6,11 +6,12 @@ from .postgre_service import get_user_by_name, get_user_by_id
 
 
 class UserData:
-    def __init__(self, user_id, username, password, secret_key):
+    def __init__(self, user_id, username, password, secret_key, email):
         self.user_id = user_id
         self.username = username
         self.password = password
         self.secret_key = secret_key
+        self.email = email
 
 
 class UserModel(UserMixin):
@@ -20,6 +21,7 @@ class UserModel(UserMixin):
         self.username = user_data.username
         self.password = user_data.password
         self.secret_key = user_data.secret_key
+        self.email = user_data.email
 
     # @staticmethod  # no recibe self
     # def query(user_name):
@@ -47,6 +49,7 @@ class UserModel(UserMixin):
                 username=user_doc['username'],
                 password=user_doc['password'],
                 secret_key= user_doc['secret_key'],
+                email= user_doc['email'],
             )
 
             return UserModel(user_data)
