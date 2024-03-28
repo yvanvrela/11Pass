@@ -5,3 +5,4 @@ all_config.py
 run.sh
 message.py
 *.dump
+venv
