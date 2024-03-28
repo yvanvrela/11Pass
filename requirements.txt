@@ -3,4 +3,5 @@ requests
 flask-login
 flask-testing
 flask-wtf
-simple-crypt
+werkzeug
+cryptocode

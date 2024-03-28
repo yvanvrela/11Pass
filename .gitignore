@@ -1,5 +1,6 @@
 env
 __pycache__
 *.db
+venv
 all_config.py
 run.sh
