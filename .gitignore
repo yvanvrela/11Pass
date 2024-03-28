@@ -2,7 +2,7 @@ env
 __pycache__
 *.db
 all_config.py
-run.sh
+*.sh
 message.py
 *.dump
 venv
