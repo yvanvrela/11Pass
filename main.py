@@ -59,6 +59,7 @@ def edit_user():
         password_form_db = current_user.password
 
         new_username = user_form.username.data
+        new_email = user_form.email
         password_reference = user_form.password_reference.data
         new_password = user_form.new_password.data
 
@@ -72,6 +73,7 @@ def edit_user():
 
                 update_user(
                     id_user=id_user,
+                    email=new_email,
                     username=new_username,
                     password=pasword_hash
                 )
