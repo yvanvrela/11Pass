@@ -37,14 +37,21 @@ Login
         </div>
     </div>
 
-    <div class="field">
-        <div class="control has-icons-left">
+    <div class="field is-grouped">
+        <div class="control has-icons-left is-expanded">
 
             {{ login_form.password(class='input', placeholder='Contraseña') }}
 
             <span class="icon is-small is-left">
                 <i class="fas fa-lock"></i>
             </span>
+        </div>
+        <div class="control">
+            <a class="button has-background-white" onclick="viewPass('password')">
+                <span class="icon is-small has-text-black-ter">
+                    <i id="icon-password" class="fas fa-eye"></i>
+                </span>
+            </a>
         </div>
     </div>
 
