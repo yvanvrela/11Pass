@@ -19,8 +19,24 @@ body {
 }
 
 .is-dark-mode {
-    background-color: #080808 !important;
+    background-color:hsl( 221 , 14% , 9% ) !important;
     color: #fff !important;
+}
+
+.is-dark-mode-secondary {
+    background-color:hsl( 221 , 14% , 11% ) !important;
+    color: #fff !important;
+}
+
+.is-dark-mode-tertiary {
+    background-color:hsl( 221 , 14% , 14% ) !important;
+    color: #fff !important;
+}
+
+.border-bottom-black-mode {
+    margin-bottom: 0rem;
+    border-bottom: thick solid #1d1d1d;
+    border-width: 1px;
 }
 
 .line-black-mode {
